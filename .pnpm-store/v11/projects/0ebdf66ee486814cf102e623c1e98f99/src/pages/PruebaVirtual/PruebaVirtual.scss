@@ -1,0 +1,153 @@
+@import "../../styles/variables";
+
+.camara {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  height: calc(100vh - #{$navbar-height});
+  min-height: 520px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+.camara__catalogo {
+  overflow-y: auto;
+  padding: $space-6;
+  border-right: $border-width-base solid $border-color-subtle;
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: $space-2;
+  }
+
+  @media (max-width: 800px) {
+    border-right: none;
+    border-bottom: $border-width-base solid $border-color-subtle;
+  }
+}
+
+.camara__back {
+  display: inline-block;
+  margin-bottom: $space-4;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: $font-text;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-black;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-blue;
+  }
+}
+
+.camara__catalogo-hint {
+  margin-bottom: $space-5;
+  font-size: 14px;
+  color: rgba($color-black, 0.7);
+}
+
+.camara__lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+}
+
+.camara__item {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  padding: $space-2;
+  border: $border-width-base solid $border-color-subtle;
+  border-radius: $radius-md;
+  background: none;
+  font-family: $font-text;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color $motion-fast $motion-easing;
+
+  &:hover {
+    border-color: $color-blue;
+  }
+
+  &--selected {
+    border-color: $color-blue;
+    box-shadow: 0 0 0 2px rgba($color-blue, 0.25);
+  }
+}
+
+.camara__item-photo {
+  aspect-ratio: 1 / 1;
+  border-radius: $radius-sm;
+  background-color: $color-sand;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.camara__item-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.camara__item-price {
+  font-size: 12px;
+  color: rgba($color-black, 0.7);
+}
+
+.camara__stage {
+  position: relative;
+  min-height: 360px;
+  background-color: $color-black;
+  overflow: hidden;
+}
+
+.camara__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); // efecto espejo, como una selfie
+  opacity: 0;
+  transition: opacity $motion-base $motion-easing;
+
+  &--activa {
+    opacity: 1;
+  }
+}
+
+.camara__status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: $space-6;
+  text-align: center;
+  color: $color-white;
+}
+
+.camara__note {
+  position: absolute;
+  left: $space-4;
+  right: $space-4;
+  bottom: $space-4;
+  margin: 0;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: rgba($color-black, 0.55);
+  color: $color-white;
+  font-size: 13px;
+}

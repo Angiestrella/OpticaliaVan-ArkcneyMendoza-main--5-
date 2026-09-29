@@ -1,0 +1,55 @@
+@import "../../styles/variables";
+
+.encuentra {
+  max-width: 560px;
+  min-height: 60vh;
+  margin: 0 auto;
+  padding: $space-8 $space-6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  h1 {
+    margin-bottom: $space-3;
+  }
+}
+
+.encuentra__hint {
+  color: rgba($color-black, 0.7);
+  margin-bottom: $space-7;
+}
+
+.encuentra__options {
+  display: flex;
+  justify-content: center;
+  gap: $space-4;
+}
+
+.encuentra__option {
+  min-width: 140px;
+  padding: $space-4 $space-7;
+  border: $border-width-base solid $color-blue;
+  border-radius: $radius-pill;
+  background-color: $color-blue;
+  color: $color-white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color $motion-fast $motion-easing,
+    color $motion-fast $motion-easing;
+
+  &:hover {
+    background-color: darken($color-blue, 8%);
+    color: $color-white;
+  }
+
+  &--outline {
+    background-color: transparent;
+    color: $color-blue;
+
+    &:hover {
+      background-color: rgba($color-blue, 0.08);
+      color: $color-blue;
+    }
+  }
+}

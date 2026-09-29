@@ -1,0 +1,219 @@
+@import "../../styles/variables";
+
+.test-gafas {
+  padding: $space-8 $space-6;
+  max-width: 640px;
+  margin: 0 auto;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.test-gafas__progress {
+  font-size: 13px;
+  font-weight: 600;
+  color: $color-blue;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: $space-4;
+}
+
+.test-gafas__step {
+  flex: 1;
+  text-align: center;
+
+  h1 {
+    margin-bottom: $space-3;
+  }
+}
+
+.test-gafas__hint {
+  color: rgba($color-black, 0.7);
+  margin-bottom: $space-6;
+}
+
+.test-gafas__options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $space-4;
+  margin-top: $space-6;
+}
+
+.quiz-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-5 $space-6;
+  min-width: 120px;
+  border: $border-width-base solid $border-color-subtle;
+  border-radius: $radius-lg;
+  background: none;
+  font-family: $font-text;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color $motion-fast $motion-easing,
+    background-color $motion-fast $motion-easing;
+
+  &:hover {
+    border-color: $color-blue;
+  }
+
+  &--selected {
+    border-color: $color-blue;
+    background-color: rgba($color-blue, 0.08);
+    color: $color-blue;
+  }
+}
+
+.quiz-option__photo {
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-sm;
+  background-color: $color-sand;
+}
+
+.rostro-shape {
+  width: 48px;
+  height: 48px;
+  background-color: $color-sand;
+  border: $border-width-base solid $border-color-subtle;
+}
+
+.rostro-shape--redondo {
+  border-radius: 50%;
+}
+
+.rostro-shape--cuadrado {
+  border-radius: $radius-sm;
+}
+
+.rostro-shape--rectangular {
+  width: 60px;
+  height: 40px;
+  border-radius: $radius-sm;
+}
+
+.rostro-shape--diamante {
+  border: none;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.test-gafas__colors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $space-4;
+}
+
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: $border-width-base solid $border-color-subtle;
+  cursor: pointer;
+  transition: box-shadow $motion-fast $motion-easing;
+
+  &--selected {
+    box-shadow: 0 0 0 3px $color-white, 0 0 0 5px $color-blue;
+  }
+}
+
+.test-gafas__results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: $space-6;
+  margin-bottom: $space-6;
+}
+
+.result-card__photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-color: $color-sand;
+  border-radius: $radius-md;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.result-card__try-btn {
+  position: absolute;
+  top: $space-3;
+  right: $space-3;
+  display: inline-block;
+  padding: $space-1 $space-4;
+  border-radius: $radius-pill;
+  background-color: $color-blue;
+  color: $color-white;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.result-card__name {
+  margin: $space-3 0 0;
+  font-weight: 600;
+}
+
+.result-card__price {
+  margin: $space-1 0 0;
+  font-size: 14px;
+  color: rgba($color-black, 0.7);
+}
+
+.test-gafas__restart {
+  background: none;
+  border: none;
+  color: $color-black;
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: $font-text;
+  font-size: 14px;
+}
+
+.test-gafas__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-4;
+  margin-top: $space-7;
+}
+
+.test-gafas__back {
+  background: none;
+  border: none;
+  color: $color-black;
+  font-family: $font-text;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.test-gafas__next {
+  padding: $space-3 $space-7;
+  border: none;
+  border-radius: $radius-pill;
+  background-color: $color-blue;
+  color: $color-white;
+  font-family: $font-text;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color $motion-fast $motion-easing;
+
+  &:hover:not(:disabled) {
+    background-color: darken($color-blue, 8%);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

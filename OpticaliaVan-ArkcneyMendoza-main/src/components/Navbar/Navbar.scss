@@ -1,0 +1,180 @@
+@import "../../styles/variables";
+
+// Todo el navbar se anima con una sola variable, --navbar-progress (0 a 1),
+// que Navbar.tsx actualiza en cada scroll: 0 = video a pantalla completa,
+// 1 = barra compacta de $navbar-height. Con eso: la altura se encoge, el
+// video/scrim se desvanecen, y el logo+links (blancos sobre el video) se
+// invierten a negro para leerse sobre el vidrio claro de la barra ya
+// colapsada — un solo elemento que pasa de banner a navbar.
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  overflow: hidden;
+
+  height: calc(
+    #{$navbar-height} + (100vh - #{$navbar-height}) *
+      (1 - var(--navbar-progress, 1))
+  );
+
+  background: rgba($color-white, 0.5);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: $border-width-base solid rgba($color-blue, 0.3);
+}
+
+.navbar--collapsed {
+  .navbar__video,
+  .navbar__scrim,
+  .navbar__hero-content {
+    pointer-events: none;
+  }
+}
+
+.navbar__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: calc(1 - var(--navbar-progress, 1));
+}
+
+.navbar__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: calc(1 - var(--navbar-progress, 1));
+}
+
+.navbar__hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-6;
+  padding: $space-6;
+  text-align: center;
+  // Se desvanece más rápido que el encogimiento, para no verse a medio
+  // tamaño dentro de una barra ya casi compacta.
+  opacity: calc(1 - var(--navbar-progress, 1) * 2.5);
+}
+
+.navbar__hero-title {
+  color: $color-white;
+  font-size: $type-title;
+  max-width: 20ch;
+}
+
+.navbar__hero-cta {
+  display: inline-block;
+  padding: $space-3 $space-6;
+  border-radius: $radius-pill;
+  background-color: $color-blue;
+  color: $color-white;
+  font-family: $font-text;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color $motion-fast $motion-easing;
+
+  &:hover {
+    background-color: darken($color-blue, 8%);
+    color: $color-white;
+  }
+}
+
+.navbar__nav {
+  position: relative;
+  z-index: 2;
+  height: $navbar-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $space-6;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo {
+  height: 60px;
+  width: auto;
+  display: block;
+  filter: invert(var(--navbar-progress, 1));
+  transition: filter $motion-base $motion-easing;
+}
+
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: $space-6;
+}
+
+// Los links sí se invierten (blanco sobre el video → negro sobre el vidrio
+// claro colapsado). El CTA "Agenda tu cita" queda afuera a propósito: es un
+// vidrio azul estable, no se invierte con el scroll.
+.navbar__links {
+  display: flex;
+  gap: $space-6;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  filter: invert(var(--navbar-progress, 1));
+  transition: filter $motion-base $motion-easing;
+
+  a {
+    color: $color-white;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Botón "Agenda tu cita": vidrio azul bien marcado, no se invierte con el
+// scroll (se apoya en su propio fondo/blur para leerse bien en cualquier
+// estado) — más translúcido y con más blur/saturación que el resto del
+// navbar, y un brillo superior sutil para que el efecto "liquid glass" se
+// note más.
+.navbar__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-2 $space-5;
+  border-radius: $radius-pill;
+  background: rgba($color-blue, 0.3);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1px solid rgba($color-white, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba($color-white, 0.4),
+    0 4px 16px rgba($color-blue, 0.3);
+  color: $color-white;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background $motion-fast $motion-easing;
+
+  &:hover {
+    background: rgba($color-blue, 0.45);
+    color: $color-white;
+  }
+}
+
+// Sobre el navbar claro (ya colapsado) el azul tan translúcido dejaba el texto
+// blanco casi ilegible: ahí el vidrio se vuelve más sólido.
+.navbar--collapsed .navbar__cta {
+  background: rgba($color-blue, 0.85);
+
+  &:hover {
+    background: rgba($color-blue, 0.95);
+  }
+}

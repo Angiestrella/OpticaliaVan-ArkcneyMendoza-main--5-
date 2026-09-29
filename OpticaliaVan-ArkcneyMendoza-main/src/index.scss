@@ -1,0 +1,22 @@
+// Estilos globales del proyecto.
+//
+// Enfoque: SCSS propio como base del diseño; Bootstrap se importa de forma
+// selectiva (funciones, variables, mixins, reboot, grid y utilidades) para
+// tener grid y utilidades listas para usar, SIN arrastrar los estilos visuales
+// de sus componentes (navbar, cards, botones...) — el diseño real lo define
+// nuestro propio SCSS, alineado a lo que defina IxD.
+
+@import "./styles/variables";
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/utilities/api";
+
+@import "./styles/base";

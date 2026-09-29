@@ -1,0 +1,39 @@
+@import "../../styles/variables";
+
+// Ocupa el espacio que el navbar-hero recorre mientras se encoge hacia la
+// barra compacta — el video y el título ya no viven acá, ver Navbar.tsx/scss.
+.hero-spacer {
+  height: calc(100vh - #{$navbar-height});
+}
+
+.home-section {
+  padding: $space-8 $space-6;
+}
+
+.home-section__title {
+  text-align: center;
+  margin-bottom: $space-7;
+}
+
+.home-section__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $space-6;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+// Antes era un fondo con "cover" a una altura fija (60vh): como esa altura no
+// respeta la proporción real de la foto, siempre recortaba algo (el letrero,
+// el piso, o los lados según el ancho de pantalla). Con <img> a ancho
+// completo y alto automático se ve la foto completa siempre, sin recortes.
+.optica-photo {
+  background-color: $color-sand; // se ve un instante mientras carga la foto
+  line-height: 0; // evita un espacio fantasma debajo de la imagen
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}

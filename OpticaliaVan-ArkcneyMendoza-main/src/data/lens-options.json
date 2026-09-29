@@ -1,0 +1,15 @@
+{
+  "materiales": [
+    { "id": "material-1", "label": "Material 1", "price": 30000 },
+    { "id": "material-2", "label": "Material 2", "price": 60000 },
+    { "id": "material-3", "label": "Material 3", "price": 90000 }
+  ],
+  "filtros": [
+    { "id": "antirreflejo", "label": "Antirreflejo", "price": 40000 },
+    { "id": "fotocromatico", "label": "Fotocromático", "price": 90000 },
+    { "id": "luz-azul", "label": "Protección luz azul", "price": 50000 },
+    { "id": "color", "label": "Color", "price": 35000 },
+    { "id": "polarizados", "label": "Polarizados", "price": 80000 },
+    { "id": "otros", "label": "Otros", "price": 0 }
+  ]
+}
