@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { ArrowDown, ArrowUpRight, Eye, MapPin } from 'lucide-react'
+import { asset } from '../../utils/asset'
 import './Conocenos.scss'
 
 const instagramUrl = 'https://www.instagram.com/opticalia.vym/'
@@ -34,7 +35,7 @@ export function Conocenos() {
     <div className="about-page">
       <section className="about-hero" aria-labelledby="about-title">
         <video className="about-hero__video" controls playsInline preload="metadata" aria-label="Video de los optometras contando sobre Opticalia Van-Arcken y Mendoza">
-          <source src="/hero.mp4" type="video/mp4" />
+          <source src={asset('/hero.mp4')} type="video/mp4" />
           Tu navegador no puede reproducir este video.
         </video>
         <div className="about-hero__veil" />

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import type { Frame } from '../../data/types'
 import { getPalette } from '../../utils/colors'
 import { formatPrice } from '../../utils/formatPrice'
+import { asset } from '../../utils/asset'
 import './FrameCard.scss'
 
 export function FrameCard({ frame }: { frame: Frame }) {
@@ -21,7 +22,7 @@ export function FrameCard({ frame }: { frame: Frame }) {
           </span>
         )}
         {selected && (
-          <img src={selected.image} alt={`${frame.name} — ${selected.label}`} />
+          <img src={asset(selected.image)} alt={`${frame.name} — ${selected.label}`} />
         )}
       </div>
 

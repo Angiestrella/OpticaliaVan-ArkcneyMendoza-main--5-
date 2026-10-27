@@ -5,6 +5,7 @@ import { CotizarPanel } from '../../components/CotizarPanel/CotizarPanel'
 import frames from '../../data/frames.json'
 import { getPalette } from '../../utils/colors'
 import { formatPrice } from '../../utils/formatPrice'
+import { asset } from '../../utils/asset'
 import './Producto.scss'
 
 export function Producto() {
@@ -32,7 +33,7 @@ export function Producto() {
         <div className="producto__visuals">
           <div className="producto__photo">
           {selected && (
-            <img src={selectedPhoto.image} alt={`${frame.name} — ${selected.label}, vista ${selectedPhoto.label.toLowerCase()}`} />
+            <img src={asset(selectedPhoto.image)} alt={`${frame.name} — ${selected.label}, vista ${selectedPhoto.label.toLowerCase()}`} />
           )}
           {selectedPhoto.placeholder && <span className="producto__photo-placeholder">Foto provisional · {selectedPhoto.label}</span>}
           <Link
@@ -50,7 +51,7 @@ export function Producto() {
             <p className="producto__gallery-title">Vistas de la montura · {selected.label}</p>
             <div className="producto__gallery-list">
               {photos.map((photo, index) => <button key={photo.id} type="button" className={`producto__gallery-item ${index === photoIndex ? 'producto__gallery-item--selected' : ''}`} aria-pressed={index === photoIndex} onClick={() => setPhotoIndex(index)}>
-                <img src={photo.image} alt={`${frame.name} — vista ${photo.label.toLowerCase()}${photo.placeholder ? ', foto provisional' : ''}`} />
+                <img src={asset(photo.image)} alt={`${frame.name} — vista ${photo.label.toLowerCase()}${photo.placeholder ? ', foto provisional' : ''}`} />
                 <span>{photo.label}</span>
                 {photo.placeholder && <small>Provisional</small>}
               </button>)}

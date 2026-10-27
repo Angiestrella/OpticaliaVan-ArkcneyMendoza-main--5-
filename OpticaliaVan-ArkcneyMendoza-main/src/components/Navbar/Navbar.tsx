@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { asset } from '../../utils/asset'
 import './Navbar.scss'
 
 // Debe coincidir con $navbar-height en src/styles/_variables.scss
@@ -48,7 +49,7 @@ export function Navbar() {
             loop
             muted
             playsInline
-            src="/hero.mp4"
+            src={asset('/hero.mp4')}
           />
           <div className="navbar__scrim" />
           <div className="navbar__hero-content">
@@ -66,7 +67,7 @@ export function Navbar() {
         <Link className="navbar__brand" to="/">
           <img
             className="navbar__logo"
-            src="/logo-opticalia.svg"
+            src={asset('/logo-opticalia.svg')}
             alt="Opticalia Van-Arcken & Mendoza"
           />
         </Link>

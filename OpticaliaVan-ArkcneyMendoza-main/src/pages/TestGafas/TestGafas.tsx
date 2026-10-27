@@ -5,6 +5,7 @@ import frames from '../../data/frames.json'
 import { FaceShapeUpload } from '../../components/FaceShapeUpload/FaceShapeUpload'
 import { formatPrice } from '../../utils/formatPrice'
 import { recomendar } from '../../utils/recomendar'
+import { asset } from '../../utils/asset'
 import './TestGafas.scss'
 
 const rostros: Array<{ id: string; label: string; image?: string; imageAlt?: string }> = [
@@ -93,7 +94,7 @@ export function TestGafas() {
                 onClick={() => setRostro(r.id)}
               >
                 {r.image
-                  ? <img className="rostro-photo" src={r.image} alt={r.imageAlt} />
+                  ? <img className="rostro-photo" src={asset(r.image)} alt={r.imageAlt} />
                   : <span className={`rostro-shape rostro-shape--${r.id}`} />}
                 {r.label}
               </button>
@@ -189,7 +190,7 @@ export function TestGafas() {
             {recomendadas.map((frame) => (
               <div key={frame.id} className="result-card">
                 <div className="result-card__photo">
-                  <img src={frame.colors[0].image} alt={frame.name} />
+                  <img src={asset(frame.colors[0].image)} alt={frame.name} />
                   <Link
                     className="result-card__try-btn"
                     to="/prueba-virtual"

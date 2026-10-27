@@ -4,6 +4,7 @@ import { ArrowUpRight, MessageCircle, Phone } from 'lucide-react'
 import contact from '../../data/contact.json'
 import { parseEnlacesSitio, type EnlaceSitio } from '../../utils/sitemap'
 import { buildWhatsappUrl } from '../../utils/whatsapp'
+import { asset } from '../../utils/asset'
 import './Footer.scss'
 
 export function Footer() {
@@ -11,7 +12,7 @@ export function Footer() {
   const [enlaces, setEnlaces] = useState<EnlaceSitio[]>([])
 
   useEffect(() => {
-    fetch('/navegacion.xml')
+    fetch(asset('/navegacion.xml'))
       .then((respuesta) => respuesta.text())
       .then((xml) => setEnlaces(parseEnlacesSitio(xml)))
       .catch(() => setEnlaces([]))
@@ -24,7 +25,7 @@ export function Footer() {
       <div className="footer__main">
         <div className="footer__brand">
           <Link to="/" aria-label="Opticalia, ir al inicio">
-            <img src="/logo-opticalia.svg" alt="Opticalia Van-Arcken & Mendoza" />
+            <img src={asset('/logo-opticalia.svg')} alt="Opticalia Van-Arcken & Mendoza" />
           </Link>
           <p>Una mirada más clara a lo que te hace único.</p>
           <a className="footer__whatsapp" href={whatsappUrl} target="_blank" rel="noopener noreferrer">

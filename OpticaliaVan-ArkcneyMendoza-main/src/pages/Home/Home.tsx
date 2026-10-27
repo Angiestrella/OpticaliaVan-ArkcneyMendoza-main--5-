@@ -2,6 +2,7 @@ import { FrameCard } from '../../components/FrameCard/FrameCard'
 import { Link } from 'react-router-dom'
 import { ClipboardList, Glasses, MessageCircleQuestion } from 'lucide-react'
 import frames from '../../data/frames.json'
+import { asset } from '../../utils/asset'
 import './Home.scss'
 
 export function Home() {
@@ -26,7 +27,7 @@ export function Home() {
           <Link className="home-discover__cta" to="/que-gafas-van-contigo">Descubre tus gafas ideales <span aria-hidden="true">→</span></Link>
           <Link className="home-discover__face" to="/que-gafas-van-contigo">
             <span className="home-discover__face-icon" aria-hidden="true">
-              <img src="/chica%20con%20signo%20de%20interrogaci%C3%B3n.png" alt="" />
+              <img src={asset('/chica%20con%20signo%20de%20interrogaci%C3%B3n.png')} alt="" />
             </span>
             <span className="home-discover__face-copy">
               <strong>¿No sabes tu tipo de rostro?</strong>
@@ -48,7 +49,7 @@ export function Home() {
       </section>
 
       <section id="optica" className="optica-photo">
-        <img src="/optica-fachada.jpeg" alt="Fachada de Opticalia Van-Arcken & Mendoza" />
+        <img src={asset('/optica-fachada.jpeg')} alt="Fachada de Opticalia Van-Arcken & Mendoza" />
         <div className="optica-photo__shade" />
         <div className="optica-photo__content">
           <p className="optica-photo__eyebrow">Opticalia Van-Arcken &amp; Mendoza</p>

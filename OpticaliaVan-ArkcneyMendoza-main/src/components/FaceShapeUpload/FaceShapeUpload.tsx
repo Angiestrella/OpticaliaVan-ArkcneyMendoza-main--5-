@@ -1,4 +1,5 @@
 ﻿import { useEffect, useState } from 'react'
+import { asset } from '../../utils/asset'
 import './FaceShapeUpload.scss'
 
 type FaceShape = 'redondo' | 'ovalado' | 'rectangular' | 'diamante' | 'corazon' | 'triangular'
@@ -41,7 +42,7 @@ let perfilesReferencia: Promise<PerfilRostro[]> | null = null
 function cargarPerfilesReferencia(detector: FaceDetector) {
   if (!perfilesReferencia) {
     perfilesReferencia = Promise.all(imagenesReferencia.map(async ({ forma, src }) => {
-      const response = await fetch(src)
+      const response = await fetch(asset(src))
       if (!response.ok) return null
       const bitmap = await createImageBitmap(await response.blob())
       try {

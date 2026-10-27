@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import frames from '../../data/frames.json'
 import { formatPrice } from '../../utils/formatPrice'
+import { asset } from '../../utils/asset'
 import './PruebaVirtual.scss'
 
 interface PruebaState {
@@ -15,8 +16,8 @@ type SeguimientoEstado = 'cargando' | 'listo' | 'sin-rostro' | 'error'
 const monturaReferencia = {
   id: 'montura-3d',
   name: 'Modelo 3D con patas',
-  image: '/gafas/montura-referencia.png',
-  model: '/gafas/montura-3d.glb',
+  image: asset('/gafas/montura-referencia.png'),
+  model: asset('/gafas/montura-3d.glb'),
 }
 
 function recortarFondoClaro(imagen: HTMLImageElement): HTMLCanvasElement {
@@ -159,7 +160,7 @@ export function PruebaVirtual() {
         setMonturaError(true)
       }
     }
-    imagen.src = imagenMontura
+    imagen.src = asset(imagenMontura)
     return () => { cancelado = true }
   }, [imagenMontura])
 
@@ -437,7 +438,7 @@ export function PruebaVirtual() {
               onClick={() => seleccionarMontura(frame.id)}
             >
               <span className="camara__item-photo">
-                <img src={frame.colors[0].image} alt="" />
+                <img src={asset(frame.colors[0].image)} alt="" />
               </span>
               <span className="camara__item-name">{frame.name}</span>
               <span className="camara__item-price">
