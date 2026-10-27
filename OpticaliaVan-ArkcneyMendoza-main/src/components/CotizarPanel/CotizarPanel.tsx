@@ -11,6 +11,18 @@ function priceLabel(price: number) {
   return price > 0 ? `+ ${formatPrice(price)}` : 'Con el asesor'
 }
 
+const explicaciones: Record<string, string> = {
+  'material-1': 'Opción liviana para uso diario. Una alternativa sencilla para muchas fórmulas.',
+  'material-2': 'Liviano y resistente a impactos; suele considerarse para niños o monturas deportivas.',
+  'material-3': 'Puede ayudar a que el lente se vea más delgado en fórmulas altas. Confirma si aplica a tu fórmula.',
+  antirreflejo: 'Reduce reflejos en el lente y puede hacer más cómoda la visión frente a pantallas y luces.',
+  fotocromatico: 'Se oscurece con la luz solar y se aclara en interiores. El cambio depende de la luz y del vehículo.',
+  'luz-azul': 'Filtro opcional para pantallas. Su beneficio puede variar; pregunta al optómetra si lo necesitas.',
+  color: 'Añade un tono al lente. El color y la intensidad se definen con el asesor.',
+  polarizados: 'Reduce reflejos intensos en superficies como el agua o la vía. Se usa principalmente en gafas de sol.',
+  otros: 'Cuéntale al asesor qué necesidad quieres resolver para revisar otras opciones.',
+}
+
 export function CotizarPanel({
   frame,
   onClose,
@@ -88,8 +100,8 @@ export function CotizarPanel({
                 className={`cotizar__option ${materialId === m.id ? 'cotizar__option--selected' : ''}`}
                 onClick={() => toggleMaterial(m.id)}
               >
-                <span>{m.label}</span>
-                <span>{priceLabel(m.price)}</span>
+                <span className="cotizar__option-copy"><strong>{m.label}</strong><small>{explicaciones[m.id]}</small></span>
+                <span className="cotizar__option-price">{priceLabel(m.price)}</span>
               </button>
             ))}
           </div>
@@ -104,8 +116,8 @@ export function CotizarPanel({
                 className={`cotizar__option ${filtroIds.includes(f.id) ? 'cotizar__option--selected' : ''}`}
                 onClick={() => toggleFiltro(f.id)}
               >
-                <span>{f.label}</span>
-                <span>{priceLabel(f.price)}</span>
+                <span className="cotizar__option-copy"><strong>{f.label}</strong><small>{explicaciones[f.id]}</small></span>
+                <span className="cotizar__option-price">{priceLabel(f.price)}</span>
               </button>
             ))}
           </div>

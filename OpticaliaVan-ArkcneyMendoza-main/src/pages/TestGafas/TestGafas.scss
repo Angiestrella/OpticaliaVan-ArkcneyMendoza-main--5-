@@ -75,6 +75,14 @@
   background-color: $color-sand;
 }
 
+.rostro-photo {
+  display: block;
+  width: 144px;
+  height: 144px;
+  object-fit: contain;
+  border-radius: $radius-sm;
+}
+
 .rostro-shape {
   width: 48px;
   height: 48px;
@@ -84,10 +92,6 @@
 
 .rostro-shape--redondo {
   border-radius: 50%;
-}
-
-.rostro-shape--cuadrado {
-  border-radius: $radius-sm;
 }
 
 .rostro-shape--rectangular {
@@ -100,6 +104,12 @@
   border: none;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
+
+.rostro-shape--ovalado { border-radius: 50% / 42%; }
+.rostro-shape--corazon { clip-path: polygon(50% 100%, 7% 48%, 7% 27%, 18% 8%, 35% 4%, 50% 19%, 65% 4%, 82% 8%, 93% 27%, 93% 48%); }
+.rostro-shape--triangular { clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+.rostro-shape--help { display: grid; place-items: center; border-radius: 50%; color: $color-blue; font-size: 28px; font-weight: 700; }
+.quiz-option--help { border-color: rgba($color-blue, .4); color: $color-blue; }
 
 .test-gafas__colors {
   display: flex;

@@ -7,10 +7,84 @@
     "category": "formula",
     "genero": "hombre",
     "trending": true,
+    "silhouette": "Rectangular de líneas marcadas",
+    "description": "Una montura de frente definido y líneas rectas, con una presencia contemporánea. Sus tonos azul, negro y oliva permiten elegir entre un acento de color y opciones más sobrias.",
     "colors": [
-      { "id": "azul", "label": "Azul", "image": "/gafas/diseno-1-azul.png" },
-      { "id": "negro", "label": "Negro", "image": "/gafas/diseno-1-negro.png" },
-      { "id": "oliva", "label": "Oliva", "image": "/gafas/diseno-1-oliva.png" }
+      {
+        "id": "azul",
+        "label": "Azul",
+        "image": "/gafas/diseno-1-azul.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-1-azul.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-1-azul.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-1-azul.png"
+          }
+        ]
+      },
+      {
+        "id": "negro",
+        "label": "Negro",
+        "image": "/gafas/diseno-1-negro.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-1-negro.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-1-negro.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-1-negro.png"
+          }
+        ]
+      },
+      {
+        "id": "oliva",
+        "label": "Oliva",
+        "image": "/gafas/diseno-1-oliva.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-1-oliva.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-1-oliva.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-1-oliva.png"
+          }
+        ]
+      }
     ]
   },
   {
@@ -21,10 +95,84 @@
     "category": "formula",
     "genero": "unisex",
     "trending": false,
+    "silhouette": "Cuadrada con esquinas suaves",
+    "description": "Una silueta amplia y de esquinas suaves que combina un estilo casual con un frente llamativo. Disponible en café, morado y verde para personalizar el look.",
     "colors": [
-      { "id": "cafe", "label": "Café", "image": "/gafas/diseno-2-cafe.png" },
-      { "id": "morado", "label": "Morado", "image": "/gafas/diseno-2-morado.png" },
-      { "id": "verde", "label": "Verde", "image": "/gafas/diseno-2-verde.png" }
+      {
+        "id": "cafe",
+        "label": "Café",
+        "image": "/gafas/diseno-2-cafe.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-2-cafe.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-2-cafe.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-2-cafe.png"
+          }
+        ]
+      },
+      {
+        "id": "morado",
+        "label": "Morado",
+        "image": "/gafas/diseno-2-morado.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-2-morado.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-2-morado.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-2-morado.png"
+          }
+        ]
+      },
+      {
+        "id": "verde",
+        "label": "Verde",
+        "image": "/gafas/diseno-2-verde.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-2-verde.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-2-verde.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-2-verde.png"
+          }
+        ]
+      }
     ]
   },
   {
@@ -35,9 +183,59 @@
     "category": "sol",
     "genero": "hombre",
     "trending": false,
+    "silhouette": "Geométrica",
+    "description": "Gafas de sol de líneas geométricas y lentes oscuros, con un diseño de carácter marcado. Una opción para quienes buscan una montura protagonista al aire libre.",
     "colors": [
-      { "id": "dorado", "label": "Dorado", "image": "/gafas/diseno-3-dorado.png" },
-      { "id": "negro", "label": "Negro", "image": "/gafas/diseno-3-negro.png" }
+      {
+        "id": "dorado",
+        "label": "Dorado",
+        "image": "/gafas/diseno-3-dorado.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-3-dorado.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-3-dorado.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-3-dorado.png"
+          }
+        ]
+      },
+      {
+        "id": "negro",
+        "label": "Negro",
+        "image": "/gafas/diseno-3-negro.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-3-negro.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-3-negro.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-3-negro.png"
+          }
+        ]
+      }
     ]
   },
   {
@@ -48,9 +246,59 @@
     "category": "formula",
     "genero": "mujer",
     "trending": true,
+    "silhouette": "Cuadrada de bordes redondeados",
+    "description": "Una montura cuadrada de bordes redondeados y acabado cálido. El café ofrece un aire clásico y el morado suma un toque de color.",
     "colors": [
-      { "id": "cafe", "label": "Café", "image": "/gafas/diseno-4-cafe.png" },
-      { "id": "morado", "label": "Morado", "image": "/gafas/diseno-4-morado.png" }
+      {
+        "id": "cafe",
+        "label": "Café",
+        "image": "/gafas/diseno-4-cafe.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-4-cafe.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-4-cafe.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-4-cafe.png"
+          }
+        ]
+      },
+      {
+        "id": "morado",
+        "label": "Morado",
+        "image": "/gafas/diseno-4-morado.png",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": true,
+            "id": "frontal",
+            "image": "/gafas/diseno-4-morado.png"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": true,
+            "id": "tres-cuartos",
+            "image": "/gafas/diseno-4-morado.png"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": true,
+            "id": "lateral",
+            "image": "/gafas/diseno-4-morado.png"
+          }
+        ]
+      }
     ]
   }
 ]

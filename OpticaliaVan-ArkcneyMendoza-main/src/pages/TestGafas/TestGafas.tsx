@@ -2,15 +2,18 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import colorOpciones from '../../data/colors.json'
 import frames from '../../data/frames.json'
+import { FaceShapeUpload } from '../../components/FaceShapeUpload/FaceShapeUpload'
 import { formatPrice } from '../../utils/formatPrice'
 import { recomendar } from '../../utils/recomendar'
 import './TestGafas.scss'
 
-const rostros = [
-  { id: 'diamante', label: 'Diamante' },
-  { id: 'redondo', label: 'Redondo' },
-  { id: 'cuadrado', label: 'Cuadrado' },
-  { id: 'rectangular', label: 'Rectangular' },
+const rostros: Array<{ id: string; label: string; image?: string; imageAlt?: string }> = [
+  { id: 'diamante', label: 'Diamante', image: '/Retrato%20minimalista%20de%20rostro%20diamante%20(1).png', imageAlt: 'Rostro con forma de diamante' },
+  { id: 'redondo', label: 'Redondo', image: '/Retrato%20masculino%20con%20c%C3%ADrculo%20azul.png', imageAlt: 'Rostro con forma redonda' },
+  { id: 'rectangular', label: 'Rectangular', image: '/rostro_rectangular_mujer_transparente.png', imageAlt: 'Rostro con forma rectangular' },
+  { id: 'ovalado', label: 'Ovalado', image: '/Retrato%20de%20rostro%20ovalado%20con%20contorno%20azul.png', imageAlt: 'Rostro con forma ovalada' },
+  { id: 'corazon', label: 'Corazón', image: '/Retrato%20con%20contorno%20facial%20de%20corazón.png', imageAlt: 'Rostro con forma de corazón' },
+  { id: 'triangular', label: 'Triangular', image: '/Retrato%20con%20triángulo%20facial%20azul.png', imageAlt: 'Rostro con forma triangular' },
 ]
 
 const tipos = [
@@ -21,6 +24,7 @@ const tipos = [
 const estilos = [
   { id: 'mujer', label: 'Mujer' },
   { id: 'hombre', label: 'Hombre' },
+  { id: 'unisex', label: 'Unisex' },
 ]
 
 const TOTAL_PASOS = 5
@@ -31,6 +35,10 @@ export function TestGafas() {
   const [tipo, setTipo] = useState<string | null>(null)
   const [estilo, setEstilo] = useState<string | null>(null)
   const [colores, setColores] = useState<string[]>([])
+  const [ayudaRostro, setAyudaRostro] = useState(false)
+  const [manualRostro, setManualRostro] = useState(false)
+  const [formaCara, setFormaCara] = useState<string | null>(null)
+  const [largoCara, setLargoCara] = useState<string | null>(null)
 
   function toggleColor(id: string) {
     setColores((actual) =>
@@ -44,6 +52,16 @@ export function TestGafas() {
     setTipo(null)
     setEstilo(null)
     setColores([])
+    setAyudaRostro(false)
+    setManualRostro(false)
+    setFormaCara(null)
+    setLargoCara(null)
+  }
+
+  function identificarRostro() {
+    const identificado = formaCara === 'mandibula' ? 'triangular' : formaCara === 'frente' ? 'corazon' : largoCara === 'largo' ? 'rectangular' : 'ovalado'
+    setRostro(identificado)
+    setAyudaRostro(false)
   }
 
   const puedeAvanzar =
@@ -52,7 +70,7 @@ export function TestGafas() {
     (paso === 2 && estilo !== null) ||
     (paso === 3 && colores.length > 0)
 
-  const recomendadas = recomendar(frames, tipo, colores)
+  const recomendadas = recomendar(frames, tipo, colores, rostro, estilo)
   const idsRecomendadas = recomendadas.map((frame) => frame.id)
 
   return (
@@ -63,7 +81,7 @@ export function TestGafas() {
         </p>
       )}
 
-      {paso === 0 && (
+      {paso === 0 && !ayudaRostro && (
         <div className="test-gafas__step">
           <h1>Selecciona tu rostro</h1>
           <div className="test-gafas__options">
@@ -74,10 +92,32 @@ export function TestGafas() {
                 className={`quiz-option ${rostro === r.id ? 'quiz-option--selected' : ''}`}
                 onClick={() => setRostro(r.id)}
               >
-                <span className={`rostro-shape rostro-shape--${r.id}`} />
+                {r.image
+                  ? <img className="rostro-photo" src={r.image} alt={r.imageAlt} />
+                  : <span className={`rostro-shape rostro-shape--${r.id}`} />}
                 {r.label}
               </button>
             ))}
+            <button type="button" className="quiz-option quiz-option--help" onClick={() => { setManualRostro(false); setAyudaRostro(true) }}><span className="rostro-shape rostro-shape--help">?</span>Identificar con una foto</button>
+          </div>
+          <p className="test-gafas__hint">Elige la forma que más se parece a tu rostro. Si no estás seguro, te ayudamos.</p>
+        </div>
+      )}
+
+      {paso === 0 && ayudaRostro && !manualRostro && (
+        <FaceShapeUpload onSelect={(shape) => { setRostro(shape); setAyudaRostro(false) }} onManual={() => setManualRostro(true)} />
+      )}
+
+      {paso === 0 && ayudaRostro && manualRostro && (
+        <div className="test-gafas__step">
+          <h1>Identifiquemos tu tipo de rostro</h1>
+          <p className="test-gafas__hint">No necesitas medirlo. Elige la descripción que más se parece a ti.</p>
+          <h2>{formaCara ? '¿Tu rostro se ve más largo que ancho?' : '¿Qué parte notas más ancha?'}</h2>
+          <div className="test-gafas__options">
+            {(formaCara ? [['largo', 'Sí, claramente'], ['parejo', 'No, se ve equilibrado']] : [['frente', 'La frente o los pómulos'], ['mandibula', 'La mandíbula'], ['parejo', 'Se ve bastante equilibrado']]).map(([id, label]) => <button key={id} type="button" className={`quiz-option ${(formaCara ? largoCara : formaCara) === id ? 'quiz-option--selected' : ''}`} onClick={() => formaCara ? setLargoCara(id) : setFormaCara(id)}>{label}</button>)}
+          </div>
+          <div className="test-gafas__nav"><button type="button" className="test-gafas__back" onClick={() => formaCara ? (setFormaCara(null), setLargoCara(null)) : setAyudaRostro(false)}>Atrás</button>
+            {formaCara && largoCara && <button type="button" className="test-gafas__next" onClick={identificarRostro}>Continuar con tu recomendación</button>}
           </div>
         </div>
       )}
@@ -102,7 +142,8 @@ export function TestGafas() {
 
       {paso === 2 && (
         <div className="test-gafas__step">
-          <h1>¿Qué estilo?</h1>
+          <h1>¿Qué categoría prefieres?</h1>
+          <p className="test-gafas__hint">También puedes elegir modelos unisex.</p>
           <div className="test-gafas__options">
             {estilos.map((e) => (
               <button
@@ -142,8 +183,7 @@ export function TestGafas() {
         <div className="test-gafas__step">
           <h1>Tus gafas recomendadas</h1>
           <p className="test-gafas__hint">
-            Elegidas según lo que buscas y tus colores. La forma de rostro y
-            el estilo todavía no influyen en la recomendación.
+            Recomendadas según lo que buscas, la forma de tu rostro y tus colores. Pruébatelas virtualmente o consulta disponibilidad con el equipo.
           </p>
           <div className="test-gafas__results">
             {recomendadas.map((frame) => (

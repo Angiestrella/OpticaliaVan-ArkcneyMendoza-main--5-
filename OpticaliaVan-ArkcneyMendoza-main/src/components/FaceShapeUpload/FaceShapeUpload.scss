@@ -1,0 +1,13 @@
+@import "../../styles/variables";
+
+.face-upload { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: $space-4; text-align: center; }
+.face-upload h1 { margin: 0; }
+.face-upload__picker { display: inline-flex; padding: $space-4 $space-6; border: $border-width-base dashed $color-blue; border-radius: $radius-md; color: $color-blue; font-weight: 700; cursor: pointer; }
+.face-upload__picker input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.face-upload__picker:focus-within { outline: 3px solid rgba($color-blue, .3); }
+.face-upload__preview { width: min(100%, 280px); max-height: 320px; object-fit: cover; border-radius: $radius-md; }
+.face-upload__error { color: #a32323; font-size: 14px; }
+.face-upload__result { width: 100%; padding: $space-5; border-radius: $radius-md; background: $color-sand; display: flex; flex-direction: column; align-items: center; gap: $space-3; }
+.face-upload__result p { margin: 0; font-size: 18px; }
+.face-upload__result small { color: rgba($color-black, .7); }
+.face-upload__manual { margin-top: $space-2; }

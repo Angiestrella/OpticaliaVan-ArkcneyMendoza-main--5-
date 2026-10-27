@@ -59,6 +59,98 @@
   color: rgba($color-black, 0.65);
 }
 
+.agenda__notice {
+  margin: -$space-4 0 $space-6;
+  padding: $space-3 $space-4;
+  border: 1px solid rgba($color-blue, .16);
+  border-radius: $radius-md;
+  background: rgba($color-blue, .06);
+  color: #315563;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.agenda__progress {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 0 $space-7;
+  padding: 0;
+  list-style: none;
+}
+
+.agenda__progress-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
+  color: rgba($color-black, .42);
+  text-align: center;
+
+  &:not(:last-child)::after {
+    position: absolute;
+    top: 16px;
+    left: calc(50% + 22px);
+    width: calc(100% - 44px);
+    height: 2px;
+    background: rgba($color-blue, .16);
+    content: '';
+  }
+
+  > span {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid rgba($color-blue, .2);
+    border-radius: 50%;
+    background: $color-white;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  small { font-size: 11px; font-weight: 600; }
+
+  &--active { color: #07516d; > span { border-color: $color-blue; background: $color-blue; color: $color-white; box-shadow: 0 0 0 4px rgba($color-blue, .12); } }
+  &--done { color: $color-blue; > span { border-color: $color-blue; background: $color-blue; color: $color-white; } }
+  &--done::after { background: rgba($color-blue, .6) !important; }
+}
+
+.agenda__step-panel { animation: agenda-step-in 180ms ease-out both; }
+@keyframes agenda-step-in { from { opacity: .45; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.agenda__summary {
+  margin-bottom: $space-6;
+  padding: $space-5;
+  border-radius: $radius-lg;
+  background: linear-gradient(135deg, rgba($color-blue, .09), $color-sand);
+  h2 { margin-bottom: $space-4; font-size: 18px; }
+  dl { display: grid; gap: $space-3; margin: 0; }
+  dl > div { display: grid; grid-template-columns: minmax(105px, .7fr) 1.3fr; gap: $space-3; }
+  dt { color: rgba($color-black, .58); font-size: 13px; }
+  dd { margin: 0; font-size: 13px; font-weight: 700; }
+  > p { margin: $space-4 0 0; color: rgba($color-black, .62); font-size: 12px; line-height: 1.5; }
+}
+
+.agenda__navigation { display: flex; align-items: flex-start; gap: $space-3; }
+.agenda__next-wrap { flex: 1; }
+.agenda__back {
+  min-height: 52px;
+  padding: 0 $space-5;
+  border: 1px solid rgba($color-blue, .25);
+  border-radius: $radius-pill;
+  background: $color-white;
+  color: #07516d;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.agenda__back:hover { background: rgba($color-blue, .07); }
+.agenda__hint { min-height: 18px; margin: $space-2 0 0; color: rgba($color-black, .56); font-size: 12px; text-align: center; }
+
 .agenda__section {
   padding-bottom: $space-7;
   margin-bottom: $space-7;
@@ -263,4 +355,18 @@
     box-shadow: none;
     cursor: not-allowed;
   }
+}
+
+@media (max-width: 480px) {
+  .agenda { padding: $space-6 $space-3; }
+  .agenda__progress { margin-bottom: $space-6; }
+  .agenda__progress-item small { max-width: 78px; font-size: 10px; }
+  .agenda__notice { text-align: left; }
+  .agenda__summary { padding: $space-4; }
+  .agenda__summary dl > div { grid-template-columns: 1fr; gap: 2px; }
+  .agenda__back { padding: 0 $space-4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agenda__step-panel { animation: none; }
 }

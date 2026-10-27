@@ -124,6 +124,10 @@
   }
 }
 
+.cotizar__option-copy { display: flex; flex-direction: column; gap: 4px; }
+.cotizar__option-copy small { max-width: 290px; color: rgba($color-black, .67); font-size: 12px; font-weight: 400; line-height: 1.45; }
+.cotizar__option-price { flex-shrink: 0; font-weight: 600; }
+
 .cotizar__footer {
   flex-shrink: 0;
   padding: $space-5 $space-6;

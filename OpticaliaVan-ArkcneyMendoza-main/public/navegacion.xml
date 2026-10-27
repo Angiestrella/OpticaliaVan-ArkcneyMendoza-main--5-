@@ -6,6 +6,7 @@
 <mapaDelSitio>
   <enlace href="/" label="Inicio" />
   <enlace href="/catalogo" label="Catálogo" />
+  <enlace href="/conocenos" label="Conócenos" />
   <enlace href="/encuentra-tus-gafas" label="Encuentra tus gafas" />
   <enlace href="/que-gafas-van-contigo" label="¿Qué gafas van contigo?" />
   <enlace href="/prueba-virtual" label="Pruébatelas en vivo" />

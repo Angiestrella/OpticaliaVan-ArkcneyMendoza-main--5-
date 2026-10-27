@@ -2,6 +2,14 @@ export interface FrameColor {
   id: string
   label: string
   image: string
+  photos: FramePhoto[]
+}
+
+export interface FramePhoto {
+  id: string
+  label: string
+  image: string
+  placeholder: boolean
 }
 
 export interface Frame {
@@ -12,6 +20,8 @@ export interface Frame {
   category: string
   genero: string
   trending: boolean
+  silhouette: string
+  description: string
   colors: FrameColor[]
 }
 

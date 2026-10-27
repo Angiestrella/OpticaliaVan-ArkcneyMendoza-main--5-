@@ -1,0 +1,6 @@
+# Cache de pnpm (contiene un enlace al proyecto, no se debe subir)
+.pnpm-store/
+
+# Dependencias y build
+node_modules/
+dist/

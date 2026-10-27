@@ -15,6 +15,11 @@ export function FrameCard({ frame }: { frame: Frame }) {
   return (
     <Link className="frame-card" to={`/producto/${frame.id}`}>
       <div className="frame-card__photo">
+        {(frame.trending || frame.category === 'sol') && (
+          <span className="frame-card__badge">
+            {frame.trending ? 'Tendencia' : 'Gafas de sol'}
+          </span>
+        )}
         {selected && (
           <img src={selected.image} alt={`${frame.name} — ${selected.label}`} />
         )}
@@ -41,7 +46,11 @@ export function FrameCard({ frame }: { frame: Frame }) {
       )}
 
       <p className="frame-card__name">{frame.name}</p>
-      <p className="frame-card__price">Desde {formatPrice(frame.price)}</p>
+      <p className="frame-card__description">{frame.silhouette}</p>
+      <div className="frame-card__footer">
+        <p className="frame-card__price">Desde {formatPrice(frame.price)}</p>
+        <span className="frame-card__details">Ver detalles <span aria-hidden="true">→</span></span>
+      </div>
     </Link>
   )
 }

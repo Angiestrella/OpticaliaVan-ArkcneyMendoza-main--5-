@@ -52,9 +52,11 @@ export function Navbar() {
           />
           <div className="navbar__scrim" />
           <div className="navbar__hero-content">
-            <h1 className="navbar__hero-title">Ver mejor es vivir mejor.</h1>
-            <Link className="navbar__hero-cta" to="/encuentra-tus-gafas">
-              Encuentra tus gafas ideales
+            <p className="navbar__hero-eyebrow">Opticalia Van-Arcken &amp; Mendoza</p>
+            <h1 className="navbar__hero-title">Encuentra las gafas que van contigo.</h1>
+            <p className="navbar__hero-description">Estilo, comodidad y asesoría para elegir tu próxima montura.</p>
+            <Link className="navbar__hero-cta" to="/que-gafas-van-contigo">
+              Encuentra tu estilo <span aria-hidden="true">→</span>
             </Link>
           </div>
         </>
@@ -73,6 +75,9 @@ export function Navbar() {
           <ul className="navbar__links">
             <li>
               <Link to="/catalogo">Catálogo</Link>
+            </li>
+            <li>
+              <Link to="/conocenos">Conócenos</Link>
             </li>
           </ul>
 
