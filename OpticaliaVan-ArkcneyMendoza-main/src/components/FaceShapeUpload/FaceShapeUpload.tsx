@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { asset } from '../../utils/asset'
 import './FaceShapeUpload.scss'
 
@@ -6,7 +6,7 @@ type FaceShape = 'redondo' | 'ovalado' | 'rectangular' | 'diamante' | 'corazon' 
 
 const labels: Record<FaceShape, string> = {
   redondo: 'Redondo', ovalado: 'Ovalado',
-  rectangular: 'Rectangular', diamante: 'Diamante', corazon: 'CorazÃ³n', triangular: 'Triangular',
+  rectangular: 'Rectangular', diamante: 'Diamante', corazon: 'Corazón', triangular: 'Triangular',
 }
 
 function distancia(a: { x: number; y: number }, b: { x: number; y: number }) {
@@ -101,10 +101,10 @@ export function FaceShapeUpload({ onSelect, onManual }: { onSelect: (shape: Face
       landmarker = faceLandmarker
       const result = faceLandmarker.detect(bitmap)
       if (!result.faceLandmarks?.length) setError('No encontramos un rostro. Prueba con una foto frontal, bien iluminada y sin gafas oscuras.')
-      else if (result.faceLandmarks.length > 1) setError('La foto muestra mÃ¡s de un rostro. Sube una imagen donde aparezcas solo tÃº.')
+      else if (result.faceLandmarks.length > 1) setError('La foto muestra más de un rostro. Sube una imagen donde aparezcas solo tú.')
       else setShape(await clasificar(result.faceLandmarks[0], faceLandmarker))
     } catch {
-      setError('No pudimos analizar la foto. Revisa tu conexiÃ³n e intÃ©ntalo de nuevo, o elige la forma manualmente.')
+      setError('No pudimos analizar la foto. Revisa tu conexión e inténtalo de nuevo, o elige la forma manualmente.')
     } finally {
       landmarker?.close(); bitmap?.close(); setLoading(false)
     }
@@ -121,9 +121,9 @@ export function FaceShapeUpload({ onSelect, onManual }: { onSelect: (shape: Face
       }} />
     </label>
     {preview && <img className="face-upload__preview" src={preview} alt="Vista previa de tu foto" />}
-    {file && <button type="button" className="test-gafas__next" onClick={analizar} disabled={loading}>{loading ? 'Analizando fotoâ€¦' : 'Identificar mi rostro'}</button>}
+    {file && <button type="button" className="test-gafas__next" onClick={analizar} disabled={loading}>{loading ? 'Analizando foto…' : 'Identificar mi rostro'}</button>}
     {error && <p className="face-upload__error" role="alert">{error}</p>}
-    {shape && <div className="face-upload__result" role="status"><p>Por las proporciones medidas, tu rostro parece ser <strong>{labels[shape]}</strong>.</p><small>Es una estimaciÃ³n: la pose, el cabello y la iluminaciÃ³n pueden influir. Puedes elegir otra forma manualmente.</small><button type="button" className="test-gafas__next" onClick={() => onSelect(shape)}>Continuar con esta forma</button></div>}
+    {shape && <div className="face-upload__result" role="status"><p>Por las proporciones medidas, tu rostro parece ser <strong>{labels[shape]}</strong>.</p><small>Es una estimación: la pose, el cabello y la iluminación pueden influir. Puedes elegir otra forma manualmente.</small><button type="button" className="test-gafas__next" onClick={() => onSelect(shape)}>Continuar con esta forma</button></div>}
     <button type="button" className="test-gafas__restart face-upload__manual" onClick={onManual}>Prefiero elegir mi rostro manualmente</button>
   </div>
 }
