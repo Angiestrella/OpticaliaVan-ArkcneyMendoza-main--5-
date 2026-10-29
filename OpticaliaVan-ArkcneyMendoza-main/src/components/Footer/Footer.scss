@@ -1,4 +1,7 @@
-@import "../../styles/variables";
+@use "../../styles/variables" as *;
+
+$footer-ancho: 1240px;
+$logo-ancho: 124px;
 
 .footer {
   overflow: hidden;
@@ -6,34 +9,184 @@
   color: $color-white;
 }
 
+// Tres bloques en una fila: video | Explora | Hablemos.
 .footer__main {
-  max-width: 1120px;
+  max-width: $footer-ancho;
   margin: 0 auto;
-  padding: $space-8 $space-6;
+  padding: $space-8 $space-6 $space-7;
   display: grid;
-  grid-template-columns: 1.4fr .8fr 1fr;
-  gap: clamp($space-6, 6vw, 88px);
+  grid-template-columns: minmax(0, 520px) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start; // video, "Explora" y "Hablemos" empiezan a la misma altura
+  gap: clamp($space-6, 5vw, 72px);
 }
 
-.footer__brand img { display: block; width: 190px; max-width: 100%; height: auto; filter: brightness(0) invert(1); }
-.footer__brand p, .footer__contact p { max-width: 32ch; margin: $space-4 0 $space-5; color: rgba($color-white, .76); font-size: 14px; line-height: 1.7; }
-.footer__whatsapp { display: inline-flex; align-items: center; gap: $space-2; color: $color-white; font-size: 14px; font-weight: 700; text-decoration: none; }
-.footer__whatsapp:hover, .footer__links a:hover, .footer__contact a:hover { color: #bdeeff; }
-.footer__links, .footer__contact { display: flex; flex-direction: column; align-items: flex-start; gap: $space-3; }
-.footer__links h3, .footer__contact h3 { margin: 0 0 $space-2; color: $color-white; font-size: 15px; font-weight: 700; }
-.footer__links a, .footer__contact a { display: inline-flex; align-items: center; gap: $space-2; color: rgba($color-white, .8); font-size: 14px; line-height: 1.5; text-decoration: none; transition: color $motion-fast $motion-easing; }
-.footer__contact p { margin: 0 0 $space-2; }
-.footer__bottom { max-width: 1120px; margin: 0 auto; padding: $space-4 $space-6; border-top: 1px solid rgba($color-white, .18); display: flex; justify-content: space-between; gap: $space-4; color: rgba($color-white, .65); font-size: 12px; }
-.footer__bottom a { color: rgba($color-white, .82); text-decoration: none; }
-.footer__bottom a:hover { color: $color-white; }
+// Caja con la proporción exacta del video (1452×634): "cover" la llena sin
+// deformar y sin recortar nada (ni el logo del final).
+.footer__video {
+  width: 100%;
+  aspect-ratio: 1452 / 634;
+  overflow: hidden;
+  border: 1px solid rgba($color-white, 0.12);
+  border-radius: $radius-lg;
+  background: #0a4a66; // se ve un instante mientras carga
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
 
+  video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+  }
+}
+
+.footer__links,
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-2;
+}
+.footer__links ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-2;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer__links h2,
+.footer__contact h2 {
+  margin: 0 0 $space-2;
+  color: $color-white;
+  font-size: 15px;
+  font-weight: 700;
+}
+.footer__links a,
+.footer__contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  color: rgba($color-white, 0.8);
+  font-size: 14px;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: color $motion-fast $motion-easing;
+}
+.footer__links a:hover,
+.footer__contact a:hover {
+  color: #bdeeff;
+}
+.footer__contact p {
+  max-width: 32ch;
+  margin: 0 0 $space-1;
+  color: rgba($color-white, 0.76);
+  font-size: 14px;
+  line-height: 1.6;
+}
+// "Consultar por WhatsApp ↗": si se parte en dos líneas, la flecha sigue pegada a "WhatsApp".
+.footer__contact a:last-child {
+  display: inline;
+  svg {
+    display: inline;
+    margin-right: $space-2;
+    vertical-align: -3px;
+  }
+  svg:last-child {
+    margin: 0 0 0 2px;
+    vertical-align: -2px;
+  }
+}
+.footer__nowrap {
+  white-space: nowrap;
+}
+
+// Franja de abajo: logo + frase + © + volver al inicio, todo a la izquierda
+// (a la derecha está el botón flotante de WhatsApp y lo taparía).
+.footer__bottom {
+  max-width: $footer-ancho;
+  margin: 0 auto;
+  padding: $space-4 $space-6;
+  border-top: 1px solid rgba($color-white, 0.18);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: $space-3 $space-7;
+}
+
+.footer__brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-2 $space-5;
+
+  // El archivo del logo trae un 12 % de espacio vacío a la izquierda: se compensa
+  // para que quede alineado con el resto del contenido.
+  img {
+    display: block;
+    width: $logo-ancho;
+    height: auto;
+    margin-left: calc(#{$logo-ancho} * -0.12);
+    filter: brightness(0) invert(1);
+  }
+  p {
+    margin: 0;
+    color: rgba($color-white, 0.72);
+    font-size: 13px;
+  }
+}
+
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-2 $space-5;
+  color: rgba($color-white, 0.65);
+  font-size: 12px;
+
+  a {
+    color: rgba($color-white, 0.82);
+    text-decoration: none;
+  }
+  a:hover {
+    color: $color-white;
+  }
+}
+
+// Tablet: el video un poco más chico, mismos tres bloques.
+@media (max-width: 1024px) {
+  .footer__main {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: $space-6;
+  }
+  // Franja de abajo en columna, con espacio para que el botón de WhatsApp no la tape.
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 96px;
+  }
+}
+
+// Celular: el video arriba a todo el ancho; Explora y Hablemos lado a lado debajo.
 @media (max-width: 720px) {
-  .footer__main { grid-template-columns: 1fr 1fr; gap: $space-7 $space-5; padding: $space-7 $space-5; }
-  .footer__brand { grid-column: 1 / -1; }
+  .footer__main {
+    grid-template-columns: 1fr 1fr;
+    gap: $space-6 $space-4;
+    padding: $space-6 $space-5;
+  }
+  .footer__video {
+    grid-column: 1 / -1;
+  }
+  .footer__bottom {
+    padding-inline: $space-5;
+  }
 }
 
-@media (max-width: 440px) {
-  .footer__main { grid-template-columns: 1fr; }
-  .footer__brand { grid-column: auto; }
-  .footer__bottom { flex-direction: column; }
+@media (max-width: 360px) {
+  .footer__main {
+    grid-template-columns: 1fr;
+  }
 }

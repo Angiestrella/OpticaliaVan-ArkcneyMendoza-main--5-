@@ -2,10 +2,13 @@
 //
 // Enfoque: SCSS propio como base del diseño; Bootstrap se importa de forma
 // selectiva (funciones, variables, mixins, reboot, grid y utilidades) para
-// tener grid y utilidades listas para usar, SIN arrastrar los estilos visuales
-// de sus componentes (navbar, cards, botones...) — el diseño real lo define
-// nuestro propio SCSS, alineado a lo que defina IxD.
+// tener grid y utilidades listas para usar (ej. row / col-* en Inicio y
+// Catálogo, h-100 en las tarjetas), SIN arrastrar los estilos visuales de sus
+// componentes (navbar, cards, botones...) — el diseño real lo define nuestro SCSS.
+@use "sass:meta";
 
+// Bootstrap 5 necesita @import y que nuestras variables (ej. $primary) estén
+// definidas antes que las suyas: por eso este es el único archivo con @import.
 @import "./styles/variables";
 
 @import "bootstrap/scss/functions";
@@ -19,4 +22,7 @@
 @import "bootstrap/scss/utilities";
 @import "bootstrap/scss/utilities/api";
 
-@import "./styles/base";
+// Nuestros estilos globales, después de Bootstrap para que no los pise.
+// (load-css los carga como módulos, cada uno con su propio @use de variables.)
+@include meta.load-css("./styles/base");
+@include meta.load-css("./styles/motion");

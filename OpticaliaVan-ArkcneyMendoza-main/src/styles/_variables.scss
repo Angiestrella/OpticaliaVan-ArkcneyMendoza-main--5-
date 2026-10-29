@@ -1,3 +1,4 @@
+@use "sass:color";
 // Tokens de marca — Manual de marca Opticalia Van-Arcken & Mendoza.
 // Deben declararse ANTES de importar "bootstrap/scss/variables" (ver src/styles.scss)
 // así Bootstrap usa el azul de marca como su $primary en vez de su default.
@@ -7,8 +8,19 @@
 $color-blue: #008fc2;
 $color-white: #ffffff;
 $color-sand: #f1efe8; // "gris claro" / arena
-$color-sand-dark: darken($color-sand, 6%); // arena un paso más oscura (fondos de "foto")
+$color-sand-dark: color.adjust(
+  $color-sand,
+  $lightness: -6%
+); // arena un paso más oscura (fondos de "foto")
 $color-black: #1a1a1a;
+
+// Azules de texto (antes se repetían escritos a mano en varios archivos).
+$color-azul-titulo: #123a4b; // títulos sobre fondos claros
+$color-azul-texto: #07516d; // textos y enlaces de acento
+// Azul de marca un poco más oscuro para texto pequeño y botones con letra
+// blanca: contraste 4.9:1 (el mínimo para leer bien es 4.5:1). El $color-blue
+// original (3.7:1) queda para bordes, íconos, fondos suaves y títulos grandes.
+$color-blue-texto: #0079a6;
 
 $primary: $color-blue;
 $body-bg: $color-white;
@@ -20,7 +32,7 @@ $body-color: $color-black;
 // Script (solo acentos puntuales de post — NUNCA el nombre "Opticalia"): Great Vibes.
 $font-display: "Montserrat", system-ui, sans-serif;
 $font-text: "Inter", system-ui, sans-serif;
-$font-script: "Great Vibes", cursive;
+$font-script: "Great Vibes", cursive; // sin uso por ahora: no se descarga (ver index.html)
 
 $font-family-sans-serif: $font-text; // la usa Bootstrap
 
@@ -55,7 +67,7 @@ $navbar-height: 72px;
 // Bordes finos (1.5px), nunca gruesos ni negros.
 $border-width-base: 1.5px;
 $border-color-emphasis: $color-blue;
-$border-color-subtle: darken($color-sand, 8%);
+$border-color-subtle: color.adjust($color-sand, $lightness: -8%);
 
 // Movimiento calmado: fades con easing suave, sin rebote.
 $motion-fast: 140ms;

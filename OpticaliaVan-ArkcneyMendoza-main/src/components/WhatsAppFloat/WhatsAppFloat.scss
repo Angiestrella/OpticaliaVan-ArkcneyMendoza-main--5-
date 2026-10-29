@@ -1,6 +1,8 @@
-@import "../../styles/variables";
+@use "../../styles/variables" as *;
 
-body:has(.cotizar__backdrop) .whatsapp-float { display: none; }
+body:has(.cotizar__backdrop) .whatsapp-float {
+  display: none;
+}
 
 .whatsapp-float {
   position: fixed;
@@ -11,22 +13,29 @@ body:has(.cotizar__backdrop) .whatsapp-float { display: none; }
   align-items: center;
   gap: 11px;
   padding: 7px 19px 7px 7px;
-  border: 1px solid rgba(255, 255, 255, .55);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: $radius-pill;
-  background: #128c58;
-  box-shadow: 0 8px 26px rgba(3, 49, 36, .28);
+  // Verde oscuro: el texto blanco queda con contraste 5.4:1 (mínimo 4.5:1).
+  background: #0e7a4c;
+  box-shadow: 0 8px 26px rgba(3, 49, 36, 0.28);
   color: $color-white;
   text-decoration: none;
-  transition: transform $motion-fast $motion-easing, background $motion-fast $motion-easing, box-shadow $motion-fast $motion-easing;
+  transition:
+    transform $motion-fast $motion-easing,
+    background $motion-fast $motion-easing,
+    box-shadow $motion-fast $motion-easing;
 
   &:hover {
     transform: translateY(-3px);
-    background: #0b7548;
-    box-shadow: 0 12px 30px rgba(3, 49, 36, .34);
+    background: #0a6640;
+    box-shadow: 0 12px 30px rgba(3, 49, 36, 0.34);
     color: $color-white;
   }
 
-  &:focus-visible { outline: 3px solid $color-blue; outline-offset: 4px; }
+  &:focus-visible {
+    outline: 3px solid $color-blue;
+    outline-offset: 4px;
+  }
 }
 
 .whatsapp-float__icon {
@@ -36,7 +45,7 @@ body:has(.cotizar__backdrop) .whatsapp-float { display: none; }
   flex: 0 0 48px;
   place-items: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .whatsapp-float__label {
@@ -45,12 +54,22 @@ body:has(.cotizar__backdrop) .whatsapp-float { display: none; }
   gap: 1px;
   font-size: 11px;
   line-height: 1.25;
-  opacity: .95;
+  opacity: 0.95;
 
-  strong { font-size: 14px; }
+  strong {
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 480px) {
-  .whatsapp-float { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); padding: 6px 14px 6px 6px; }
-  .whatsapp-float__icon { width: 44px; height: 44px; flex-basis: 44px; }
+  .whatsapp-float {
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    padding: 6px 14px 6px 6px;
+  }
+  .whatsapp-float__icon {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
 }

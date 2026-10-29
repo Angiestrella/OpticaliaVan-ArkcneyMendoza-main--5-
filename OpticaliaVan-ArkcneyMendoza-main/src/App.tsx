@@ -1,38 +1,36 @@
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { Navbar } from './components/Navbar/Navbar'
-import { Footer } from './components/Footer/Footer'
-import { Home } from './pages/Home/Home'
-import { Catalogo } from './pages/Catalogo/Catalogo'
-import { EncuentraTusGafas } from './pages/EncuentraTusGafas/EncuentraTusGafas'
-import { PruebaVirtual } from './pages/PruebaVirtual/PruebaVirtual'
-import { Producto } from './pages/Producto/Producto'
-import { TestGafas } from './pages/TestGafas/TestGafas'
-import { Agenda } from './pages/Agenda/Agenda'
-import { Conocenos } from './pages/Conocenos/Conocenos'
-import { WhatsAppFloat } from './components/WhatsAppFloat/WhatsAppFloat'
+import { lazy } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { Layout } from './components/Layout/Layout'
 
+// Cada página se descarga solo cuando alguien la visita (archivo aparte),
+// así la primera carga del sitio es más liviana.
+const Home = lazy(() => import('./pages/Home/Home').then((m) => ({ default: m.Home })))
+const Catalogo = lazy(() => import('./pages/Catalogo/Catalogo').then((m) => ({ default: m.Catalogo })))
+const Producto = lazy(() => import('./pages/Producto/Producto').then((m) => ({ default: m.Producto })))
+const TestGafas = lazy(() => import('./pages/TestGafas/TestGafas').then((m) => ({ default: m.TestGafas })))
+const PruebaVirtual = lazy(() => import('./pages/PruebaVirtual/PruebaVirtual').then((m) => ({ default: m.PruebaVirtual })))
+const Agenda = lazy(() => import('./pages/Agenda/Agenda').then((m) => ({ default: m.Agenda })))
+const Conocenos = lazy(() => import('./pages/Conocenos/Conocenos').then((m) => ({ default: m.Conocenos })))
+const NoEncontrada = lazy(() => import('./pages/NoEncontrada/NoEncontrada').then((m) => ({ default: m.NoEncontrada })))
+
+// Mapa de rutas del sitio. Todas van dentro de <Layout> (barra, contenido y pie).
 function App() {
-  const { pathname } = useLocation()
-
   return (
-    <>
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/encuentra-tus-gafas" element={<EncuentraTusGafas />} />
-          <Route path="/prueba-virtual" element={<PruebaVirtual />} />
-          <Route path="/producto/:id" element={<Producto />} />
-          <Route path="/que-gafas-van-contigo" element={<TestGafas />} />
-          <Route path="/agenda" element={<Agenda />} />
-          <Route path="/conocenos" element={<Conocenos />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </main>
-      <Footer />
-      {pathname !== '/agenda' && <WhatsAppFloat />}
-    </>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="catalogo" element={<Catalogo />} />
+        <Route path="producto/:id" element={<Producto />} />
+        <Route path="que-gafas-van-contigo" element={<TestGafas />} />
+        <Route path="prueba-virtual" element={<PruebaVirtual />} />
+        <Route path="agenda" element={<Agenda />} />
+        <Route path="conocenos" element={<Conocenos />} />
+        {/* La página vieja "¿Quieres realizar el test?" ahora lleva directo al test. */}
+        <Route path="encuentra-tus-gafas" element={<Navigate to="/que-gafas-van-contigo" replace />} />
+        {/* Cualquier otra dirección: aviso de página no encontrada. */}
+        <Route path="*" element={<NoEncontrada />} />
+      </Route>
+    </Routes>
   )
 }
 

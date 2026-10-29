@@ -1,61 +1,166 @@
-@import "../../styles/variables";
+@use "sass:color";
+@use "../../styles/variables" as *;
 
 // Ocupa el espacio que el navbar-hero recorre mientras se encoge hacia la
 // barra compacta — el video y el título ya no viven acá, ver Navbar.tsx/scss.
+// svh = alto real visible en celular (sin la barra del navegador); 100vh queda
+// como respaldo para navegadores que no conocen svh.
 .hero-spacer {
   height: calc(100vh - #{$navbar-height});
+  height: calc(100svh - #{$navbar-height});
 }
 
+// A todo el ancho de la página. Fondo: mujer eligiendo gafas, a la derecha; el
+// degradado claro de la izquierda deja leer el texto sin tapar a la mujer. El
+// texto queda alineado con el resto del contenido (columna de 1100 px).
 .home-discover {
-  max-width: 1100px;
-  margin: $space-8 auto;
-  padding: clamp(28px, 6vw, 64px);
-  border-radius: $radius-lg;
-  background: linear-gradient(120deg, $color-sand, rgba($color-blue, 0.11));
+  min-height: clamp(460px, 38vw, 560px);
+  margin: 0;
+  padding: clamp(48px, 6vw, 88px) max(#{$space-6}, calc((100% - 1100px) / 2));
+  background:
+    linear-gradient(
+      90deg,
+      rgba($color-sand, 0.97) 0%,
+      rgba($color-sand, 0.92) 38%,
+      rgba($color-sand, 0.35) 56%,
+      rgba($color-sand, 0) 72%
+    ),
+    url("/fondo-mujer-eligiendo-gafas.webp") right 35% / cover no-repeat;
+  background-color: $color-sand;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: $space-6;
 }
 
-.home-discover__copy { max-width: 620px; }
-.home-discover__eyebrow { color: $color-blue; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; }
-.home-discover h2 { margin-bottom: $space-3; }
-.home-discover__copy > p:not(.home-discover__eyebrow) { color: rgba($color-black, .72); }
-.home-discover__cta { display: inline-flex; gap: $space-3; align-items: center; margin-top: $space-3; padding: $space-4 $space-6; border-radius: $radius-pill; background: $color-blue; color: $color-white; font-weight: 700; text-decoration: none; }
-.home-discover__cta:hover { color: $color-white; background: darken($color-blue, 8%); }
-.home-discover__face {
-  display: flex;
-  align-items: center;
-  gap: $space-3;
-  width: fit-content;
-  max-width: 100%;
-  margin-top: $space-5;
-  padding: $space-3 $space-4;
-  border: 1px solid rgba($color-blue, .2);
-  border-radius: $radius-md;
-  background: rgba($color-white, .76);
-  color: $color-black;
-  text-decoration: none;
-  box-shadow: 0 5px 18px rgba($color-blue, .06);
-  transition: border-color $motion-fast $motion-easing, transform $motion-fast $motion-easing, box-shadow $motion-fast $motion-easing;
-
-  &:hover { transform: translateY(-2px); border-color: rgba($color-blue, .5); box-shadow: 0 9px 22px rgba($color-blue, .12); color: $color-black; }
+.home-discover__copy {
+  max-width: 620px;
 }
-.home-discover__face-icon { display: grid; width: 58px; height: 68px; flex: 0 0 58px; place-items: center; overflow: hidden; }
-.home-discover__face-icon img { display: block; width: 100%; height: 100%; object-fit: contain; }
-.home-discover__face-copy { display: flex; flex-direction: column; gap: 3px; }
-.home-discover__face-copy strong { color: #07516d; font-size: 14px; }
-.home-discover__face-copy small { color: rgba($color-black, .64); font-size: 12px; line-height: 1.4; }
-.home-discover__face-action { display: inline-flex; align-items: center; gap: $space-2; margin-left: $space-2; color: $color-blue; font-size: 13px; font-weight: 800; white-space: nowrap; }
-.home-discover__mark { color: rgba($color-blue, .35); font-size: clamp(70px, 13vw, 150px); line-height: 1; }
+.home-discover__eyebrow {
+  color: $color-blue-texto;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+}
+.home-discover h2 {
+  margin-bottom: $space-3;
+}
+.home-discover__copy > p:not(.home-discover__eyebrow) {
+  color: rgba($color-black, 0.72);
+}
+.home-discover__cta {
+  display: inline-flex;
+  gap: $space-3;
+  align-items: center;
+  padding: $space-4 $space-6;
+  border-radius: $radius-pill;
+  background: $color-blue-texto;
+  color: $color-white;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba($color-blue, 0.28);
+}
+.home-discover__cta:hover {
+  color: $color-white;
+  background: color.adjust($color-blue, $lightness: -8%);
+}
+
+// Los 4 pasos del test, como fichas pequeñas.
+.home-discover__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin: $space-5 0 $space-6;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: 5px 14px 5px 5px;
+    border: 1px solid rgba($color-blue, 0.16);
+    border-radius: $radius-pill;
+    background: rgba($color-white, 0.85);
+    color: $color-azul-titulo;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+.home-discover__step-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba($color-blue, 0.12);
+  color: $color-blue;
+}
+.home-discover__step-number {
+  color: $color-blue-texto;
+}
+
+.home-discover__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-3 $space-5;
+}
+.home-discover__time {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba($color-black, 0.62);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+// Enlace secundario, discreto: no compite con el botón principal.
+.home-discover__photo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: $space-5;
+  color: $color-azul-texto;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba($color-azul-texto, 0.3);
+  text-underline-offset: 4px;
+
+  &:hover {
+    color: $color-blue-texto;
+    text-decoration-color: currentColor;
+  }
+}
+
+// En pantallas angostas el texto ocupa todo el ancho y taparía a la mujer:
+// la foto se ve nítida arriba y se desvanece hacia el texto, que va debajo.
+@media (max-width: 760px) {
+  .home-discover {
+    padding-top: 250px;
+    background:
+      linear-gradient(
+        180deg,
+        rgba($color-sand, 0) 0,
+        rgba($color-sand, 0) 170px,
+        $color-sand 250px
+      ),
+      url("/fondo-mujer-eligiendo-gafas.webp") 75% 0 / max(100%, 600px) auto
+        no-repeat;
+    background-color: $color-sand;
+  }
+}
 
 @media (max-width: 600px) {
-  .home-discover { margin: $space-6 $space-4; }
-  .home-discover__mark { display: none; }
-  .home-discover__face { width: auto; align-items: flex-start; flex-wrap: wrap; }
-  .home-discover__face-copy { flex: 1; }
-  .home-discover__face-action { width: 100%; margin-left: 70px; }
+  .home-discover {
+    padding-inline: $space-4;
+  }
+  .home-discover__photo-link {
+    display: inline;
+  }
 }
 
 .home-section {
@@ -65,49 +170,324 @@
 .home-section__title {
   text-align: center;
   margin-bottom: $space-7;
+
+  // Línea azul que crece bajo el título cuando aparece en pantalla.
+  &::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 4px;
+    margin: 14px auto 0;
+    border-radius: 4px;
+    background: linear-gradient(90deg, $color-blue, #7fd3ef);
+    transition: width 0.9s 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+.reveal-listo .home-section__title:not(.is-visible)::after {
+  width: 0;
 }
 
+// Sección con un degradado suave, para alternar con las blancas.
+.home-section--tinted {
+  background: linear-gradient(
+    180deg,
+    $color-white 0%,
+    #eef6f9 55%,
+    #f6f2ea 100%
+  );
+}
+
+// Solo limita el ancho: las columnas las pone el grid de Bootstrap (row / col-*) en Home.tsx.
 .home-section__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: $space-6;
   max-width: 1100px;
   margin: 0 auto;
 }
 
+// ====== Prepárate para tu consulta visual ======
+// Fondo: pared crema con sombras de plantas. Texto a la izquierda y los 3 pasos
+// como lista numerada (unida por una línea) a la derecha.
 .vision-care {
   position: relative;
   overflow: hidden;
-  padding: clamp(56px, 8vw, 96px) $space-6;
-  background: linear-gradient(145deg, #f5f9fa 0%, #eef5f6 52%, #f8f4eb 100%);
-  text-align: center;
+  padding: clamp(56px, 8vw, 104px) $space-6;
+  background: url("/fondo-pared-crema.webp") center / cover no-repeat;
+  background-color: #f6eee2;
 }
-.vision-care::before, .vision-care::after {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border: 1px solid rgba($color-blue, .08);
+
+.vision-care__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 88px);
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.vision-care__eyebrow {
+  margin-bottom: $space-3;
+  color: $color-blue-texto;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.vision-care__intro h2 {
+  margin: 0 0 $space-4;
+  color: $color-azul-titulo;
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.1;
+}
+.vision-care__intro > p:not(.vision-care__eyebrow) {
+  max-width: 40ch;
+  margin: 0 0 $space-6;
+  color: rgba($color-black, 0.68);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.vision-care__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-4 $space-6;
+  border-radius: $radius-pill;
+  background: $color-blue-texto;
+  box-shadow: 0 8px 22px rgba($color-blue, 0.28);
+  color: $color-white;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color $motion-fast $motion-easing;
+
+  &:hover {
+    background: color.adjust($color-blue, $lightness: -8%);
+    color: $color-white;
+  }
+}
+
+$consulta-gap: $space-4;
+$consulta-numero: 56px;
+
+.vision-care__steps {
+  display: flex;
+  flex-direction: column;
+  gap: $consulta-gap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// Número arriba a la izquierda de cada tarjeta.
+.vision-care__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: $consulta-numero minmax(0, 1fr);
+  align-items: start;
+  gap: $space-4;
+
+  // Tramo de línea desde este número hasta el siguiente.
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: $consulta-numero;
+    bottom: -$consulta-gap;
+    left: calc(#{$consulta-numero} / 2 - 1px);
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(
+      180deg,
+      rgba($color-blue, 0.55),
+      rgba($color-blue, 0.2)
+    );
+    transform-origin: top;
+  }
+}
+
+.vision-care__number {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: $consulta-numero;
+  height: $consulta-numero;
+  place-items: center;
+  border: 2px solid rgba($color-blue, 0.25);
   border-radius: 50%;
-  content: '';
-  pointer-events: none;
+  background: $color-white;
+  box-shadow: 0 6px 16px rgba(13, 57, 76, 0.1);
+  color: $color-blue-texto;
+  font-family: $font-display;
+  font-size: 17px;
+  font-weight: 800;
+
+  // Onda que sale del número cuando aparece.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border: 2px solid $color-blue;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
 }
-.vision-care::before { top: -205px; left: -100px; box-shadow: 0 0 0 28px rgba($color-blue, .025), 0 0 0 58px rgba($color-blue, .02); }
-.vision-care::after { right: -130px; bottom: -225px; box-shadow: 0 0 0 28px rgba($color-blue, .025), 0 0 0 58px rgba($color-blue, .02); }
-.vision-care__intro { position: relative; z-index: 1; max-width: 650px; margin: 0 auto $space-7; }
-.vision-care__eyebrow { margin-bottom: $space-3; color: $color-blue; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.vision-care__intro h2 { margin: 0 auto $space-3; color: #123a4b; font-size: clamp(30px, 4vw, 44px); line-height: 1.12; }
-.vision-care__intro > p:last-child { max-width: 560px; margin: 0 auto; color: rgba($color-black, .66); font-size: 16px; line-height: 1.65; }
-.vision-care__cards { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: $space-5; width: min(1100px, 100%); margin: 0 auto; text-align: left; }
-.vision-care__card { position: relative; min-height: 250px; padding: clamp(24px, 3vw, 34px); border: 1px solid rgba($color-blue, .1); border-radius: $radius-lg; background: rgba($color-white, .88); box-shadow: 0 16px 42px rgba(13, 57, 76, .07); transition: transform .22s ease, box-shadow .22s ease; }
-.vision-care__card:hover { transform: translateY(-5px); box-shadow: 0 22px 48px rgba(13, 57, 76, .12); }
-.vision-care__card--featured { background: linear-gradient(150deg, #fff 0%, #eaf5f8 100%); }
-.vision-care__icon { display: grid; width: 50px; height: 50px; place-items: center; border-radius: 16px; background: rgba($color-blue, .1); color: $color-blue; }
-.vision-care__step { position: absolute; top: 26px; right: 28px; color: rgba($color-blue, .2); font-size: 27px; font-weight: 800; }
-.vision-care__card h3 { margin: $space-5 0 $space-2; color: #123a4b; font-size: 20px; }
-.vision-care__card p { margin: 0; color: rgba($color-black, .66); font-size: 14px; line-height: 1.65; }
-@media (max-width: 760px) {
-  .vision-care__cards { grid-template-columns: 1fr; max-width: 480px; }
-  .vision-care__card { min-height: auto; }
+
+// ---- Animación en secuencia (data-reveal="secuencia") ----
+// 01 aparece → la línea baja hasta el 02 → aparece el 02 → la línea baja → 03.
+// Cada paso dura $consulta-paso; --i (0, 1, 2) lo pone Home.tsx.
+$consulta-paso: 0.85s;
+
+.reveal-listo .vision-care__steps.is-visible {
+  animation: none;
+} // la lista no se mueve; se animan sus partes
+
+.reveal-listo .vision-care__steps:not(.is-visible) {
+  .vision-care__number,
+  .vision-care__card {
+    opacity: 0;
+  }
+  .vision-care__step::after {
+    transform: scaleY(0);
+  }
+}
+
+.reveal-listo .vision-care__steps.is-visible {
+  .vision-care__number {
+    animation: consulta-numero 0.55s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+    animation-delay: calc(0.25s + var(--i) * #{$consulta-paso});
+  }
+
+  .vision-care__number::after {
+    animation: consulta-onda 0.9s ease-out both;
+    animation-delay: calc(0.35s + var(--i) * #{$consulta-paso});
+  }
+
+  .vision-care__step::after {
+    animation: consulta-linea 0.5s ease-in-out both;
+    animation-delay: calc(0.6s + var(--i) * #{$consulta-paso});
+  }
+
+  .vision-care__card {
+    animation: consulta-tarjeta 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(0.35s + var(--i) * #{$consulta-paso});
+  }
+}
+
+@keyframes consulta-numero {
+  0% {
+    opacity: 0;
+    scale: 0.4;
+  }
+  60% {
+    opacity: 1;
+    scale: 1.12;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes consulta-onda {
+  from {
+    opacity: 0.6;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 1.7;
+  }
+}
+
+@keyframes consulta-linea {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes consulta-tarjeta {
+  from {
+    opacity: 0;
+    translate: 24px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.vision-care__card {
+  padding: $space-5 $space-6;
+  border: 1px solid rgba($color-blue, 0.1);
+  border-radius: $radius-lg;
+  background: rgba($color-white, 0.9);
+  box-shadow: 0 12px 32px rgba(13, 57, 76, 0.07);
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.25s ease;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin: 0 0 $space-2;
+    color: $color-azul-titulo;
+    font-size: 18px;
+  }
+  p {
+    margin: 0;
+    color: rgba($color-black, 0.66);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+.vision-care__step:hover .vision-care__card {
+  transform: translateX(6px);
+  box-shadow: 0 18px 40px rgba(13, 57, 76, 0.12);
+}
+
+.vision-care__icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 11px;
+  background: rgba($color-blue, 0.1);
+  color: $color-blue;
+}
+
+@media (max-width: 860px) {
+  .vision-care__inner {
+    grid-template-columns: 1fr;
+  }
+  .vision-care__intro > p:not(.vision-care__eyebrow) {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-care {
+    padding-inline: $space-4;
+  }
+  .vision-care__step {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: $space-3;
+  }
+  .vision-care__step:not(:last-child)::after {
+    top: 44px;
+    left: 21px;
+  }
+  .vision-care__number {
+    width: 44px;
+    height: 44px;
+    font-size: 15px;
+  }
+  .vision-care__card {
+    padding: $space-4;
+  }
 }
 
 // Antes era un fondo con "cover" a una altura fija (60vh): como esa altura no
@@ -123,21 +503,30 @@
   background-color: $color-sand; // se ve un instante mientras carga la foto
   line-height: normal;
 
+  // Un poco más alta que la sección para que el efecto de profundidad
+  // (useParallax mueve --parallax al bajar) nunca deje bordes vacíos.
   img {
     position: absolute;
-    inset: 0;
+    inset: -14% 0;
     display: block;
     width: 100%;
-    height: 100%;
+    height: 128%;
     object-fit: cover;
     object-position: center 48%;
+    translate: 0 var(--parallax, 0px);
+    will-change: translate;
   }
 }
 
 .optica-photo__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, rgba(3, 49, 72, .58) 0%, rgba(0, 108, 151, .32) 43%, rgba(0, 143, 194, .04) 100%);
+  background: linear-gradient(
+    105deg,
+    rgba(3, 49, 72, 0.58) 0%,
+    rgba(0, 108, 151, 0.32) 43%,
+    rgba(0, 143, 194, 0.04) 100%
+  );
 }
 
 .optica-photo__content {
@@ -148,8 +537,19 @@
   padding: clamp(40px, 7vw, 84px) $space-6;
   color: $color-white;
 
-  h2 { max-width: 560px; margin: $space-3 0; font-size: clamp(34px, 5.2vw, 60px); line-height: 1.06; }
-  > p:not(.optica-photo__eyebrow) { max-width: 450px; margin-bottom: $space-4; color: rgba($color-white, .9); font-size: 17px; line-height: 1.6; }
+  h2 {
+    max-width: 560px;
+    margin: $space-3 0;
+    font-size: clamp(34px, 5.2vw, 60px);
+    line-height: 1.06;
+  }
+  > p:not(.optica-photo__eyebrow) {
+    max-width: 450px;
+    margin-bottom: $space-4;
+    color: rgba($color-white, 0.9);
+    font-size: 17px;
+    line-height: 1.6;
+  }
 }
 
 .optica-photo__eyebrow {
@@ -157,7 +557,7 @@
   color: #bdeeff;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: .13em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
@@ -171,9 +571,18 @@
   color: #06435d;
   font-weight: 800;
   text-decoration: none;
-  transition: transform $motion-fast $motion-easing, background $motion-fast $motion-easing;
-  &:hover { transform: translateY(-2px); background: $color-sand; color: #06435d; }
-  &:focus-visible { outline: 3px solid #bdeeff; outline-offset: 3px; }
+  transition:
+    transform $motion-fast $motion-easing,
+    background $motion-fast $motion-easing;
+  &:hover {
+    transform: translateY(-2px);
+    background: $color-sand;
+    color: #06435d;
+  }
+  &:focus-visible {
+    outline: 3px solid #bdeeff;
+    outline-offset: 3px;
+  }
 }
 
 .optica-banner {
@@ -184,13 +593,25 @@
   overflow: hidden;
   background: $color-black;
 
-  > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+  > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+  }
 }
 
 .optica-banner__veil {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba($color-black, .78) 0%, rgba($color-black, .48) 46%, rgba($color-black, .06) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba($color-black, 0.78) 0%,
+    rgba($color-black, 0.48) 46%,
+    rgba($color-black, 0.06) 100%
+  );
 }
 
 .optica-banner__content {
@@ -200,19 +621,33 @@
   margin: 0 auto;
   padding: clamp(36px, 7vw, 88px) $space-6;
   color: $color-white;
-  h2 { max-width: 540px; margin: $space-3 0; font-size: clamp(34px, 5vw, 58px); line-height: 1.05; }
-  > p:not(.optica-banner__eyebrow) { max-width: 470px; color: rgba($color-white, .88); font-size: 17px; line-height: 1.65; }
+  h2 {
+    max-width: 540px;
+    margin: $space-3 0;
+    font-size: clamp(34px, 5vw, 58px);
+    line-height: 1.05;
+  }
+  > p:not(.optica-banner__eyebrow) {
+    max-width: 470px;
+    color: rgba($color-white, 0.88);
+    font-size: 17px;
+    line-height: 1.65;
+  }
 }
 
-.optica-banner__eyebrow, .home-help__eyebrow {
+.optica-banner__eyebrow,
+.home-help__eyebrow {
   margin: 0;
-  color: $color-blue;
+  color: $color-blue-texto;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.optica-banner__eyebrow { color: $color-white; opacity: .85; }
+.optica-banner__eyebrow {
+  color: $color-white;
+  opacity: 0.85;
+}
 
 .optica-banner__cta {
   display: inline-flex;
@@ -222,11 +657,17 @@
   padding: $space-4 $space-6;
   border-radius: $radius-pill;
   background: $color-white;
-  color: $color-blue;
+  color: $color-blue-texto;
   font-weight: 800;
   text-decoration: none;
-  transition: transform .2s ease, background .2s ease;
-  &:hover { transform: translateY(-2px); background: $color-sand; color: $color-blue; }
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    background: $color-sand;
+    color: $color-blue-texto;
+  }
 }
 
 .home-help {
@@ -241,23 +682,70 @@
   position: relative;
   min-height: 280px;
   padding: clamp(24px, 3vw, 38px);
-  border: 1px solid rgba($color-blue, .1);
+  border: 1px solid rgba($color-blue, 0.1);
   border-radius: $radius-lg;
   background: $color-white;
-  box-shadow: 0 14px 40px rgba($color-black, .06);
-  h2 { margin: $space-3 0; font-size: 23px; line-height: 1.2; }
-  > p:not(.home-help__eyebrow) { color: rgba($color-black, .68); line-height: 1.6; }
-  a { display: inline-flex; gap: $space-2; margin-top: $space-3; color: $color-blue; font-weight: 800; text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  box-shadow: 0 14px 40px rgba($color-black, 0.06);
+  h2 {
+    margin: $space-3 0;
+    font-size: 23px;
+    line-height: 1.2;
+  }
+  > p:not(.home-help__eyebrow) {
+    color: rgba($color-black, 0.68);
+    line-height: 1.6;
+  }
+  a {
+    display: inline-flex;
+    gap: $space-2;
+    margin-top: $space-3;
+    color: $color-blue-texto;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 }
-.home-help__number { position: absolute; top: 20px; right: 24px; color: rgba($color-blue, .14); font-size: 38px; font-weight: 800; }
-.home-help__card--quiz { background: linear-gradient(145deg, $color-sand, $color-white 78%); }
-.home-help__card--catalog { background: linear-gradient(145deg, rgba($color-blue, .12), $color-white 78%); }
-.home-help__card--appointment { background: linear-gradient(145deg, rgba($color-blue, .08), $color-sand); }
+.home-help__number {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  color: rgba($color-blue, 0.14);
+  font-size: 38px;
+  font-weight: 800;
+}
+.home-help__card--quiz {
+  background: linear-gradient(145deg, $color-sand, $color-white 78%);
+}
+.home-help__card--catalog {
+  background: linear-gradient(
+    145deg,
+    rgba($color-blue, 0.12),
+    $color-white 78%
+  );
+}
+.home-help__card--appointment {
+  background: linear-gradient(145deg, rgba($color-blue, 0.08), $color-sand);
+}
 
 @media (max-width: 760px) {
-  .home-help { grid-template-columns: 1fr; padding-top: $space-6; padding-bottom: $space-6; }
-  .home-help__card { min-height: auto; }
-  .optica-banner { min-height: 430px; }
-  .optica-banner__veil { background: linear-gradient(90deg, rgba($color-black, .76), rgba($color-black, .35)); }
+  .home-help {
+    grid-template-columns: 1fr;
+    padding-top: $space-6;
+    padding-bottom: $space-6;
+  }
+  .home-help__card {
+    min-height: auto;
+  }
+  .optica-banner {
+    min-height: 430px;
+  }
+  .optica-banner__veil {
+    background: linear-gradient(
+      90deg,
+      rgba($color-black, 0.76),
+      rgba($color-black, 0.35)
+    );
+  }
 }

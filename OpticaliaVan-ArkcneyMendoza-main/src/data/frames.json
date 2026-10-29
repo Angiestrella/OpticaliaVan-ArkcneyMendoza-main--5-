@@ -13,75 +13,75 @@
       {
         "id": "azul",
         "label": "Azul",
-        "image": "/gafas/diseno-1-azul.png",
+        "image": "/gafas/diseno-1-azul.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-1-azul.png"
+            "image": "/gafas/diseno-1-azul.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-1-azul.png"
+            "image": "/gafas/diseno-1-azul.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-1-azul.png"
+            "image": "/gafas/diseno-1-azul.webp"
           }
         ]
       },
       {
         "id": "negro",
         "label": "Negro",
-        "image": "/gafas/diseno-1-negro.png",
+        "image": "/gafas/diseno-1-negro.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-1-negro.png"
+            "image": "/gafas/diseno-1-negro.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-1-negro.png"
+            "image": "/gafas/diseno-1-negro.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-1-negro.png"
+            "image": "/gafas/diseno-1-negro.webp"
           }
         ]
       },
       {
         "id": "oliva",
         "label": "Oliva",
-        "image": "/gafas/diseno-1-oliva.png",
+        "image": "/gafas/diseno-1-oliva.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-1-oliva.png"
+            "image": "/gafas/diseno-1-oliva.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-1-oliva.png"
+            "image": "/gafas/diseno-1-oliva.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-1-oliva.png"
+            "image": "/gafas/diseno-1-oliva.webp"
           }
         ]
       }
@@ -101,75 +101,75 @@
       {
         "id": "cafe",
         "label": "Café",
-        "image": "/gafas/diseno-2-cafe.png",
+        "image": "/gafas/diseno-2-cafe.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-2-cafe.png"
+            "image": "/gafas/diseno-2-cafe.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-2-cafe.png"
+            "image": "/gafas/diseno-2-cafe.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-2-cafe.png"
+            "image": "/gafas/diseno-2-cafe.webp"
           }
         ]
       },
       {
         "id": "morado",
         "label": "Morado",
-        "image": "/gafas/diseno-2-morado.png",
+        "image": "/gafas/diseno-2-morado.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-2-morado.png"
+            "image": "/gafas/diseno-2-morado.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-2-morado.png"
+            "image": "/gafas/diseno-2-morado.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-2-morado.png"
+            "image": "/gafas/diseno-2-morado.webp"
           }
         ]
       },
       {
         "id": "verde",
         "label": "Verde",
-        "image": "/gafas/diseno-2-verde.png",
+        "image": "/gafas/diseno-2-verde.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-2-verde.png"
+            "image": "/gafas/diseno-2-verde.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-2-verde.png"
+            "image": "/gafas/diseno-2-verde.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-2-verde.png"
+            "image": "/gafas/diseno-2-verde.webp"
           }
         ]
       }
@@ -189,50 +189,50 @@
       {
         "id": "dorado",
         "label": "Dorado",
-        "image": "/gafas/diseno-3-dorado.png",
+        "image": "/gafas/diseno-3-dorado.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-3-dorado.png"
+            "image": "/gafas/diseno-3-dorado.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-3-dorado.png"
+            "image": "/gafas/diseno-3-dorado.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-3-dorado.png"
+            "image": "/gafas/diseno-3-dorado.webp"
           }
         ]
       },
       {
         "id": "negro",
         "label": "Negro",
-        "image": "/gafas/diseno-3-negro.png",
+        "image": "/gafas/diseno-3-negro.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-3-negro.png"
+            "image": "/gafas/diseno-3-negro.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-3-negro.png"
+            "image": "/gafas/diseno-3-negro.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-3-negro.png"
+            "image": "/gafas/diseno-3-negro.webp"
           }
         ]
       }
@@ -252,50 +252,50 @@
       {
         "id": "cafe",
         "label": "Café",
-        "image": "/gafas/diseno-4-cafe.png",
+        "image": "/gafas/diseno-4-cafe.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-4-cafe.png"
+            "image": "/gafas/diseno-4-cafe.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-4-cafe.png"
+            "image": "/gafas/diseno-4-cafe.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-4-cafe.png"
+            "image": "/gafas/diseno-4-cafe.webp"
           }
         ]
       },
       {
         "id": "morado",
         "label": "Morado",
-        "image": "/gafas/diseno-4-morado.png",
+        "image": "/gafas/diseno-4-morado.webp",
         "photos": [
           {
             "label": "Frontal",
             "placeholder": true,
             "id": "frontal",
-            "image": "/gafas/diseno-4-morado.png"
+            "image": "/gafas/diseno-4-morado.webp"
           },
           {
             "label": "Vista ¾",
             "placeholder": true,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-4-morado.png"
+            "image": "/gafas/diseno-4-morado.webp"
           },
           {
             "label": "Lateral",
             "placeholder": true,
             "id": "lateral",
-            "image": "/gafas/diseno-4-morado.png"
+            "image": "/gafas/diseno-4-morado.webp"
           }
         ]
       }

@@ -2,26 +2,39 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon-opticalia.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon-opticalia.png" />
+    <link rel="apple-touch-icon" href="/favicon-opticalia.png" />
+    <meta name="theme-color" content="#0079a6" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
-          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
-        }
-      }
-    </script>
+    <!-- Fuentes sin bloquear la carga: el texto aparece de una vez con la fuente
+         del sistema y cambia a Montserrat/Inter cuando llegan. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@500;600&family=Great+Vibes&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@500;600&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <title>Opticalia</title>
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@500;600&display=swap"
+      />
+    </noscript>
+    <!-- seo:inicio · Al publicar, scripts/seo-estatico.mjs cambia este bloque por las
+         etiquetas de cada página (título, descripción, vista previa, datos estructurados).
+         Mientras se usa la página, utils/useSeo.ts las actualiza al cambiar de página. -->
+    <title>Opticalia Van-Arcken &amp; Mendoza | Gafas y salud visual en Envigado</title>
+    <meta
+      name="description"
+      content="Óptica en Jumbo Las Vegas, Envigado. Mira monturas y gafas de sol, haz el test de estilo, pruébatelas con la cámara y agenda tu examen visual."
+    />
+    <!-- seo:fin -->
   </head>
   <body>
     <div id="root"></div>
+    <!-- seo:sin-javascript -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

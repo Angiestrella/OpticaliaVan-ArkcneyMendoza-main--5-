@@ -30,3 +30,32 @@ export interface ColorOption {
   label: string
   hex: string
 }
+
+// lens-options.json
+export interface OpcionLente {
+  id: string
+  label: string
+  price: number
+  descripcion: string
+}
+
+export interface TinteTerapeutico {
+  id: string
+  nombre: string
+  color: string
+  swatch: string
+  uso: string
+  detalle: string
+}
+
+export interface OpcionesLente {
+  materiales: OpcionLente[]
+  filtros: OpcionLente[]
+  tintes: TinteTerapeutico[]
+}
+
+// contact.json
+export interface Contacto {
+  whatsapp: string
+  tiempoRespuesta: string
+}

@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { asset } from '../../utils/asset'
+import { crearDetectorRostro, type DetectorRostro } from '../../utils/detectorRostro'
 import './FaceShapeUpload.scss'
 
 type FaceShape = 'redondo' | 'ovalado' | 'rectangular' | 'diamante' | 'corazon' | 'triangular'
@@ -14,10 +15,6 @@ function distancia(a: { x: number; y: number }, b: { x: number; y: number }) {
 }
 
 type Landmark = { x: number; y: number }
-type FaceDetector = {
-  detect: (image: ImageBitmap) => { faceLandmarks?: Landmark[][] }
-  close: () => void
-}
 type PerfilRostro = { forma: FaceShape; medidas: number[] }
 
 const imagenesReferencia: Array<{ forma: FaceShape; src: string }> = [
@@ -39,7 +36,7 @@ function medir(p: Landmark[]): number[] {
 
 let perfilesReferencia: Promise<PerfilRostro[]> | null = null
 
-function cargarPerfilesReferencia(detector: FaceDetector) {
+function cargarPerfilesReferencia(detector: DetectorRostro) {
   if (!perfilesReferencia) {
     perfilesReferencia = Promise.all(imagenesReferencia.map(async ({ forma, src }) => {
       const response = await fetch(asset(src))
@@ -51,12 +48,18 @@ function cargarPerfilesReferencia(detector: FaceDetector) {
       } finally {
         bitmap.close()
       }
-    })).then((perfiles) => perfiles.filter((perfil): perfil is PerfilRostro => perfil !== null))
+    }))
+      .then((perfiles) => perfiles.filter((perfil): perfil is PerfilRostro => perfil !== null))
+      .catch((error: unknown) => {
+        // Si falla (por ejemplo, sin internet), se olvida: el próximo intento vuelve a cargar.
+        perfilesReferencia = null
+        throw error
+      })
   }
   return perfilesReferencia
 }
 
-async function clasificar(p: Landmark[], detector: FaceDetector): Promise<FaceShape> {
+async function clasificar(p: Landmark[], detector: DetectorRostro): Promise<FaceShape> {
   const medidas = medir(p)
   // Clasifica comparando las proporciones con los retratos de referencia.
   const perfiles = await cargarPerfilesReferencia(detector)
@@ -76,54 +79,93 @@ export function FaceShapeUpload({ onSelect, onManual }: { onSelect: (shape: Face
   const [shape, setShape] = useState<FaceShape | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const previewRef = useRef<string | null>(null)
 
-  useEffect(() => {
-    if (!file) { setPreview(null); return }
-    const url = URL.createObjectURL(file)
-    setPreview(url)
-    return () => URL.revokeObjectURL(url)
-  }, [file])
+  // La vista previa se crea al elegir la foto (en el evento, no en un efecto)
+  // y la URL temporal anterior se libera para no gastar memoria.
+  function elegirFoto(archivo: File | null) {
+    if (previewRef.current) URL.revokeObjectURL(previewRef.current)
+    previewRef.current = archivo ? URL.createObjectURL(archivo) : null
+    setFile(archivo)
+    setPreview(previewRef.current)
+  }
+
+  // Al salir de esta pantalla también se libera la última vista previa.
+  useEffect(() => () => {
+    if (previewRef.current) URL.revokeObjectURL(previewRef.current)
+  }, [])
 
   async function analizar() {
     if (!file) return
-    setLoading(true); setError(''); setShape(null)
+    setLoading(true)
+    setError('')
+    setShape(null)
     let bitmap: ImageBitmap | null = null
-    let landmarker: FaceDetector | null = null
+    let detector: DetectorRostro | null = null
     try {
       bitmap = await createImageBitmap(file)
-      const url = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.1/vision_bundle.mjs'
-      const { FilesetResolver, FaceLandmarker } = await import(/* @vite-ignore */ url)
-      const vision = await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.1/wasm')
-      const faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
-        baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task' },
-        runningMode: 'IMAGE', numFaces: 2,
-      })
-      landmarker = faceLandmarker
-      const result = faceLandmarker.detect(bitmap)
+      // Hasta 2 rostros: así se puede avisar si en la foto aparece más de una persona.
+      detector = await crearDetectorRostro('IMAGE', 2)
+      const result = detector.detect(bitmap)
       if (!result.faceLandmarks?.length) setError('No encontramos un rostro. Prueba con una foto frontal, bien iluminada y sin gafas oscuras.')
       else if (result.faceLandmarks.length > 1) setError('La foto muestra más de un rostro. Sube una imagen donde aparezcas solo tú.')
-      else setShape(await clasificar(result.faceLandmarks[0], faceLandmarker))
+      else setShape(await clasificar(result.faceLandmarks[0], detector))
     } catch {
       setError('No pudimos analizar la foto. Revisa tu conexión e inténtalo de nuevo, o elige la forma manualmente.')
     } finally {
-      landmarker?.close(); bitmap?.close(); setLoading(false)
+      detector?.close()
+      bitmap?.close()
+      setLoading(false)
     }
   }
 
-  return <div className="face-upload">
-    <h1>Identifica tu tipo de rostro con una foto</h1>
-    <p className="test-gafas__hint">Sube una foto frontal, con buena luz y sin otras personas. Comparamos las proporciones de tu rostro con los retratos de referencia. La foto se analiza en este dispositivo y no se guarda.</p>
-    <label className="face-upload__picker"><span>{file ? 'Cambiar foto' : 'Elegir una foto'}</span>
-      <input type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => {
-        const selected = event.target.files?.[0] ?? null
-        if (selected && selected.size > 10 * 1024 * 1024) { setError('La foto debe pesar menos de 10 MB.'); event.currentTarget.value = ''; return }
-        setFile(selected); setShape(null); setError('')
-      }} />
-    </label>
-    {preview && <img className="face-upload__preview" src={preview} alt="Vista previa de tu foto" />}
-    {file && <button type="button" className="test-gafas__next" onClick={analizar} disabled={loading}>{loading ? 'Analizando foto…' : 'Identificar mi rostro'}</button>}
-    {error && <p className="face-upload__error" role="alert">{error}</p>}
-    {shape && <div className="face-upload__result" role="status"><p>Por las proporciones medidas, tu rostro parece ser <strong>{labels[shape]}</strong>.</p><small>Es una estimación: la pose, el cabello y la iluminación pueden influir. Puedes elegir otra forma manualmente.</small><button type="button" className="test-gafas__next" onClick={() => onSelect(shape)}>Continuar con esta forma</button></div>}
-    <button type="button" className="test-gafas__restart face-upload__manual" onClick={onManual}>Prefiero elegir mi rostro manualmente</button>
-  </div>
+  function alElegirArchivo(event: ChangeEvent<HTMLInputElement>) {
+    const elegido = event.target.files?.[0] ?? null
+    if (elegido && elegido.size > 10 * 1024 * 1024) {
+      setError('La foto debe pesar menos de 10 MB.')
+      event.currentTarget.value = ''
+      return
+    }
+    elegirFoto(elegido)
+    setShape(null)
+    setError('')
+  }
+
+  return (
+    <div className="face-upload">
+      <h1>Identifica tu tipo de rostro con una foto</h1>
+      <p className="test-gafas__hint">
+        Sube una foto frontal, con buena luz y sin otras personas. Comparamos las proporciones de tu rostro
+        con los retratos de referencia. La foto se analiza en este dispositivo y no se guarda.
+      </p>
+
+      <label className="face-upload__picker">
+        <span>{file ? 'Cambiar foto' : 'Elegir una foto'}</span>
+        <input type="file" accept="image/jpeg,image/png,image/webp" onChange={alElegirArchivo} />
+      </label>
+
+      {preview && <img className="face-upload__preview" src={preview} alt="Vista previa de tu foto" />}
+      {file && (
+        <button type="button" className="test-gafas__next" onClick={analizar} disabled={loading}>
+          {loading ? 'Analizando foto…' : 'Identificar mi rostro'}
+        </button>
+      )}
+      {error && <p className="face-upload__error" role="alert">{error}</p>}
+
+      {shape && (
+        <div className="face-upload__result">
+          {/* <output>: resultado que el lector de pantalla anuncia apenas aparece. */}
+          <output>Por las proporciones medidas, tu rostro parece ser <strong>{labels[shape]}</strong>.</output>
+          <small>Es una estimación: la pose, el cabello y la iluminación pueden influir. Puedes elegir otra forma manualmente.</small>
+          <button type="button" className="test-gafas__next" onClick={() => onSelect(shape)}>
+            Continuar con esta forma
+          </button>
+        </div>
+      )}
+
+      <button type="button" className="test-gafas__restart face-upload__manual" onClick={onManual}>
+        Prefiero elegir mi rostro manualmente
+      </button>
+    </div>
+  )
 }

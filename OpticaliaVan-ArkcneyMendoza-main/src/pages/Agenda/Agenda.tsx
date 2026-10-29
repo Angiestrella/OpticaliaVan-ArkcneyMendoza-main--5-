@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import {
   Calendar,
   Check,
@@ -12,19 +12,21 @@ import {
   Sunset,
   User,
 } from 'lucide-react'
-import contact from '../../data/contact.json'
+import { contacto } from '../../data'
+import { alternar } from '../../utils/alternar'
 import { formatLongDate, toInputDate } from '../../utils/formatDate'
 import { buildWhatsappUrl } from '../../utils/whatsapp'
+import { GrupoOpciones, type OpcionAgenda } from './GrupoOpciones'
 import './Agenda.scss'
 
-const necesidades = [
+const necesidades: OpcionAgenda[] = [
   { id: 'examen', label: 'Examen visual', Icon: Eye },
   { id: 'gafas', label: 'Comprar gafas', Icon: Glasses },
   { id: 'lentes-contacto', label: 'Lentes de contacto', Icon: Droplet },
   { id: 'control', label: 'Control / seguimiento', Icon: RefreshCw },
 ]
 
-const horarios = [
+const horarios: OpcionAgenda[] = [
   { id: 'manana', label: 'Mañana', Icon: Sun },
   { id: 'tarde', label: 'Tarde', Icon: Sunset },
   { id: 'sin-preferencia', label: 'Sin preferencia', Icon: Clock },
@@ -41,20 +43,29 @@ export function Agenda() {
   const [mensaje, setMensaje] = useState('')
 
   function toggleNecesidad(id: string) {
-    setNecesidadIds((actuales) =>
-      actuales.includes(id) ? actuales.filter((n) => n !== id) : [...actuales, id],
-    )
+    setNecesidadIds((actuales) => alternar(actuales, id))
   }
 
   const necesidadesElegidas = necesidades.filter((n) => necesidadIds.includes(n.id))
   const horario = horarios.find((h) => h.id === horarioId)
   const puedeContinuarDatos = nombre.trim().length > 0 && necesidadesElegidas.length > 0
-  const puedeContinuarPreferencias = Boolean(fecha && horario)
+  // El atributo min del calendario no impide escribir una fecha pasada a mano:
+  // por eso también se valida aquí (las fechas "AAAA-MM-DD" se comparan como texto).
+  const hoy = toInputDate(new Date())
+  const fechaValida = fecha !== '' && fecha >= hoy
+  const puedeContinuarPreferencias = Boolean(fechaValida && horario)
+
+  // Enter dentro del formulario avanza al siguiente paso (si ya se puede).
+  function alEnviar(e: FormEvent) {
+    e.preventDefault()
+    if (paso === 1 && puedeContinuarDatos) setPaso(2)
+    else if (paso === 2 && puedeContinuarPreferencias) setPaso(3)
+  }
 
   // Solo hay mensaje (y botón activo) cuando están los 4 datos obligatorios;
   // la nota del final es la única parte opcional.
   const mensajeWhatsapp =
-    nombre.trim() && necesidadesElegidas.length > 0 && fecha && horario
+    nombre.trim() && necesidadesElegidas.length > 0 && fechaValida && horario
       ? [
           'Hola, quiero agendar una cita.',
           `• Nombre: ${nombre.trim()}`,
@@ -70,7 +81,7 @@ export function Agenda() {
 
   return (
     <section className="agenda">
-      <div className="agenda__card">
+      <form className="agenda__card" onSubmit={alEnviar} noValidate>
         <header className="agenda__header">
           <h1>Agenda tu cita</h1>
           <p className="agenda__intro">
@@ -79,7 +90,7 @@ export function Agenda() {
           </p>
         </header>
 
-        <p className="agenda__notice">Enviarás una solicitud por WhatsApp. La cita queda confirmada cuando el equipo te responda con la disponibilidad.</p>
+        <p className="agenda__notice">Enviarás una solicitud por WhatsApp. La cita queda confirmada cuando el equipo te responda con la disponibilidad. <strong>Te respondemos en {contacto.tiempoRespuesta}.</strong></p>
 
         <ol className="agenda__progress" aria-label="Progreso del agendamiento">
           {['Tus datos', 'Día y horario', 'Confirmación'].map((titulo, index) => (
@@ -95,17 +106,18 @@ export function Agenda() {
         <div className="agenda__section">
           <div className="agenda__section-head">
             <span className="agenda__step">1</span>
-            <h2>¿Cómo te llamas?</h2>
+            <h2><label htmlFor="agenda-nombre">¿Cómo te llamas?</label></h2>
           </div>
           <div className="agenda__field">
             <User className="agenda__field-icon" size={18} strokeWidth={1.8} />
             <input
+              id="agenda-nombre"
+              name="nombre"
               type="text"
               autoComplete="name"
-              aria-required="true"
+              required
               className="agenda__input"
               placeholder="Tu nombre"
-              aria-label="¿Cómo te llamas?"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
@@ -115,27 +127,14 @@ export function Agenda() {
         <div className="agenda__section">
           <div className="agenda__section-head">
             <span className="agenda__step">2</span>
-            <h2>¿Qué necesitas?</h2>
+            <h2 id="agenda-necesidades">¿Qué necesitas?</h2>
           </div>
-          <div className="agenda__options">
-            {necesidades.map(({ id, label, Icon }) => (
-              <button
-                key={id}
-                type="button"
-                aria-pressed={necesidadIds.includes(id)}
-                className={`agenda__option ${necesidadIds.includes(id) ? 'agenda__option--selected' : ''}`}
-                onClick={() => toggleNecesidad(id)}
-              >
-                {necesidadIds.includes(id) && (
-                  <span className="agenda__option-check">
-                    <Check size={11} strokeWidth={3} />
-                  </span>
-                )}
-                <Icon size={22} strokeWidth={1.8} />
-                <span>{label}</span>
-              </button>
-            ))}
-          </div>
+          <GrupoOpciones
+            tituloId="agenda-necesidades"
+            opciones={necesidades}
+            elegidas={necesidadIds}
+            onElegir={toggleNecesidad}
+          />
         </div>
 
         </div>}
@@ -144,7 +143,7 @@ export function Agenda() {
         <div className="agenda__section">
           <div className="agenda__section-head">
             <span className="agenda__step">3</span>
-            <h2>¿Qué día te gustaría venir?</h2>
+            <h2><label htmlFor="agenda-fecha">¿Qué día te gustaría venir?</label></h2>
           </div>
           <div className="agenda__field">
             <Calendar
@@ -153,41 +152,38 @@ export function Agenda() {
               strokeWidth={1.8}
             />
             <input
+              id="agenda-fecha"
+              name="fecha"
               type="date"
               required
               className="agenda__input"
-              aria-label="¿Qué día te gustaría venir?"
               value={fecha}
-              min={toInputDate(new Date())}
+              min={hoy}
+              aria-invalid={fecha !== '' && !fechaValida}
+              aria-describedby={fecha !== '' && !fechaValida ? 'agenda-fecha-error' : undefined}
               onChange={(e) => setFecha(e.target.value)}
             />
           </div>
+          {fecha !== '' && !fechaValida && (
+            <p id="agenda-fecha-error" className="agenda__error" role="alert">Elige una fecha de hoy en adelante.</p>
+          )}
         </div>
 
         <div className="agenda__section">
           <div className="agenda__section-head">
             <span className="agenda__step">4</span>
-            <h2>¿Qué horario prefieres?</h2>
+            <h2 id="agenda-horario">¿Qué horario prefieres?</h2>
           </div>
-          <div className="agenda__options">
-            {horarios.map(({ id, label, Icon }) => (
-              <button
-                key={id}
-                type="button"
-                aria-pressed={horarioId === id}
-                className={`agenda__option ${horarioId === id ? 'agenda__option--selected' : ''}`}
-                onClick={() => setHorarioId(id)}
-              >
-                {horarioId === id && (
-                  <span className="agenda__option-check">
-                    <Check size={11} strokeWidth={3} />
-                  </span>
-                )}
-                <Icon size={22} strokeWidth={1.8} />
-                <span>{label}</span>
-              </button>
-            ))}
-          </div>
+          <GrupoOpciones
+            tituloId="agenda-horario"
+            opciones={horarios}
+            elegidas={horarioId ? [horarioId] : []}
+            onElegir={setHorarioId}
+          />
+          <p className="agenda__schedule-note">
+            <Clock size={16} strokeWidth={1.8} aria-hidden="true" />
+            <span>El horario que elijas es una preferencia. La hora exacta de tu cita la confirma el asesor por WhatsApp según la disponibilidad.</span>
+          </p>
         </div>
 
         </div>}
@@ -201,21 +197,24 @@ export function Agenda() {
             <div><dt>Fecha preferida</dt><dd>{formatLongDate(fecha)}</dd></div>
             <div><dt>Horario preferido</dt><dd>{horario?.label}</dd></div>
           </dl>
-          <p>La fecha y el horario son preferencias. El equipo confirmará la disponibilidad por WhatsApp.</p>
+          <p>La fecha y el horario son preferencias. El equipo confirmará la disponibilidad por WhatsApp en {contacto.tiempoRespuesta}.</p>
         </div>
 
         <div className="agenda__section">
           <div className="agenda__section-head">
             <span className="agenda__step">5</span>
             <h2>
-              ¿Quieres contarnos algo más?{' '}
-              <span className="agenda__optional">(opcional)</span>
+              <label htmlFor="agenda-nota">
+                ¿Quieres contarnos algo más?{' '}
+                <span className="agenda__optional">(opcional)</span>
+              </label>
             </h2>
           </div>
           <textarea
+            id="agenda-nota"
+            name="nota"
             className="agenda__textarea"
             placeholder="Ej. Es mi primera consulta / necesito lentes de contacto."
-            aria-label="¿Quieres contarnos algo más? (opcional)"
             value={mensaje}
             maxLength={MAX_MENSAJE}
             onChange={(e) => setMensaje(e.target.value)}
@@ -233,11 +232,11 @@ export function Agenda() {
           )}
           {paso < 3 ? (
             <div className="agenda__next-wrap">
+              {/* Botón de envío del formulario: el clic y la tecla Enter pasan por alEnviar. */}
               <button
-                type="button"
+                type="submit"
                 className="agenda__submit"
                 disabled={paso === 1 ? !puedeContinuarDatos : !puedeContinuarPreferencias}
-                onClick={() => setPaso((actual) => actual + 1)}
               >
                 Continuar
               </button>
@@ -249,7 +248,7 @@ export function Agenda() {
           ) : mensajeWhatsapp ? (
           <a
             className="agenda__submit"
-            href={buildWhatsappUrl(contact.whatsapp, mensajeWhatsapp)}
+            href={buildWhatsappUrl(contacto.whatsapp, mensajeWhatsapp)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -263,7 +262,7 @@ export function Agenda() {
           </button>
           )}
         </div>
-      </div>
+      </form>
     </section>
   )
 }

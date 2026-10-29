@@ -1,4 +1,5 @@
-@import "../../styles/variables";
+@use "sass:color";
+@use "../../styles/variables" as *;
 
 // La página respira sobre un fondo arena; el formulario flota encima como una
 // tarjeta con sombra suave azulada, tal como pide el manual de marca para
@@ -62,9 +63,9 @@
 .agenda__notice {
   margin: -$space-4 0 $space-6;
   padding: $space-3 $space-4;
-  border: 1px solid rgba($color-blue, .16);
+  border: 1px solid rgba($color-blue, 0.16);
   border-radius: $radius-md;
-  background: rgba($color-blue, .06);
+  background: rgba($color-blue, 0.06);
   color: #315563;
   font-size: 13px;
   line-height: 1.5;
@@ -85,7 +86,7 @@
   flex-direction: column;
   align-items: center;
   gap: $space-2;
-  color: rgba($color-black, .42);
+  color: rgba($color-black, 0.6);
   text-align: center;
 
   &:not(:last-child)::after {
@@ -94,8 +95,8 @@
     left: calc(50% + 22px);
     width: calc(100% - 44px);
     height: 2px;
-    background: rgba($color-blue, .16);
-    content: '';
+    background: rgba($color-blue, 0.16);
+    content: "";
   }
 
   > span {
@@ -105,51 +106,134 @@
     width: 34px;
     height: 34px;
     place-items: center;
-    border: 1px solid rgba($color-blue, .2);
+    border: 1px solid rgba($color-blue, 0.2);
     border-radius: 50%;
     background: $color-white;
     font-size: 13px;
     font-weight: 800;
   }
 
-  small { font-size: 11px; font-weight: 600; }
+  small {
+    font-size: 11px;
+    font-weight: 600;
+  }
 
-  &--active { color: #07516d; > span { border-color: $color-blue; background: $color-blue; color: $color-white; box-shadow: 0 0 0 4px rgba($color-blue, .12); } }
-  &--done { color: $color-blue; > span { border-color: $color-blue; background: $color-blue; color: $color-white; } }
-  &--done::after { background: rgba($color-blue, .6) !important; }
+  &--active {
+    color: $color-azul-texto;
+    > span {
+      border-color: $color-blue;
+      background: $color-blue-texto;
+      color: $color-white;
+      box-shadow: 0 0 0 4px rgba($color-blue, 0.12);
+    }
+  }
+  &--done {
+    color: $color-blue-texto;
+    > span {
+      border-color: $color-blue;
+      background: $color-blue-texto;
+      color: $color-white;
+    }
+  }
+  // Misma especificidad que la regla base (&:not(:last-child)::after): ya no hace falta !important.
+  &--done:not(:last-child)::after {
+    background: rgba($color-blue, 0.6);
+  }
 }
 
-.agenda__step-panel { animation: agenda-step-in 180ms ease-out both; }
-@keyframes agenda-step-in { from { opacity: .45; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+// Aviso bajo la fecha si se escribe una fecha pasada.
+.agenda__error {
+  margin: $space-2 0 0;
+  color: #b42318;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+// Los títulos de los campos ahora son <label>: heredan la letra del título.
+.agenda__section-head label {
+  font: inherit;
+  cursor: pointer;
+}
+
+.agenda__step-panel {
+  animation: agenda-step-in 180ms ease-out both;
+}
+@keyframes agenda-step-in {
+  from {
+    opacity: 0.45;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .agenda__summary {
   margin-bottom: $space-6;
   padding: $space-5;
   border-radius: $radius-lg;
-  background: linear-gradient(135deg, rgba($color-blue, .09), $color-sand);
-  h2 { margin-bottom: $space-4; font-size: 18px; }
-  dl { display: grid; gap: $space-3; margin: 0; }
-  dl > div { display: grid; grid-template-columns: minmax(105px, .7fr) 1.3fr; gap: $space-3; }
-  dt { color: rgba($color-black, .58); font-size: 13px; }
-  dd { margin: 0; font-size: 13px; font-weight: 700; }
-  > p { margin: $space-4 0 0; color: rgba($color-black, .62); font-size: 12px; line-height: 1.5; }
+  background: linear-gradient(135deg, rgba($color-blue, 0.09), $color-sand);
+  h2 {
+    margin-bottom: $space-4;
+    font-size: 18px;
+  }
+  dl {
+    display: grid;
+    gap: $space-3;
+    margin: 0;
+  }
+  dl > div {
+    display: grid;
+    grid-template-columns: minmax(105px, 0.7fr) 1.3fr;
+    gap: $space-3;
+  }
+  dt {
+    color: rgba($color-black, 0.68);
+    font-size: 13px;
+  }
+  dd {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  > p {
+    margin: $space-4 0 0;
+    color: rgba($color-black, 0.62);
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }
 
-.agenda__navigation { display: flex; align-items: flex-start; gap: $space-3; }
-.agenda__next-wrap { flex: 1; }
+.agenda__navigation {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+}
+.agenda__next-wrap {
+  flex: 1;
+}
 .agenda__back {
   min-height: 52px;
   padding: 0 $space-5;
-  border: 1px solid rgba($color-blue, .25);
+  border: 1px solid rgba($color-blue, 0.25);
   border-radius: $radius-pill;
   background: $color-white;
-  color: #07516d;
+  color: $color-azul-texto;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
 }
-.agenda__back:hover { background: rgba($color-blue, .07); }
-.agenda__hint { min-height: 18px; margin: $space-2 0 0; color: rgba($color-black, .56); font-size: 12px; text-align: center; }
+.agenda__back:hover {
+  background: rgba($color-blue, 0.07);
+}
+.agenda__hint {
+  min-height: 18px;
+  margin: $space-2 0 0;
+  color: rgba($color-black, 0.62);
+  font-size: 12px;
+  text-align: center;
+}
 
 .agenda__section {
   padding-bottom: $space-7;
@@ -183,7 +267,7 @@
   height: 26px;
   border-radius: 50%;
   background-color: rgba($color-blue, 0.12);
-  color: $color-blue;
+  color: $color-blue-texto;
   font-family: $font-display;
   font-weight: 800;
   font-size: 13px;
@@ -192,7 +276,7 @@
 .agenda__optional {
   font-size: 13px;
   font-weight: 400;
-  color: rgba($color-black, 0.45);
+  color: rgba($color-black, 0.65);
 }
 
 // Campo con ícono al frente — un solo lenguaje visual con las tarjetas de
@@ -206,7 +290,7 @@
 .agenda__field-icon {
   position: absolute;
   left: $space-4;
-  color: rgba($color-black, 0.45);
+  color: rgba($color-black, 0.55);
   pointer-events: none;
 }
 
@@ -227,7 +311,7 @@
   }
 
   &::placeholder {
-    color: rgba($color-black, 0.45);
+    color: rgba($color-black, 0.6);
   }
 }
 
@@ -253,13 +337,14 @@
   font-weight: 500;
   text-align: center;
   cursor: pointer;
-  transition: background-color $motion-fast $motion-easing,
+  transition:
+    background-color $motion-fast $motion-easing,
     color $motion-fast $motion-easing,
     transform $motion-fast $motion-easing;
 
   &:hover {
     background-color: rgba($color-blue, 0.1);
-    color: $color-blue;
+    color: $color-blue-texto;
   }
 
   &:active {
@@ -267,7 +352,7 @@
   }
 
   &--selected {
-    background-color: $color-blue;
+    background-color: $color-blue-texto;
     color: $color-white;
     font-weight: 600;
   }
@@ -306,7 +391,7 @@
   }
 
   &::placeholder {
-    color: rgba($color-black, 0.45);
+    color: rgba($color-black, 0.6);
   }
 }
 
@@ -314,7 +399,7 @@
   margin: $space-2 0 0;
   font-size: 12px;
   text-align: right;
-  color: rgba($color-black, 0.45);
+  color: rgba($color-black, 0.65);
 }
 
 // Es un <a> cuando ya están los datos obligatorios (abre WhatsApp) y un
@@ -328,7 +413,7 @@
   padding: $space-4;
   border: none;
   border-radius: $radius-pill;
-  background-color: $color-blue;
+  background-color: $color-blue-texto;
   color: $color-white;
   text-align: center;
   text-decoration: none;
@@ -337,12 +422,13 @@
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 14px 28px -12px rgba($color-blue, 0.55);
-  transition: background-color $motion-fast $motion-easing,
+  transition:
+    background-color $motion-fast $motion-easing,
     transform $motion-fast $motion-easing,
     box-shadow $motion-fast $motion-easing;
 
   &:hover:not(:disabled) {
-    background-color: darken($color-blue, 8%);
+    background-color: color.adjust($color-blue, $lightness: -8%);
     color: $color-white;
   }
 
@@ -358,15 +444,54 @@
 }
 
 @media (max-width: 480px) {
-  .agenda { padding: $space-6 $space-3; }
-  .agenda__progress { margin-bottom: $space-6; }
-  .agenda__progress-item small { max-width: 78px; font-size: 10px; }
-  .agenda__notice { text-align: left; }
-  .agenda__summary { padding: $space-4; }
-  .agenda__summary dl > div { grid-template-columns: 1fr; gap: 2px; }
-  .agenda__back { padding: 0 $space-4; }
+  .agenda {
+    padding: $space-6 $space-3;
+  }
+  .agenda__progress {
+    margin-bottom: $space-6;
+  }
+  .agenda__progress-item small {
+    max-width: 78px;
+    font-size: 10px;
+  }
+  .agenda__notice {
+    text-align: left;
+  }
+  .agenda__summary {
+    padding: $space-4;
+  }
+  .agenda__summary dl > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .agenda__back {
+    padding: 0 $space-4;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .agenda__step-panel { animation: none; }
+  .agenda__step-panel {
+    animation: none;
+  }
+}
+
+// Aviso bajo "¿Qué horario prefieres?": la hora la confirma el asesor.
+.agenda__schedule-note {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-2;
+  margin: $space-4 0 0;
+  padding: $space-3 $space-4;
+  border: 1px solid rgba($color-blue, 0.16);
+  border-radius: $radius-md;
+  background: rgba($color-blue, 0.06);
+  color: #315563;
+  font-size: 13px;
+  line-height: 1.5;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: $color-blue;
+  }
 }

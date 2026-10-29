@@ -1,0 +1,158 @@
+@use "variables" as *;
+
+// ============================================================
+// Animaciones compartidas por todo el sitio.
+// Si alguien tiene activado "reducir movimiento" en su
+// dispositivo, todo esto se apaga (ver el final del archivo).
+// ============================================================
+
+$ease-suave: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+// --- 1. Aparecer al bajar --------------------------------------------------
+// Uso en el HTML:
+//   data-reveal            → el elemento sube y aparece al entrar en pantalla
+//   data-reveal="zoom"     → aparece creciendo un poco
+//   data-reveal-group      → sus hijos aparecen uno tras otro (tarjetas)
+// La clase "reveal-listo" la pone useRevealOnScroll (App.tsx): sin JavaScript
+// nada queda oculto. Se usa "translate"/"scale" (no "transform") para no
+// chocar con los efectos de hover de las tarjetas.
+.reveal-listo [data-reveal]:not(.is-visible),
+.reveal-listo [data-reveal-group]:not(.is-visible) > * {
+  opacity: 0;
+}
+
+.reveal-listo [data-reveal].is-visible {
+  animation: reveal-up 0.8s $ease-suave both;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-listo [data-reveal="zoom"].is-visible {
+  animation-name: reveal-zoom;
+}
+
+.reveal-listo [data-reveal-group].is-visible > * {
+  animation: reveal-up 0.7s $ease-suave both;
+}
+
+@for $i from 1 through 12 {
+  .reveal-listo [data-reveal-group].is-visible > :nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 90}ms;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes reveal-zoom {
+  from {
+    opacity: 0;
+    scale: 0.94;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+// --- 2. Brillo que cruza los botones principales al pasar el mouse ---------
+.navbar__hero-cta,
+.home-discover__cta,
+.optica-photo__cta,
+.producto__buy-btn,
+.cotizar__advisor,
+.test-gafas__next,
+.agenda__submit,
+.camara__accion--principal,
+.navbar__menu-cta,
+.vision-care__cta,
+.about-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    z-index: -1;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      100deg,
+      rgba($color-white, 0) 0%,
+      rgba($color-white, 0.45) 50%,
+      rgba($color-white, 0) 100%
+    );
+    transform: skewX(-20deg);
+    transition: left 0.75s $ease-suave;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    left: 130%;
+  }
+}
+
+// --- 3. Los botones "se hunden" un poco al presionarlos -------------------
+.navbar__hero-cta,
+.home-discover__cta,
+.optica-photo__cta,
+.producto__buy-btn,
+.cotizar__advisor,
+.test-gafas__next,
+.test-gafas__back,
+.agenda__submit,
+.camara__accion,
+.navbar__menu-cta,
+.vision-care__cta,
+.about-button,
+.frame-card__quote,
+.result-card__quote,
+.quiz-option,
+.cotizar__option,
+.cotizar__tinte,
+.catalogo__filtro {
+  &:active:not(:disabled) {
+    scale: 0.97;
+  }
+}
+
+// --- 4. Foto que entra con un fundido suave (al cambiar de color) ---------
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
+  }
+}
+
+// --- Reducir movimiento -------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  .reveal-listo [data-reveal],
+  .reveal-listo [data-reveal-group] > * {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

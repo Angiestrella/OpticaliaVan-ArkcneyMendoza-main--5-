@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowDownUp, ChevronDown, Search, SlidersHorizontal, Sparkles } from 'lucide-react'
 import { FrameCard } from '../../components/FrameCard/FrameCard'
-import frames from '../../data/frames.json'
+import { frames } from '../../data'
+import { alternar } from '../../utils/alternar'
+import { useFlechas } from '../../utils/useFlechas'
 import './Catalogo.scss'
 
 const generos = [
@@ -14,10 +16,6 @@ const categorias = [
   { id: 'formula', label: 'Recetadas' },
 ]
 
-function alternar(lista: string[], id: string) {
-  return lista.includes(id) ? lista.filter((item) => item !== id) : [...lista, id]
-}
-
 export function Catalogo() {
   const marcas = useMemo(() => [...new Set(frames.map((frame) => frame.brand))], [])
 
@@ -28,6 +26,7 @@ export function Catalogo() {
   const [busqueda, setBusqueda] = useState('')
   const [orden, setOrden] = useState('recomendados')
   const marcasRef = useRef<HTMLDivElement>(null)
+  const flechasFiltros = useFlechas<HTMLDivElement>('.catalogo__filtro')
 
   useEffect(() => {
     function cerrarSiEsAfuera(e: MouseEvent) {
@@ -68,7 +67,7 @@ export function Catalogo() {
 
   return (
     <section className="catalogo">
-      <header className="catalogo__intro">
+      <header className="catalogo__intro" data-reveal>
         <div>
           <p className="catalogo__eyebrow"><Sparkles size={15} /> Encuentra tu estilo</p>
           <h1 className="catalogo__title">Catálogo de gafas</h1>
@@ -95,7 +94,7 @@ export function Catalogo() {
 
       <div className="catalogo__filter-heading"><SlidersHorizontal size={17} /><span>Filtra la colección</span></div>
 
-      <div className="catalogo__filtros">
+      <div className="catalogo__filtros" ref={flechasFiltros}>
         {generos.map(({ id, label }) => (
           <button
             key={id}
@@ -163,9 +162,12 @@ export function Catalogo() {
       </div>
 
       {resultado.length > 0 ? (
-        <div className="catalogo__grid">
+        // Grid de Bootstrap: 2 por fila en celular, 3 en tablet, 4 en escritorio.
+        <div className="catalogo__grid row g-3 g-md-4" data-reveal-group>
           {resultado.map((frame) => (
-            <FrameCard key={frame.id} frame={frame} />
+            <div key={frame.id} className="col-6 col-md-4 col-xl-3">
+              <FrameCard frame={frame} />
+            </div>
           ))}
         </div>
       ) : (

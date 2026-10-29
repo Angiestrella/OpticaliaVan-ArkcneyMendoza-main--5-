@@ -1,68 +1,88 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import colorOpciones from '../../data/colors.json'
-import frames from '../../data/frames.json'
+import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { ArrowLeft, ArrowRight, History, Sparkles } from 'lucide-react'
+import { frames, opcionesColor } from '../../data'
+import { CotizarPanel } from '../../components/CotizarPanel/CotizarPanel'
 import { FaceShapeUpload } from '../../components/FaceShapeUpload/FaceShapeUpload'
-import { formatPrice } from '../../utils/formatPrice'
-import { recomendar } from '../../utils/recomendar'
+import { alternar } from '../../utils/alternar'
 import { asset } from '../../utils/asset'
+import { recomendar } from '../../utils/recomendar'
+import { useFlechas } from '../../utils/useFlechas'
+import { IdentificarRostroManual } from './IdentificarRostroManual'
+import { OpcionTest } from './OpcionTest'
+import { ResultadosTest } from './ResultadosTest'
+import { conIndice, estilos, PAUSA_AL_ELEGIR, PREGUNTAS, rostros, tipos } from './opciones'
+import { guardarRespuestas, leerRespuestas, type RespuestasTest } from './respuestasGuardadas'
 import './TestGafas.scss'
-
-const rostros: Array<{ id: string; label: string; image?: string; imageAlt?: string }> = [
-  { id: 'diamante', label: 'Diamante', image: '/Retrato%20minimalista%20de%20rostro%20diamante%20(1).png', imageAlt: 'Rostro con forma de diamante' },
-  { id: 'redondo', label: 'Redondo', image: '/Retrato%20masculino%20con%20c%C3%ADrculo%20azul.png', imageAlt: 'Rostro con forma redonda' },
-  { id: 'rectangular', label: 'Rectangular', image: '/rostro_rectangular_mujer_transparente.png', imageAlt: 'Rostro con forma rectangular' },
-  { id: 'ovalado', label: 'Ovalado', image: '/Retrato%20de%20rostro%20ovalado%20con%20contorno%20azul.png', imageAlt: 'Rostro con forma ovalada' },
-  { id: 'corazon', label: 'Corazón', image: '/Retrato%20con%20contorno%20facial%20de%20corazón.png', imageAlt: 'Rostro con forma de corazón' },
-  { id: 'triangular', label: 'Triangular', image: '/Retrato%20con%20triángulo%20facial%20azul.png', imageAlt: 'Rostro con forma triangular' },
-]
-
-const tipos = [
-  { id: 'recetadas', label: 'Recetadas' },
-  { id: 'sol', label: 'Sol' },
-]
-
-const estilos = [
-  { id: 'mujer', label: 'Mujer' },
-  { id: 'hombre', label: 'Hombre' },
-  { id: 'unisex', label: 'Unisex' },
-]
-
-const TOTAL_PASOS = 5
 
 export function TestGafas() {
   const [paso, setPaso] = useState(0)
+  // Flechas para moverse entre las respuestas de cualquier pregunta.
+  const flechasRespuestas = useFlechas<HTMLDivElement>('.quiz-option')
+  const [direccion, setDireccion] = useState<'adelante' | 'atras'>('adelante')
   const [rostro, setRostro] = useState<string | null>(null)
   const [tipo, setTipo] = useState<string | null>(null)
   const [estilo, setEstilo] = useState<string | null>(null)
   const [colores, setColores] = useState<string[]>([])
-  const [ayudaRostro, setAyudaRostro] = useState(false)
+  // Desde Inicio, "Te ayudamos con una foto" abre directo esa ayuda (?ayuda=foto).
+  const [searchParams] = useSearchParams()
+  const [ayudaRostro, setAyudaRostro] = useState(searchParams.get('ayuda') === 'foto')
   const [manualRostro, setManualRostro] = useState(false)
-  const [formaCara, setFormaCara] = useState<string | null>(null)
-  const [largoCara, setLargoCara] = useState<string | null>(null)
+  const [cotizarId, setCotizarId] = useState<string | null>(null)
+  // Resultado de una visita anterior (se lee una sola vez al abrir la página).
+  const [guardadas] = useState<RespuestasTest | null>(leerRespuestas)
+  const [avisoGuardadas, setAvisoGuardadas] = useState(true)
+  const avanceRef = useRef<number | undefined>(undefined)
 
-  function toggleColor(id: string) {
-    setColores((actual) =>
-      actual.includes(id) ? actual.filter((c) => c !== id) : [...actual, id],
-    )
+  useEffect(() => () => window.clearTimeout(avanceRef.current), [])
+
+  // Cada pregunta nueva se ve desde arriba.
+  useEffect(() => {
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [paso])
+
+  function irA(nuevo: number) {
+    window.clearTimeout(avanceRef.current)
+    setDireccion(nuevo >= paso ? 'adelante' : 'atras')
+    setPaso(nuevo)
+  }
+
+  // Preguntas de una sola respuesta: se marca la opción y avanza solo.
+  function elegirYAvanzar(guardar: (id: string) => void, id: string) {
+    guardar(id)
+    window.clearTimeout(avanceRef.current)
+    avanceRef.current = window.setTimeout(() => {
+      setDireccion('adelante')
+      setPaso((p) => p + 1)
+    }, PAUSA_AL_ELEGIR)
+  }
+
+  // Al pasar de la última pregunta a los resultados se guardan las respuestas.
+  function siguiente() {
+    if (paso === PREGUNTAS - 1 && rostro && tipo && estilo) {
+      guardarRespuestas({ rostro, tipo, estilo, colores })
+    }
+    irA(paso + 1)
+  }
+
+  function verResultadoGuardado(r: RespuestasTest) {
+    setRostro(r.rostro)
+    setTipo(r.tipo)
+    setEstilo(r.estilo)
+    setColores(r.colores)
+    setAvisoGuardadas(false)
+    irA(PREGUNTAS)
   }
 
   function reiniciar() {
-    setPaso(0)
+    irA(0)
     setRostro(null)
     setTipo(null)
     setEstilo(null)
     setColores([])
     setAyudaRostro(false)
     setManualRostro(false)
-    setFormaCara(null)
-    setLargoCara(null)
-  }
-
-  function identificarRostro() {
-    const identificado = formaCara === 'mandibula' ? 'triangular' : formaCara === 'frente' ? 'corazon' : largoCara === 'largo' ? 'rectangular' : 'ovalado'
-    setRostro(identificado)
-    setAyudaRostro(false)
+    setAvisoGuardadas(false)
   }
 
   const puedeAvanzar =
@@ -71,175 +91,210 @@ export function TestGafas() {
     (paso === 2 && estilo !== null) ||
     (paso === 3 && colores.length > 0)
 
-  const recomendadas = recomendar(frames, tipo, colores, rostro, estilo)
-  const idsRecomendadas = recomendadas.map((frame) => frame.id)
+  const { ideales, otras } = recomendar(frames, tipo, colores, rostro, estilo)
+  const frameCotizar = frames.find((frame) => frame.id === cotizarId)
+
+  const resumen = [
+    { paso: 0, etiqueta: 'Rostro', valor: rostros.find((r) => r.id === rostro)?.label },
+    { paso: 1, etiqueta: 'Buscas', valor: tipos.find((t) => t.id === tipo)?.label },
+    { paso: 2, etiqueta: 'Categoría', valor: estilos.find((e) => e.id === estilo)?.label },
+    { paso: 3, etiqueta: 'Colores', valor: opcionesColor.filter((c) => colores.includes(c.id)).map((c) => c.label).join(', ') },
+  ]
+
+  // Cambia en cada pregunta o sub-vista: así la vista nueva entra con su animación.
+  const claveVista = paso === 0 ? `0-${ayudaRostro ? (manualRostro ? 'manual' : 'foto') : 'formas'}` : String(paso)
+
+  // Al cambiar de pregunta, el botón que se tocó desaparece: el foco del
+  // teclado pasa al título nuevo para que el lector de pantalla lo lea y la
+  // persona siga desde ahí (no desde el inicio de la página).
+  // Al abrir la página no se mueve (se compara con la vista anterior).
+  const vistaRef = useRef<HTMLDivElement>(null)
+  const vistaAnterior = useRef(claveVista)
+  useEffect(() => {
+    if (vistaAnterior.current === claveVista) return
+    vistaAnterior.current = claveVista
+    const titulo = vistaRef.current?.querySelector('h1')
+    if (!titulo) return
+    titulo.tabIndex = -1
+    titulo.focus({ preventScroll: true })
+  }, [claveVista])
 
   return (
     <section className="test-gafas">
-      {paso < 4 && (
-        <p className="test-gafas__progress">
-          Paso {paso + 1} de {TOTAL_PASOS}
-        </p>
-      )}
-
-      {paso === 0 && !ayudaRostro && (
-        <div className="test-gafas__step">
-          <h1>Selecciona tu rostro</h1>
-          <div className="test-gafas__options">
-            {rostros.map((r) => (
-              <button
-                key={r.id}
-                type="button"
-                className={`quiz-option ${rostro === r.id ? 'quiz-option--selected' : ''}`}
-                onClick={() => setRostro(r.id)}
+      <div className="test-gafas__shell" ref={flechasRespuestas}>
+        {paso < PREGUNTAS && (
+          <header className="test-gafas__top">
+            <p className="test-gafas__eyebrow"><Sparkles size={15} aria-hidden="true" /> ¿Qué gafas van contigo?</p>
+            <div className="test-gafas__progress">
+              {/* Barra propia con role="progressbar": la etiqueta <progress> no permite
+                  el degradado ni la animación del relleno en todos los navegadores. */}
+              <div
+                className="test-gafas__progress-track"
+                // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
+                role="progressbar"
+                aria-label="Progreso del test"
+                aria-valuemin={1}
+                aria-valuemax={PREGUNTAS}
+                aria-valuenow={paso + 1}
               >
-                {r.image
-                  ? <img className="rostro-photo" src={asset(r.image)} alt={r.imageAlt} />
-                  : <span className={`rostro-shape rostro-shape--${r.id}`} />}
-                {r.label}
-              </button>
-            ))}
-            <button type="button" className="quiz-option quiz-option--help" onClick={() => { setManualRostro(false); setAyudaRostro(true) }}><span className="rostro-shape rostro-shape--help">?</span>Identificar con una foto</button>
-          </div>
-          <p className="test-gafas__hint">Elige la forma que más se parece a tu rostro. Si no estás seguro, te ayudamos.</p>
-        </div>
-      )}
-
-      {paso === 0 && ayudaRostro && !manualRostro && (
-        <FaceShapeUpload onSelect={(shape) => { setRostro(shape); setAyudaRostro(false) }} onManual={() => setManualRostro(true)} />
-      )}
-
-      {paso === 0 && ayudaRostro && manualRostro && (
-        <div className="test-gafas__step">
-          <h1>Identifiquemos tu tipo de rostro</h1>
-          <p className="test-gafas__hint">No necesitas medirlo. Elige la descripción que más se parece a ti.</p>
-          <h2>{formaCara ? '¿Tu rostro se ve más largo que ancho?' : '¿Qué parte notas más ancha?'}</h2>
-          <div className="test-gafas__options">
-            {(formaCara ? [['largo', 'Sí, claramente'], ['parejo', 'No, se ve equilibrado']] : [['frente', 'La frente o los pómulos'], ['mandibula', 'La mandíbula'], ['parejo', 'Se ve bastante equilibrado']]).map(([id, label]) => <button key={id} type="button" className={`quiz-option ${(formaCara ? largoCara : formaCara) === id ? 'quiz-option--selected' : ''}`} onClick={() => formaCara ? setLargoCara(id) : setFormaCara(id)}>{label}</button>)}
-          </div>
-          <div className="test-gafas__nav"><button type="button" className="test-gafas__back" onClick={() => formaCara ? (setFormaCara(null), setLargoCara(null)) : setAyudaRostro(false)}>Atrás</button>
-            {formaCara && largoCara && <button type="button" className="test-gafas__next" onClick={identificarRostro}>Continuar con tu recomendación</button>}
-          </div>
-        </div>
-      )}
-
-      {paso === 1 && (
-        <div className="test-gafas__step">
-          <h1>¿Qué buscas?</h1>
-          <div className="test-gafas__options">
-            {tipos.map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                className={`quiz-option ${tipo === t.id ? 'quiz-option--selected' : ''}`}
-                onClick={() => setTipo(t.id)}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {paso === 2 && (
-        <div className="test-gafas__step">
-          <h1>¿Qué categoría prefieres?</h1>
-          <p className="test-gafas__hint">También puedes elegir modelos unisex.</p>
-          <div className="test-gafas__options">
-            {estilos.map((e) => (
-              <button
-                key={e.id}
-                type="button"
-                className={`quiz-option ${estilo === e.id ? 'quiz-option--selected' : ''}`}
-                onClick={() => setEstilo(e.id)}
-              >
-                <span className="quiz-option__photo" />
-                {e.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {paso === 3 && (
-        <div className="test-gafas__step">
-          <h1>¿Qué colores?</h1>
-          <p className="test-gafas__hint">Puedes elegir más de uno.</p>
-          <div className="test-gafas__colors">
-            {colorOpciones.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                className={`color-swatch ${colores.includes(c.id) ? 'color-swatch--selected' : ''}`}
-                style={{ backgroundColor: c.hex }}
-                aria-label={c.label}
-                onClick={() => toggleColor(c.id)}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {paso === 4 && (
-        <div className="test-gafas__step">
-          <h1>Tus gafas recomendadas</h1>
-          <p className="test-gafas__hint">
-            Recomendadas según lo que buscas, la forma de tu rostro y tus colores. Pruébatelas virtualmente o consulta disponibilidad con el equipo.
-          </p>
-          <div className="test-gafas__results">
-            {recomendadas.map((frame) => (
-              <div key={frame.id} className="result-card">
-                <div className="result-card__photo">
-                  <img src={asset(frame.colors[0].image)} alt={frame.name} />
-                  <Link
-                    className="result-card__try-btn"
-                    to="/prueba-virtual"
-                    state={{
-                      recomendadas: idsRecomendadas,
-                      seleccionada: frame.id,
-                    }}
-                  >
-                    Probar
-                  </Link>
-                </div>
-                <p className="result-card__name">{frame.name}</p>
-                <p className="result-card__price">
-                  Desde {formatPrice(frame.price)}
-                </p>
+                <span className="test-gafas__progress-fill" style={{ width: `${((paso + 1) / PREGUNTAS) * 100}%` }} />
               </div>
-            ))}
-          </div>
-          <button
-            type="button"
-            className="test-gafas__restart"
-            onClick={reiniciar}
-          >
-            Volver a hacer el test
-          </button>
-        </div>
-      )}
+              <span className="test-gafas__progress-text">Pregunta {paso + 1} de {PREGUNTAS}</span>
+            </div>
+          </header>
+        )}
 
-      {paso < 4 && (
-        <div className="test-gafas__nav">
-          {paso > 0 && (
-            <button
-              type="button"
-              className="test-gafas__back"
-              onClick={() => setPaso((p) => p - 1)}
-            >
-              Atrás
-            </button>
+        <div ref={vistaRef} key={claveVista} className={`test-gafas__view test-gafas__view--${direccion}`}>
+          {paso === 0 && !ayudaRostro && (
+            <>
+              {guardadas && avisoGuardadas && rostro === null && (
+                <div className="test-gafas__guardado">
+                  <History size={22} aria-hidden="true" />
+                  <p>Ya hiciste el test en este dispositivo. <span>¿Quieres ver de nuevo tus gafas recomendadas?</span></p>
+                  <div className="test-gafas__guardado-acciones">
+                    <button type="button" className="test-gafas__next" onClick={() => verResultadoGuardado(guardadas)}>
+                      Ver mi último resultado
+                    </button>
+                    <button type="button" className="test-gafas__restart" onClick={() => setAvisoGuardadas(false)}>
+                      Empezar de cero
+                    </button>
+                  </div>
+                </div>
+              )}
+              <div className="test-gafas__head">
+                <h1>Selecciona la forma de tu rostro</h1>
+                <p className="test-gafas__hint">Elige la que más se parece a ti. Si no estás seguro, te ayudamos con una foto.</p>
+              </div>
+              <div className="test-gafas__grid test-gafas__grid--rostros">
+                {rostros.map((r, i) => (
+                  <OpcionTest key={r.id} indice={i} seleccionada={rostro === r.id} onElegir={() => elegirYAvanzar(setRostro, r.id)}>
+                    <img className="rostro-photo" src={asset(r.image)} alt={r.imageAlt} width={320} height={320} decoding="async" />
+                    <span className="quiz-option__label">{r.label}</span>
+                  </OpcionTest>
+                ))}
+                <button
+                  type="button"
+                  style={conIndice(rostros.length)}
+                  className="quiz-option quiz-option--help"
+                  onClick={() => { setManualRostro(false); setAyudaRostro(true) }}
+                >
+                  <span className="rostro-shape rostro-shape--help" aria-hidden="true">?</span>
+                  <span className="quiz-option__label">Identificar con una foto</span>
+                </button>
+              </div>
+            </>
           )}
-          <button
-            type="button"
-            className="test-gafas__next"
-            disabled={!puedeAvanzar}
-            onClick={() => setPaso((p) => p + 1)}
-          >
-            Siguiente
-          </button>
+
+          {paso === 0 && ayudaRostro && !manualRostro && (
+            <div className="test-gafas__photo-help">
+              <button type="button" className="test-gafas__back test-gafas__back--top" onClick={() => setAyudaRostro(false)}>
+                <ArrowLeft size={18} aria-hidden="true" /> Volver a las formas
+              </button>
+              <FaceShapeUpload
+                onSelect={(shape) => { setRostro(shape); setAyudaRostro(false); irA(1) }}
+                onManual={() => setManualRostro(true)}
+              />
+            </div>
+          )}
+
+          {paso === 0 && ayudaRostro && manualRostro && (
+            <IdentificarRostroManual
+              onIdentificar={(identificado) => { setRostro(identificado); setAyudaRostro(false) }}
+              onVolver={() => setAyudaRostro(false)}
+            />
+          )}
+
+          {paso === 1 && (
+            <>
+              <div className="test-gafas__head">
+                <h1>¿Qué buscas?</h1>
+                <p className="test-gafas__hint">Así te mostramos el tipo de gafas que necesitas.</p>
+              </div>
+              <div className="test-gafas__grid test-gafas__grid--tipos">
+                {tipos.map(({ id, label, descripcion, Icon }, i) => (
+                  <OpcionTest key={id} indice={i} variante="wide" seleccionada={tipo === id} onElegir={() => elegirYAvanzar(setTipo, id)}>
+                    <span className="quiz-option__icon" aria-hidden="true"><Icon size={28} strokeWidth={1.8} /></span>
+                    <span className="quiz-option__text">
+                      <span className="quiz-option__label">{label}</span>
+                      <small>{descripcion}</small>
+                    </span>
+                  </OpcionTest>
+                ))}
+              </div>
+            </>
+          )}
+
+          {paso === 2 && (
+            <>
+              <div className="test-gafas__head">
+                <h1>¿Qué categoría prefieres?</h1>
+                <p className="test-gafas__hint">También puedes elegir modelos unisex.</p>
+              </div>
+              <div className="test-gafas__grid test-gafas__grid--estilos">
+                {estilos.map((e, i) => {
+                  const ejemplo = frames.find((f) => f.id === e.ejemplo)?.colors[0]?.image
+                  return (
+                    <OpcionTest key={e.id} indice={i} seleccionada={estilo === e.id} onElegir={() => elegirYAvanzar(setEstilo, e.id)}>
+                      {ejemplo && <img className="quiz-option__frame" src={asset(ejemplo)} alt="" loading="lazy" decoding="async" />}
+                      <span className="quiz-option__label">{e.label}</span>
+                    </OpcionTest>
+                  )
+                })}
+              </div>
+            </>
+          )}
+
+          {paso === 3 && (
+            <>
+              <div className="test-gafas__head">
+                <h1>¿Qué colores te gustan?</h1>
+                <p className="test-gafas__hint">Puedes elegir más de uno.</p>
+              </div>
+              <div className="test-gafas__grid test-gafas__grid--colores">
+                {opcionesColor.map((c, i) => (
+                  <OpcionTest
+                    key={c.id}
+                    indice={i}
+                    variante="color"
+                    seleccionada={colores.includes(c.id)}
+                    onElegir={() => setColores((actuales) => alternar(actuales, c.id))}
+                  >
+                    <span className="quiz-option__swatch" style={{ backgroundColor: c.hex }} aria-hidden="true" />
+                    <span className="quiz-option__label">{c.label}</span>
+                  </OpcionTest>
+                ))}
+              </div>
+            </>
+          )}
+
+          {paso === PREGUNTAS && (
+            <ResultadosTest
+              ideales={ideales}
+              otras={otras}
+              resumen={resumen}
+              onEditar={irA}
+              onReiniciar={reiniciar}
+              onCotizar={setCotizarId}
+            />
+          )}
         </div>
-      )}
+
+        {/* Atrás / Siguiente. En la ayuda con foto o manual cada vista trae sus propios botones. */}
+        {paso < PREGUNTAS && !(paso === 0 && ayudaRostro) && (
+          <nav className="test-gafas__nav" aria-label="Navegación del test">
+            {paso > 0 && (
+              <button type="button" className="test-gafas__back" onClick={() => irA(paso - 1)}>
+                <ArrowLeft size={18} aria-hidden="true" /> Atrás
+              </button>
+            )}
+            <button type="button" className="test-gafas__next" disabled={!puedeAvanzar} onClick={siguiente}>
+              {paso === PREGUNTAS - 1 ? 'Ver mis gafas' : 'Siguiente'} <ArrowRight size={18} aria-hidden="true" />
+            </button>
+          </nav>
+        )}
+      </div>
+
+      {frameCotizar && <CotizarPanel frame={frameCotizar} onClose={() => setCotizarId(null)} />}
     </section>
   )
 }

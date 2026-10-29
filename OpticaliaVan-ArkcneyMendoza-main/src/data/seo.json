@@ -1,0 +1,75 @@
+{
+  "sitio": {
+    "nombre": "Opticalia Van-Arcken & Mendoza",
+    "url": "https://opticalia-vanarcken-mendoza.web.app",
+    "idioma": "es-CO",
+    "locale": "es_CO",
+    "tituloInicio": "Opticalia Van-Arcken & Mendoza | Gafas y salud visual en Envigado",
+    "imagen": "/og-opticalia.jpg",
+    "imagenAncho": 1200,
+    "imagenAlto": 630,
+    "imagenAlt": "Fachada de Opticalia Van-Arcken & Mendoza en Jumbo Las Vegas, Envigado",
+    "logo": "/favicon-opticalia.png",
+    "telefono": "+57 322 519 3785",
+    "direccion": {
+      "calle": "Jumbo Las Vegas, Local 1001",
+      "ciudad": "Envigado",
+      "region": "Antioquia",
+      "pais": "CO"
+    },
+    "mapa": "https://www.google.com/maps/search/?api=1&query=Opticalia+Van-Arcken+%26+Mendoza+Jumbo+Las+Vegas+Envigado",
+    "redes": [
+      "https://www.instagram.com/opticalia.vym/",
+      "https://www.tiktok.com/@opticaliavym"
+    ]
+  },
+  "paginas": [
+    {
+      "ruta": "/",
+      "titulo": "Gafas y salud visual en Envigado",
+      "h1": "Encuentra las gafas que van contigo",
+      "descripcion": "Óptica en Jumbo Las Vegas, Envigado. Mira monturas y gafas de sol, haz el test de estilo, pruébatelas con la cámara y agenda tu examen visual.",
+      "frecuencia": "weekly",
+      "prioridad": "1.0"
+    },
+    {
+      "ruta": "/catalogo",
+      "titulo": "Catálogo de gafas y monturas",
+      "descripcion": "Monturas para fórmula y gafas de sol de Ray-Ban, Oakley, Mario Hernández y Monastery. Filtra por estilo, marca y color, y cotiza tus lentes por WhatsApp.",
+      "frecuencia": "weekly",
+      "prioridad": "0.9"
+    },
+    {
+      "ruta": "/que-gafas-van-contigo",
+      "titulo": "¿Qué gafas van contigo? Test de estilo",
+      "descripcion": "Responde 4 preguntas (forma de tu rostro, tipo de gafas, estilo y colores) y recibe monturas recomendadas para ti. También puedes identificar tu rostro con una foto.",
+      "frecuencia": "monthly",
+      "prioridad": "0.8"
+    },
+    {
+      "ruta": "/prueba-virtual",
+      "titulo": "Pruébate las gafas en vivo con la cámara",
+      "descripcion": "Mira cómo te quedan las monturas en vivo con la cámara de tu celular o computador, incluso un modelo 3D. La imagen se procesa en tu dispositivo y no se guarda.",
+      "frecuencia": "monthly",
+      "prioridad": "0.7"
+    },
+    {
+      "ruta": "/agenda",
+      "titulo": "Agenda tu cita o examen visual",
+      "descripcion": "Agenda tu examen visual o tu asesoría en Opticalia Van-Arcken & Mendoza, Jumbo Las Vegas (Envigado). Elige el día y el horario y confírmalo por WhatsApp.",
+      "frecuencia": "monthly",
+      "prioridad": "0.9"
+    },
+    {
+      "ruta": "/conocenos",
+      "titulo": "Conócenos y cómo llegar",
+      "descripcion": "Conoce a Opticalia Van-Arcken & Mendoza: nuestro equipo, nuestras redes y cómo llegar al Local 1001 de Jumbo Las Vegas en Envigado, Antioquia.",
+      "frecuencia": "monthly",
+      "prioridad": "0.7"
+    }
+  ],
+  "noEncontrada": {
+    "titulo": "Página no encontrada",
+    "descripcion": "La dirección que abriste no existe en el sitio de Opticalia Van-Arcken & Mendoza."
+  }
+}

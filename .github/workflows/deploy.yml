@@ -36,6 +36,13 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
+      # Si el revisor de código o alguna prueba falla, la página no se publica.
+      - name: Revisar el código (oxlint)
+        run: pnpm lint
+
+      - name: Pruebas automáticas (Vitest)
+        run: pnpm test
+
       - name: Compilar
         # El sitio vive en https://<usuario>.github.io/<repositorio>/,
         # por eso se compila con esa carpeta como base.
@@ -43,8 +50,10 @@ jobs:
           pnpm exec tsc -b
           pnpm exec vite build --base=/${{ github.event.repository.name }}/
 
-      - name: Permitir abrir cualquier ruta directamente (ej. /catalogo)
-        run: cp dist/index.html dist/404.html
+      # Una carpeta con su index.html por página (cada dirección responde 200 y trae
+      # su título, descripción y datos para Google), más 404.html, sitemap.xml y robots.txt.
+      - name: SEO (páginas, sitemap y robots)
+        run: node scripts/seo-estatico.mjs
 
       - uses: actions/upload-pages-artifact@v4
         with:

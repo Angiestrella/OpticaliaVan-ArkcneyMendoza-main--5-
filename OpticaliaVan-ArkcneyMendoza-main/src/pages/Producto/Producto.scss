@@ -1,9 +1,46 @@
-@import "../../styles/variables";
+@use "sass:color";
+@use "../../styles/variables" as *;
 
 .producto {
   padding: $space-8 $space-6 $space-6;
   max-width: 1100px;
   margin: 0 auto;
+}
+
+// Migas de pan: "Catálogo › Nombre de la montura".
+.producto__migas {
+  margin-bottom: $space-5;
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+  }
+
+  li {
+    color: rgba($color-black, 0.7);
+
+    & + li::before {
+      content: "›";
+      margin-right: $space-2;
+      color: rgba($color-black, 0.45);
+    }
+  }
+
+  a {
+    color: $color-blue-texto;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .producto__layout {
@@ -31,9 +68,130 @@
     height: 100%;
     object-fit: contain;
   }
+
+  // Fundido suave al cambiar de color; con las flechas la foto se desliza.
+  .producto__photo-img {
+    animation: photo-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .producto__photo-img--siguiente {
+    animation-name: foto-desde-derecha;
+  }
+  .producto__photo-img--anterior {
+    animation-name: foto-desde-izquierda;
+  }
+
+  touch-action: pan-y; // deja deslizar de lado con el dedo sin mover la página
+  user-select: none;
 }
 
-.producto__visuals { display: flex; flex-direction: column; gap: $space-4; min-width: 0; }
+@keyframes foto-desde-derecha {
+  from {
+    opacity: 0;
+    translate: 22% 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes foto-desde-izquierda {
+  from {
+    opacity: 0;
+    translate: -22% 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+// Flechas del carrusel, a los lados de la foto.
+.producto__arrow {
+  position: absolute;
+  top: 42%;
+  z-index: 2;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba($color-black, 0.06);
+  border-radius: 50%;
+  background: rgba($color-white, 0.92);
+  box-shadow: 0 6px 18px rgba($color-black, 0.14);
+  color: $color-black;
+  cursor: pointer;
+  translate: 0 -50%;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    scale 0.2s ease;
+
+  &:hover {
+    background: $color-white;
+    box-shadow: 0 10px 24px rgba($color-black, 0.2);
+    scale: 1.08;
+  }
+  &:active {
+    scale: 0.95;
+  }
+
+  &--prev {
+    left: $space-4;
+  }
+  &--next {
+    right: $space-4;
+  }
+}
+
+// Puntitos: muestran en qué foto vas (encima del botón "Probar gafas en vivo").
+.producto__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 104px;
+  z-index: 2;
+  display: flex;
+  // 16px entre puntos: cada uno queda con 24px de zona para tocar sin pisar al vecino.
+  gap: $space-4;
+  padding: 6px 12px;
+  border-radius: $radius-pill;
+  background: rgba($color-white, 0.75);
+  translate: -50% 0;
+}
+
+.producto__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: $radius-pill;
+  background: rgba($color-black, 0.25);
+  cursor: pointer;
+  transition:
+    width 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 0.3s ease;
+
+  // Zona invisible de 24 × 24 px alrededor del punto: más fácil de tocar con el dedo.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+  }
+
+  &--active {
+    width: 22px;
+    background: $color-blue;
+  }
+}
+
+.producto__visuals {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  min-width: 0;
+}
 
 .producto__try-btn {
   position: absolute;
@@ -44,29 +202,53 @@
   align-items: center;
   gap: $space-3;
   padding: $space-4 $space-5;
-  border: 1px solid rgba($color-white, .35);
+  border: 1px solid rgba($color-white, 0.35);
   border-radius: $radius-lg;
-  background-color: $color-blue;
+  background-color: $color-blue-texto;
   color: $color-white;
-  box-shadow: 0 8px 24px rgba($color-black, .2);
-  transition: transform $motion-fast $motion-easing, background-color $motion-fast $motion-easing;
-  span { display: flex; flex: 1; flex-direction: column; gap: 2px; }
-  strong { font-size: 15px; }
-  small { color: rgba($color-white, .85); font-size: 12px; }
-  &:hover { transform: translateY(-2px); background-color: darken($color-blue, 8%); color: $color-white; }
+  box-shadow: 0 8px 24px rgba($color-black, 0.2);
+  transition:
+    transform $motion-fast $motion-easing,
+    background-color $motion-fast $motion-easing;
+  span {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+  }
+  strong {
+    font-size: 15px;
+  }
+  small {
+    color: $color-white;
+    font-size: 12px;
+  }
+  &:hover {
+    transform: translateY(-2px);
+    background-color: color.adjust($color-blue, $lightness: -8%);
+    color: $color-white;
+  }
   text-decoration: none;
 }
 
-.producto__gallery { min-width: 0; }
-.producto__gallery-title { margin: 0 0 $space-2; color: rgba($color-black, .68); font-size: 13px; }
-.producto__gallery-list { display: flex; gap: $space-3; overflow-x: auto; padding: 3px 2px $space-2; }
-.producto__gallery-item { flex: 0 0 100px; padding: $space-2; border: $border-width-base solid $border-color-subtle; border-radius: $radius-md; background: $color-white; color: $color-black; font-family: $font-text; cursor: pointer; transition: border-color $motion-fast $motion-easing, box-shadow $motion-fast $motion-easing; }
-.producto__gallery-item:hover, .producto__gallery-item--selected { border-color: $color-blue; }
-.producto__gallery-item--selected { box-shadow: 0 0 0 2px rgba($color-blue, .16); }
-.producto__gallery-item img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: $radius-sm; background: $color-sand; }
-.producto__gallery-item span { display: block; padding-top: $space-1; font-size: 12px; }
-.producto__gallery-item small { display: block; margin-top: 2px; color: rgba($color-black, .55); font-size: 10px; }
-.producto__photo-placeholder { position: absolute; top: $space-4; left: $space-4; padding: $space-2 $space-3; border-radius: $radius-pill; background: rgba($color-white, .9); color: rgba($color-black, .75); font-size: 11px; font-weight: 700; }
+// Etiqueta de arriba: qué vista se está viendo ("Vista ¾ · 2 de 3").
+.producto__photo-placeholder {
+  position: absolute;
+  top: $space-4;
+  left: $space-4;
+  z-index: 2;
+  padding: $space-2 $space-3;
+  border-radius: $radius-pill;
+  background: rgba($color-white, 0.9);
+  color: rgba($color-black, 0.75);
+  font-size: 12px;
+  font-weight: 700;
+  small {
+    color: rgba($color-black, 0.68);
+    font-size: 11px;
+    font-weight: 600;
+  }
+}
 
 .producto__name {
   margin-bottom: $space-2;
@@ -83,28 +265,54 @@
   margin: 0 0 $space-4;
   padding: $space-2 $space-3;
   border-radius: $radius-pill;
-  background: rgba($color-blue, .1);
-  color: darken($color-blue, 10%);
+  background: rgba($color-blue, 0.1);
+  color: color.adjust($color-blue, $lightness: -10%);
   font-size: 13px;
   font-weight: 700;
 }
 
-.producto__description { max-width: 54ch; margin: 0 0 $space-6; color: rgba($color-black, .75); line-height: 1.7; }
+.producto__description {
+  max-width: 54ch;
+  margin: 0 0 $space-6;
+  color: rgba($color-black, 0.75);
+  line-height: 1.7;
+}
 
 .producto__details {
   margin: 0 0 $space-5;
   padding: $space-5;
   border: $border-width-base solid $border-color-subtle;
   border-radius: $radius-md;
-  background: rgba($color-sand, .45);
+  background: rgba($color-sand, 0.45);
 
-  dl { display: grid; grid-template-columns: 1fr 1fr; gap: $space-4; margin: 0; }
-  dl > div { min-width: 0; }
-  dt { margin-bottom: $space-1; color: rgba($color-black, .58); font-size: 12px; }
-  dd { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.5; }
+  dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-4;
+    margin: 0;
+  }
+  dl > div {
+    min-width: 0;
+  }
+  dt {
+    margin-bottom: $space-1;
+    color: rgba($color-black, 0.7);
+    font-size: 12px;
+  }
+  dd {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
 }
 
-.producto__price-note { margin: 0 0 $space-5; color: rgba($color-black, .62); font-size: 13px; line-height: 1.6; }
+.producto__price-note {
+  margin: 0 0 $space-5;
+  color: rgba($color-black, 0.62);
+  font-size: 13px;
+  line-height: 1.6;
+}
 
 .producto__section {
   margin-bottom: $space-7;
@@ -129,7 +337,9 @@
   cursor: pointer;
 
   &--selected {
-    box-shadow: 0 0 0 2px $color-white, 0 0 0 4px $color-blue;
+    box-shadow:
+      0 0 0 2px $color-white,
+      0 0 0 4px $color-blue;
   }
 }
 
@@ -139,7 +349,7 @@
   padding: $space-4;
   border: none;
   border-radius: $radius-pill;
-  background-color: $color-blue;
+  background-color: $color-blue-texto;
   color: $color-white;
   text-align: center;
   font-weight: 600;
@@ -150,11 +360,13 @@
   transition: background-color $motion-fast $motion-easing;
 
   &:hover {
-    background-color: darken($color-blue, 8%);
+    background-color: color.adjust($color-blue, $lightness: -8%);
     color: $color-white;
   }
 }
 
 @media (max-width: 440px) {
-  .producto__details dl { grid-template-columns: 1fr; }
+  .producto__details dl {
+    grid-template-columns: 1fr;
+  }
 }

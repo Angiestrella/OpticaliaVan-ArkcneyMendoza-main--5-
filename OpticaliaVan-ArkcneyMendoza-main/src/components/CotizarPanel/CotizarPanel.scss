@@ -1,10 +1,14 @@
-@import "../../styles/variables";
+@use "sass:color";
+@use "../../styles/variables" as *;
 
 .cotizar__backdrop {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba($color-black, 0.4); // fondo con menos opacidad, no negro puro
+  background: rgba(
+    $color-black,
+    0.4
+  ); // fondo con menos opacidad, no negro puro
 }
 
 .cotizar {
@@ -110,7 +114,8 @@
   font-size: 14px;
   text-align: left;
   cursor: pointer;
-  transition: border-color $motion-fast $motion-easing,
+  transition:
+    border-color $motion-fast $motion-easing,
     background-color $motion-fast $motion-easing;
 
   &:hover {
@@ -124,9 +129,22 @@
   }
 }
 
-.cotizar__option-copy { display: flex; flex-direction: column; gap: 4px; }
-.cotizar__option-copy small { max-width: 290px; color: rgba($color-black, .67); font-size: 12px; font-weight: 400; line-height: 1.45; }
-.cotizar__option-price { flex-shrink: 0; font-weight: 600; }
+.cotizar__option-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cotizar__option-copy small {
+  max-width: 290px;
+  color: rgba($color-black, 0.67);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+.cotizar__option-price {
+  flex-shrink: 0;
+  font-weight: 600;
+}
 
 .cotizar__footer {
   flex-shrink: 0;
@@ -152,7 +170,7 @@
   display: block;
   padding: $space-4;
   border-radius: $radius-pill;
-  background-color: $color-blue;
+  background-color: $color-blue-texto;
   color: $color-white;
   text-align: center;
   font-weight: 600;
@@ -160,7 +178,135 @@
   transition: background-color $motion-fast $motion-easing;
 
   &:hover {
-    background-color: darken($color-blue, 8%);
+    background-color: color.adjust($color-blue, $lightness: -8%);
     color: $color-white;
   }
+}
+
+.cotizar__response {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: $space-3 0 0;
+  color: rgba($color-black, 0.62);
+  font-size: 12px;
+  font-weight: 600;
+
+  svg {
+    color: $color-blue;
+  }
+}
+
+// Selector de tinte terapéutico (aparece al marcar "Tinte terapéutico").
+.cotizar__tintes {
+  padding: $space-4;
+  border-radius: $radius-md;
+  background-color: $color-sand;
+}
+
+.cotizar__tintes-title {
+  margin: 0 0 $space-3;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cotizar__tintes-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-2;
+}
+
+.cotizar__tinte {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2;
+  border: $border-width-base solid transparent;
+  border-radius: $radius-md;
+  background: $color-white;
+  font-family: $font-text;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color $motion-fast $motion-easing,
+    background-color $motion-fast $motion-easing;
+
+  &:hover {
+    border-color: rgba($color-blue, 0.5);
+  }
+
+  &--selected {
+    border-color: $color-blue;
+    background-color: rgba($color-blue, 0.08);
+  }
+}
+
+// Bolita con brillo, como en el folleto de filtros.
+.cotizar__tinte-ball {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-image: radial-gradient(
+      circle at 34% 30%,
+      rgba($color-white, 0.65) 0,
+      rgba($color-white, 0) 46%
+    ),
+    radial-gradient(
+      circle at 60% 70%,
+      rgba($color-black, 0) 40%,
+      rgba($color-black, 0.22) 100%
+    );
+  box-shadow: 0 2px 5px rgba($color-black, 0.18);
+
+  &--big {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.cotizar__tinte-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+
+  strong {
+    font-size: 13px;
+  }
+
+  small {
+    color: rgba($color-black, 0.62);
+    font-size: 11px;
+    line-height: 1.35;
+  }
+}
+
+.cotizar__tinte-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  margin-top: $space-3;
+  padding: $space-3;
+  border-radius: $radius-md;
+  background: $color-white;
+
+  strong {
+    font-size: 14px;
+  }
+
+  p {
+    margin: $space-1 0 0;
+    color: rgba($color-black, 0.72);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+.cotizar__tintes-note {
+  margin: $space-3 0 0;
+  color: rgba($color-black, 0.72);
+  font-size: 11px;
+  line-height: 1.45;
 }

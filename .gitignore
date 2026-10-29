@@ -4,3 +4,7 @@
 # Dependencias y build
 node_modules/
 dist/
+
+# Firebase (archivos temporales de la herramienta)
+.firebase/
+firebase-debug.log

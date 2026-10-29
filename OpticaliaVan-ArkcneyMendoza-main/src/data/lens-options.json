@@ -1,15 +1,104 @@
 {
   "materiales": [
-    { "id": "material-1", "label": "Resina CR-39", "price": 30000 },
-    { "id": "material-2", "label": "Policarbonato", "price": 60000 },
-    { "id": "material-3", "label": "Alto índice", "price": 90000 }
+    {
+      "id": "material-1", "label": "Resina CR-39", "price": 30000,
+      "descripcion": "Opción liviana para uso diario. Una alternativa sencilla para muchas fórmulas."
+    },
+    {
+      "id": "material-2", "label": "Policarbonato", "price": 60000,
+      "descripcion": "Liviano y resistente a impactos; suele considerarse para niños o monturas deportivas."
+    },
+    {
+      "id": "material-3", "label": "Alto índice", "price": 90000,
+      "descripcion": "Puede ayudar a que el lente se vea más delgado en fórmulas altas. Confirma si aplica a tu fórmula."
+    }
   ],
   "filtros": [
-    { "id": "antirreflejo", "label": "Antirreflejo", "price": 40000 },
-    { "id": "fotocromatico", "label": "Fotocromático", "price": 90000 },
-    { "id": "luz-azul", "label": "Protección luz azul", "price": 50000 },
-    { "id": "color", "label": "Color", "price": 35000 },
-    { "id": "polarizados", "label": "Polarizado", "price": 80000 },
-    { "id": "otros", "label": "Otros", "price": 0 }
+    {
+      "id": "antirreflejo", "label": "Antirreflejo", "price": 40000,
+      "descripcion": "Reduce reflejos en el lente y puede hacer más cómoda la visión frente a pantallas y luces."
+    },
+    {
+      "id": "fotocromatico", "label": "Fotocromático", "price": 90000,
+      "descripcion": "Se oscurece con la luz solar y se aclara en interiores. El cambio depende de la luz y del vehículo."
+    },
+    {
+      "id": "luz-azul", "label": "Protección luz azul", "price": 50000,
+      "descripcion": "Filtro opcional para pantallas. Su beneficio puede variar; pregunta al optómetra si lo necesitas."
+    },
+    {
+      "id": "tinte", "label": "Tinte terapéutico", "price": 35000,
+      "descripcion": "Lente de color que filtra parte de la luz. Se usa en migraña, fotosensibilidad, baja visión y otros casos."
+    },
+    {
+      "id": "polarizados", "label": "Polarizado", "price": 80000,
+      "descripcion": "Reduce reflejos intensos en superficies como el agua o la vía. Se usa principalmente en gafas de sol."
+    },
+    {
+      "id": "otros", "label": "Otros", "price": 0,
+      "descripcion": "Cuéntale al asesor qué necesidad quieres resolver para revisar otras opciones."
+    }
+  ],
+  "tintes": [
+    {
+      "id": "filtro-41", "nombre": "Filtro 41", "color": "Rosado", "swatch": "#e2587a",
+      "uso": "Migraña y sensibilidad a la luz",
+      "detalle": "Bloquea parte de la luz azul y verde que estimula las células relacionadas con la migraña. Al reducir este estímulo disminuye la sobrecarga en la corteza visual, ayudando a controlar la fotofobia, el dolor y la sensibilidad a las pantallas."
+    },
+    {
+      "id": "filtro-60", "nombre": "Filtro 60", "color": "Rosa oxidado", "swatch": "#9a6443",
+      "uso": "Migraña y fatiga visual",
+      "detalle": "Con una oscuridad del 50%, ayuda a reducir la fatiga visual, los dolores de cabeza tensionales y las migrañas. Bloquea cerca del 80% de la luz azul parpadeante de la iluminación interior, uno de los principales desencadenantes de estas molestias. Recomendado para pacientes con migraña."
+    },
+    {
+      "id": "filtro-360", "nombre": "Filtro 360", "color": "Amarillo", "swatch": "#f0cf0a",
+      "uso": "Conducir de noche",
+      "detalle": "Amarillo saturado que reduce la dispersión de la luz azul y violeta dentro del ojo. Bloquea longitudes de onda menores a 450 nm con mínima afectación del espectro visible. Recomendado para conducir de noche."
+    },
+    {
+      "id": "filtro-451", "nombre": "Filtro 451", "color": "Azul oscuro", "swatch": "#2c3d8f",
+      "uso": "Epilepsia por fotosensibilidad",
+      "detalle": "Ha reducido hasta en un 95% el número de ataques en quienes lo utilizan. Recomendado para ataques epilépticos por fotosensibilidad; además mejora la sensación de ojo seco."
+    },
+    {
+      "id": "filtro-452", "nombre": "Filtro 452", "color": "Azul claro", "swatch": "#3fa2e2",
+      "uso": "Epilepsia por fotosensibilidad",
+      "detalle": "Se usa como apoyo en el tratamiento de la epilepsia, con una reducción de hasta el 95% en la frecuencia de crisis. Recomendado para ataques epilépticos por fotosensibilidad; además mejora la sensación de ojo seco."
+    },
+    {
+      "id": "filtro-480", "nombre": "Filtro 480", "color": "Marrón", "swatch": "#9a5a2c",
+      "uso": "Retinitis pigmentosa y degeneración macular",
+      "detalle": "Ideal para lentes de sol. Bloquea gran parte del espectro visible sin distorsionar los colores. Recomendado para retinitis pigmentosa y degeneración macular."
+    },
+    {
+      "id": "filtro-500", "nombre": "Filtro 500", "color": "Marrón ámbar oscuro", "swatch": "#a5531b",
+      "uso": "Retinitis pigmentosa y degeneración macular",
+      "detalle": "Bloquea longitudes de onda inferiores a 540 nm. Ideal para lentes de sol, ya que filtra eficazmente la luz azul y violeta. Recomendado para retinitis pigmentosa y degeneración macular."
+    },
+    {
+      "id": "filtro-510", "nombre": "Filtro 510", "color": "Bronceado", "swatch": "#e6bd16",
+      "uso": "Degeneración macular",
+      "detalle": "Atenúa la luz azul y violeta con mínima distorsión del color. Recomendado para casos de degeneración macular. Además, activa el ritmo circadiano."
+    },
+    {
+      "id": "filtro-511", "nombre": "Filtro 511 Melanin", "color": "Tostado", "swatch": "#cf661b",
+      "uso": "Retinitis pigmentosa y degeneración macular",
+      "detalle": "Imita la melanina natural del cuerpo. Recomendado para retinitis pigmentosa y degeneración macular, entre otras. Además, activa el ritmo circadiano."
+    },
+    {
+      "id": "filtro-527", "nombre": "Filtro 527", "color": "Naranja a rojo", "swatch": "#f07812",
+      "uso": "Retinitis pigmentosa y degeneración macular",
+      "detalle": "Bloquea las longitudes de onda más cortas, entre 500 y 550 nm. Recomendado para retinitis pigmentosa y degeneración macular. Además, activa el ritmo circadiano."
+    },
+    {
+      "id": "filtro-550", "nombre": "Filtro 550", "color": "Naranja a rojo anaranjado", "swatch": "#ea5523",
+      "uso": "Retinitis pigmentosa y degeneración macular",
+      "detalle": "Bloquea la luz de onda corta (violeta y azul), mejorando el contraste. Recomendado para retinitis pigmentosa y degeneración macular. Además, activa el ritmo circadiano."
+    },
+    {
+      "id": "filtro-600", "nombre": "Filtro 600", "color": "Rojo", "swatch": "#c2243a",
+      "uso": "Daltonismo",
+      "detalle": "Ayuda a personas con alteraciones en la percepción del color. Recomendado para discromatopsia (daltonismo). Además, activa el ritmo circadiano."
+    }
   ]
 }
