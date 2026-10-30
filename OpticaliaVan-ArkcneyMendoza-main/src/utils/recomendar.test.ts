@@ -36,4 +36,11 @@ describe('recomendar', () => {
     expect(otras.every((f) => !ideales.includes(f))).toBe(true)
     expect(otras.map((f) => f.id)).toEqual(['diseno-3'])
   })
+
+  it('si no hay monturas del tipo buscado, sugiere hasta 6 alternativas', () => {
+    const soloRecetadas = Array.from({ length: 8 }, (_, i) => montura(`formula-${i}`, 'formula', 'unisex', ['negro']))
+    const { ideales, otras } = recomendar(soloRecetadas, 'sol', ['negro'])
+    expect(ideales).toEqual([])
+    expect(otras).toHaveLength(6)
+  })
 })

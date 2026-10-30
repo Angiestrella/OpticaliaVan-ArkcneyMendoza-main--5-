@@ -21,9 +21,9 @@ export const tipos = [
 
 // Cada categoría se ilustra con una montura real del catálogo.
 export const estilos = [
-  { id: 'mujer', label: 'Mujer', ejemplo: 'diseno-4' },
-  { id: 'hombre', label: 'Hombre', ejemplo: 'diseno-1' },
-  { id: 'unisex', label: 'Unisex', ejemplo: 'diseno-2' },
+  { id: 'mujer', label: 'Mujer', ejemplo: 'bahamas-blue-eleuthera' },
+  { id: 'hombre', label: 'Hombre', ejemplo: 'oakley-ridge' },
+  { id: 'unisex', label: 'Unisex', ejemplo: 'the-look-prisma' },
 ]
 
 export const PREGUNTAS = 4

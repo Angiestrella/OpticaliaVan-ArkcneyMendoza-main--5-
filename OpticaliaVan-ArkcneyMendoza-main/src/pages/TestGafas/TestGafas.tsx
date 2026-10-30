@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, History, Sparkles } from 'lucide-react'
 import { frames, opcionesColor } from '../../data'
-import { CotizarPanel } from '../../components/CotizarPanel/CotizarPanel'
 import { FaceShapeUpload } from '../../components/FaceShapeUpload/FaceShapeUpload'
 import { alternar } from '../../utils/alternar'
 import { asset } from '../../utils/asset'
@@ -16,25 +15,40 @@ import { guardarRespuestas, leerRespuestas, type RespuestasTest } from './respue
 import './TestGafas.scss'
 
 export function TestGafas() {
-  const [paso, setPaso] = useState(0)
+  const location = useLocation()
+  const navigate = useNavigate()
+  // Resultado de una visita anterior (se lee una sola vez al abrir la página).
+  const [guardadas] = useState<RespuestasTest | null>(leerRespuestas)
+  // Si se vuelve con "Atrás" desde la página de una montura recomendada, se muestra
+  // otra vez el resultado (la marca queda en el historial, ver el efecto de abajo).
+  const [alVolver] = useState(() =>
+    (location.state as { verResultado?: boolean } | null)?.verResultado ? guardadas : null,
+  )
+  const [paso, setPaso] = useState(alVolver ? PREGUNTAS : 0)
   // Flechas para moverse entre las respuestas de cualquier pregunta.
   const flechasRespuestas = useFlechas<HTMLDivElement>('.quiz-option')
   const [direccion, setDireccion] = useState<'adelante' | 'atras'>('adelante')
-  const [rostro, setRostro] = useState<string | null>(null)
-  const [tipo, setTipo] = useState<string | null>(null)
-  const [estilo, setEstilo] = useState<string | null>(null)
-  const [colores, setColores] = useState<string[]>([])
+  const [rostro, setRostro] = useState<string | null>(alVolver?.rostro ?? null)
+  const [tipo, setTipo] = useState<string | null>(alVolver?.tipo ?? null)
+  const [estilo, setEstilo] = useState<string | null>(alVolver?.estilo ?? null)
+  const [colores, setColores] = useState<string[]>(alVolver?.colores ?? [])
   // Desde Inicio, "Te ayudamos con una foto" abre directo esa ayuda (?ayuda=foto).
   const [searchParams] = useSearchParams()
   const [ayudaRostro, setAyudaRostro] = useState(searchParams.get('ayuda') === 'foto')
   const [manualRostro, setManualRostro] = useState(false)
-  const [cotizarId, setCotizarId] = useState<string | null>(null)
-  // Resultado de una visita anterior (se lee una sola vez al abrir la página).
-  const [guardadas] = useState<RespuestasTest | null>(leerRespuestas)
-  const [avisoGuardadas, setAvisoGuardadas] = useState(true)
+  const [avisoGuardadas, setAvisoGuardadas] = useState(!alVolver)
   const avanceRef = useRef<number | undefined>(undefined)
 
   useEffect(() => () => window.clearTimeout(avanceRef.current), [])
+
+  // Mientras se ven los resultados, esta entrada del historial queda marcada: si la
+  // persona abre "Ver detalles" de una montura y vuelve con "Atrás", ve sus resultados.
+  const enResultados = paso === PREGUNTAS
+  const marcada = Boolean((location.state as { verResultado?: boolean } | null)?.verResultado)
+  useEffect(() => {
+    if (enResultados === marcada) return
+    navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: enResultados ? { verResultado: true } : null })
+  }, [enResultados, marcada, navigate, location.pathname, location.search])
 
   // Cada pregunta nueva se ve desde arriba.
   useEffect(() => {
@@ -92,7 +106,6 @@ export function TestGafas() {
     (paso === 3 && colores.length > 0)
 
   const { ideales, otras } = recomendar(frames, tipo, colores, rostro, estilo)
-  const frameCotizar = frames.find((frame) => frame.id === cotizarId)
 
   const resumen = [
     { paso: 0, etiqueta: 'Rostro', valor: rostros.find((r) => r.id === rostro)?.label },
@@ -274,7 +287,6 @@ export function TestGafas() {
               resumen={resumen}
               onEditar={irA}
               onReiniciar={reiniciar}
-              onCotizar={setCotizarId}
             />
           )}
         </div>
@@ -293,8 +305,6 @@ export function TestGafas() {
           </nav>
         )}
       </div>
-
-      {frameCotizar && <CotizarPanel frame={frameCotizar} onClose={() => setCotizarId(null)} />}
     </section>
   )
 }

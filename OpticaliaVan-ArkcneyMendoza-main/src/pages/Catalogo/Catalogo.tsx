@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowDownUp, ChevronDown, Search, SlidersHorizontal, Sparkles } from 'lucide-react'
+import { ArrowDownUp, ChevronDown, Search, SlidersHorizontal } from 'lucide-react'
 import { FrameCard } from '../../components/FrameCard/FrameCard'
 import { frames } from '../../data'
 import { alternar } from '../../utils/alternar'
@@ -11,10 +11,13 @@ const generos = [
   { id: 'mujer', label: 'Mujer' },
 ]
 
+// Solo los tipos que hay en el catálogo; si hay uno solo (ej. no hay gafas de
+// sol), no se muestran estos filtros porque no cambiarían nada.
 const categorias = [
   { id: 'sol', label: 'Sol' },
   { id: 'formula', label: 'Recetadas' },
-]
+].filter(({ id }) => frames.some((frame) => frame.category === id))
+const filtrosDeTipo = categorias.length > 1 ? categorias : []
 
 export function Catalogo() {
   const marcas = useMemo(() => [...new Set(frames.map((frame) => frame.brand))], [])
@@ -67,112 +70,113 @@ export function Catalogo() {
 
   return (
     <section className="catalogo">
-      <header className="catalogo__intro" data-reveal>
-        <div>
-          <p className="catalogo__eyebrow"><Sparkles size={15} /> Encuentra tu estilo</p>
+      {/* El banner ocupa todo el ancho de la pantalla; el texto se alinea con el resto del catálogo. */}
+      <header className="catalogo__intro">
+        <div className="catalogo__intro-texto" data-reveal>
           <h1 className="catalogo__title">Catálogo de gafas</h1>
           <p className="catalogo__descripcion">Explora monturas para cada momento y encuentra la que mejor va contigo.</p>
         </div>
-        <span className="catalogo__intro-mark" aria-hidden="true">O</span>
       </header>
 
-      <div className="catalogo__tools">
-        <label className="catalogo__search">
-          <Search size={19} aria-hidden="true" />
-          <input type="search" placeholder="Buscar por modelo, marca o estilo" value={busqueda} onChange={(event) => setBusqueda(event.target.value)} aria-label="Buscar gafas por modelo, marca o estilo" />
-        </label>
-        <label className="catalogo__sort">
-          <ArrowDownUp size={17} aria-hidden="true" />
-          <span>Ordenar:</span>
-          <select value={orden} onChange={(event) => setOrden(event.target.value)} aria-label="Ordenar catálogo">
-            <option value="recomendados">Recomendados</option>
-            <option value="precio-menor">Menor precio</option>
-            <option value="precio-mayor">Mayor precio</option>
-          </select>
-        </label>
-      </div>
+      <div className="catalogo__cuerpo">
+        <div className="catalogo__tools">
+          <label className="catalogo__search">
+            <Search size={19} aria-hidden="true" />
+            <input type="search" placeholder="Buscar por modelo, marca o estilo" value={busqueda} onChange={(event) => setBusqueda(event.target.value)} aria-label="Buscar gafas por modelo, marca o estilo" />
+          </label>
+          <label className="catalogo__sort">
+            <ArrowDownUp size={17} aria-hidden="true" />
+            <span>Ordenar:</span>
+            <select value={orden} onChange={(event) => setOrden(event.target.value)} aria-label="Ordenar catálogo">
+              <option value="recomendados">Recomendados</option>
+              <option value="precio-menor">Menor precio</option>
+              <option value="precio-mayor">Mayor precio</option>
+            </select>
+          </label>
+        </div>
 
-      <div className="catalogo__filter-heading"><SlidersHorizontal size={17} /><span>Filtra la colección</span></div>
+        <div className="catalogo__filter-heading"><SlidersHorizontal size={17} /><span>Filtra la colección</span></div>
 
-      <div className="catalogo__filtros" ref={flechasFiltros}>
-        {generos.map(({ id, label }) => (
-          <button
-            key={id}
-            type="button"
-            aria-pressed={generosActivos.includes(id)}
-            className={`catalogo__filtro ${generosActivos.includes(id) ? 'catalogo__filtro--activo' : ''}`}
-            onClick={() => setGenerosActivos((activos) => alternar(activos, id))}
-          >
-            {label}
-          </button>
-        ))}
+        <div className="catalogo__filtros" ref={flechasFiltros}>
+          {generos.map(({ id, label }) => (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={generosActivos.includes(id)}
+              className={`catalogo__filtro ${generosActivos.includes(id) ? 'catalogo__filtro--activo' : ''}`}
+              onClick={() => setGenerosActivos((activos) => alternar(activos, id))}
+            >
+              {label}
+            </button>
+          ))}
 
-        <div className="catalogo__marcas" ref={marcasRef}>
-          <button
-            type="button"
-            aria-expanded={marcasAbierto}
-            className={`catalogo__filtro ${marcasActivas.length > 0 ? 'catalogo__filtro--activo' : ''}`}
-            onClick={() => setMarcasAbierto((abierto) => !abierto)}
-          >
-            Marcas
-            {marcasActivas.length > 0 && (
-              <span className="catalogo__contador">{marcasActivas.length}</span>
+          <div className="catalogo__marcas" ref={marcasRef}>
+            <button
+              type="button"
+              aria-expanded={marcasAbierto}
+              className={`catalogo__filtro ${marcasActivas.length > 0 ? 'catalogo__filtro--activo' : ''}`}
+              onClick={() => setMarcasAbierto((abierto) => !abierto)}
+            >
+              Marcas
+              {marcasActivas.length > 0 && (
+                <span className="catalogo__contador">{marcasActivas.length}</span>
+              )}
+              <ChevronDown size={16} strokeWidth={2} />
+            </button>
+
+            {marcasAbierto && (
+              <div className="catalogo__marcas-panel">
+                {marcas.map((marca) => (
+                  <label key={marca} className="catalogo__marcas-opcion">
+                    <input
+                      type="checkbox"
+                      checked={marcasActivas.includes(marca)}
+                      onChange={() => setMarcasActivas((activas) => alternar(activas, marca))}
+                    />
+                    {marca}
+                  </label>
+                ))}
+              </div>
             )}
-            <ChevronDown size={16} strokeWidth={2} />
-          </button>
+          </div>
 
-          {marcasAbierto && (
-            <div className="catalogo__marcas-panel">
-              {marcas.map((marca) => (
-                <label key={marca} className="catalogo__marcas-opcion">
-                  <input
-                    type="checkbox"
-                    checked={marcasActivas.includes(marca)}
-                    onChange={() => setMarcasActivas((activas) => alternar(activas, marca))}
-                  />
-                  {marca}
-                </label>
-              ))}
-            </div>
+          {filtrosDeTipo.map(({ id, label }) => (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={categoriasActivas.includes(id)}
+              className={`catalogo__filtro ${categoriasActivas.includes(id) ? 'catalogo__filtro--activo' : ''}`}
+              onClick={() => setCategoriasActivas((activas) => alternar(activas, id))}
+            >
+              {label}
+            </button>
+          ))}
+
+          {hayFiltrosActivos && (
+            <button type="button" className="catalogo__limpiar" onClick={limpiarFiltros}>
+              Limpiar filtros
+            </button>
           )}
         </div>
 
-        {categorias.map(({ id, label }) => (
-          <button
-            key={id}
-            type="button"
-            aria-pressed={categoriasActivas.includes(id)}
-            className={`catalogo__filtro ${categoriasActivas.includes(id) ? 'catalogo__filtro--activo' : ''}`}
-            onClick={() => setCategoriasActivas((activas) => alternar(activas, id))}
-          >
-            {label}
-          </button>
-        ))}
+        <div className="catalogo__results">
+          <p><strong>{resultado.length}</strong> {resultado.length === 1 ? 'modelo encontrado' : 'modelos encontrados'}</p>
+          {hayFiltrosActivos && <span>Filtros aplicados</span>}
+        </div>
 
-        {hayFiltrosActivos && (
-          <button type="button" className="catalogo__limpiar" onClick={limpiarFiltros}>
-            Limpiar filtros
-          </button>
+        {resultado.length > 0 ? (
+          // Grid de Bootstrap: 2 por fila en celular, 3 en tablet, 4 en escritorio.
+          <div className="catalogo__grid row g-3 g-md-4" data-reveal-group>
+            {resultado.map((frame) => (
+              <div key={frame.id} className="col-6 col-md-4 col-xl-3">
+                <FrameCard frame={frame} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="catalogo__vacio">No hay gafas que coincidan con estos filtros.</p>
         )}
       </div>
-
-      <div className="catalogo__results">
-        <p><strong>{resultado.length}</strong> {resultado.length === 1 ? 'modelo encontrado' : 'modelos encontrados'}</p>
-        {hayFiltrosActivos && <span>Filtros aplicados</span>}
-      </div>
-
-      {resultado.length > 0 ? (
-        // Grid de Bootstrap: 2 por fila en celular, 3 en tablet, 4 en escritorio.
-        <div className="catalogo__grid row g-3 g-md-4" data-reveal-group>
-          {resultado.map((frame) => (
-            <div key={frame.id} className="col-6 col-md-4 col-xl-3">
-              <FrameCard frame={frame} />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="catalogo__vacio">No hay gafas que coincidan con estos filtros.</p>
-      )}
     </section>
   )
 }

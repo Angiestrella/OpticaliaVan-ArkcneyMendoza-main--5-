@@ -554,8 +554,12 @@ $azul-oscuro: $color-azul-titulo;
 }
 
 // Cada gafa entra una tras otra y la cruza un destello.
+// En columna: el botón "Ver detalles" baja al fondo, así queda a la misma altura
+// en todas las tarjetas de la fila aunque el nombre ocupe una o dos líneas.
 .result-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   padding: 12px 12px 16px;
   border: 1px solid rgba($color-blue, 0.1);
@@ -682,14 +686,16 @@ $azul-oscuro: $color-azul-titulo;
 }
 
 .result-card__price {
-  margin: $space-1 2px 0;
+  margin: $space-1 2px $space-3;
   color: rgba($color-black, 0.7);
   font-size: 14px;
 }
 
-.result-card__quote {
+// Enlace a la página de la montura (fotos, colores y cotizador).
+.result-card__detalles {
+  display: block;
   width: 100%;
-  margin-top: $space-3;
+  margin-top: auto;
   padding: $space-2 $space-4;
   border: 1.5px solid $color-blue;
   border-radius: $radius-pill;
@@ -698,7 +704,8 @@ $azul-oscuro: $color-azul-titulo;
   font-family: $font-text;
   font-size: 14px;
   font-weight: 700;
-  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
   transition:
     background-color $motion-fast $motion-easing,
     color $motion-fast $motion-easing;

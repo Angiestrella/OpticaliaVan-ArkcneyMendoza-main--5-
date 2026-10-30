@@ -12,6 +12,11 @@
         "source": "/encuentra-tus-gafas",
         "destination": "/que-gafas-van-contigo/",
         "type": 301
+      },
+      {
+        "regex": "^/producto/diseno-[1-4]/?$",
+        "destination": "/catalogo/",
+        "type": 301
       }
     ],
     "headers": [

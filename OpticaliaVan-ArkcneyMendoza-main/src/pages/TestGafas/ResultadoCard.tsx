@@ -9,11 +9,11 @@ interface Props {
   indice: number
   destacada?: boolean
   idsRecomendadas: string[] // el probador muestra solo estas monturas
-  onCotizar: (id: string) => void
 }
 
-// Tarjeta de una montura recomendada: probarla en vivo o cotizarla.
-export function ResultadoCard({ frame, indice, destacada = false, idsRecomendadas, onCotizar }: Props) {
+// Tarjeta de una montura recomendada: probarla en vivo o ver sus detalles
+// (en la página de la montura están las fotos, los colores y el botón de cotizar).
+export function ResultadoCard({ frame, indice, destacada = false, idsRecomendadas }: Props) {
   return (
     <div className="result-card" style={conIndice(indice)}>
       <div className="result-card__photo">
@@ -29,9 +29,9 @@ export function ResultadoCard({ frame, indice, destacada = false, idsRecomendada
       </div>
       <p className="result-card__name">{frame.name}</p>
       <p className="result-card__price">Desde {formatPrice(frame.price)}</p>
-      <button type="button" className="result-card__quote" onClick={() => onCotizar(frame.id)}>
-        Cotizar
-      </button>
+      <Link className="result-card__detalles" to={`/producto/${frame.id}`} aria-label={`Ver detalles de ${frame.name}`}>
+        Ver detalles <span aria-hidden="true">→</span>
+      </Link>
     </div>
   )
 }

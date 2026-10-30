@@ -19,7 +19,7 @@ interface PruebaState {
 const monturaReferencia = {
   id: 'montura-3d',
   name: 'Modelo 3D con patas',
-  image: asset('/gafas/montura-referencia.png'),
+  image: asset('/gafas/montura-referencia.webp'),
   model: asset('/gafas/montura-3d.glb'),
 }
 

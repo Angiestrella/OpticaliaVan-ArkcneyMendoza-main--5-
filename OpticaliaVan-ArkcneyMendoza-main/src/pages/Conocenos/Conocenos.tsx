@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { ArrowDown, ArrowUpRight, Eye, MapPin, Volume2, VolumeX } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import { ArrowDown, ArrowUpRight, Eye, MapPin } from 'lucide-react'
 import { asset } from '../../utils/asset'
 import './Conocenos.scss'
 
@@ -28,28 +28,15 @@ function LogoTikTok({ size = 28 }: { size?: number }) {
 
 export function Conocenos() {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [conSonido, setConSonido] = useState(false)
 
   // Los navegadores solo dejan reproducir automáticamente un video silenciado.
+  // Este video no tiene sonido: es un saludo corto que se repite.
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
     video.muted = true
     video.play().catch(() => {})
   }, [])
-
-  function alternarSonido() {
-    const video = videoRef.current
-    if (!video) return
-    if (video.muted) {
-      // Al activar el sonido empieza desde el principio para escuchar todo el mensaje.
-      video.muted = false
-      video.currentTime = 0
-      video.play().catch(() => {})
-    } else {
-      video.muted = true
-    }
-  }
 
   useEffect(() => {
     const instagramWindow = window as Window & { instgrm?: { Embeds?: { process: () => void } } }
@@ -92,17 +79,12 @@ export function Conocenos() {
           controls
           playsInline
           preload="auto"
-          poster={asset('/hero-poster.webp')}
-          onVolumeChange={(e) => setConSonido(!e.currentTarget.muted)}
-          aria-label="Video de los optómetras contando sobre Opticalia Van-Arcken y Mendoza"
+          poster={asset('/conocenos-poster.webp')}
+          aria-label="Video de los optómetras de Opticalia Van-Arcken y Mendoza saludando desde la óptica"
         >
-          <source src={asset('/hero.mp4')} type="video/mp4" />
+          <source src={asset('/conocenos.mp4')} type="video/mp4" />
           Tu navegador no puede reproducir este video.
         </video>
-        <button type="button" className="about-hero__sound" onClick={alternarSonido}>
-          {conSonido ? <VolumeX size={18} aria-hidden="true" /> : <Volume2 size={18} aria-hidden="true" />}
-          {conSonido ? 'Silenciar' : 'Activar sonido'}
-        </button>
         <div className="about-hero__veil" />
         <div className="about-hero__content">
           <p className="about-eyebrow">Opticalia Van-Arcken &amp; Mendoza</p>

@@ -15,6 +15,11 @@ const pasosTest = [
   { label: 'Tus colores', Icon: Palette },
 ]
 
+// Inicio muestra 4 tarjetas por sección (una fila en escritorio); el resto está en el catálogo.
+const TARJETAS_POR_SECCION = 4
+// Gafas de sol que salen primero en Inicio: una de cada marca para mostrar variedad.
+const SOL_EN_INICIO = ['carolina-herrera-joya', 'monastery-oro', 'the-look-piloto', 'bahamas-blue-cristal']
+
 const pasosConsulta = [
   { titulo: 'Trae tus gafas actuales', texto: 'Si ya usas gafas, llévalas contigo. También puedes traer una fórmula anterior si la tienes.', Icon: Glasses },
   { titulo: 'Piensa en tu día a día', texto: 'Cuenta para qué actividades necesitas ver mejor: leer, trabajar frente a pantallas, conducir u otras.', Icon: ClipboardList },
@@ -25,9 +30,13 @@ export function Home() {
   const opticaRef = useRef<HTMLElement>(null)
   useParallax(opticaRef)
 
-  // Cada montura una sola vez (antes se repetían hasta llenar 4 tarjetas).
-  const tendencias = frames.filter((frame) => frame.trending)
-  const gafasDeSol = frames.filter((frame) => frame.category === 'sol')
+  const tendencias = frames.filter((frame) => frame.trending).slice(0, TARJETAS_POR_SECCION)
+  // Primero las elegidas en SOL_EN_INICIO; si alguna ya no existe, se completa con las demás de sol.
+  const destacadaSol = (id: string) => (SOL_EN_INICIO.includes(id) ? 1 : 0)
+  const gafasDeSol = frames
+    .filter((frame) => frame.category === 'sol')
+    .sort((a, b) => destacadaSol(b.id) - destacadaSol(a.id))
+    .slice(0, TARJETAS_POR_SECCION)
 
   return (
     <>
@@ -76,7 +85,7 @@ export function Home() {
       </section>
 
       <section id="optica" className="optica-photo" ref={opticaRef}>
-        <img src={asset('/optica-fachada.jpeg')} alt="Fachada de Opticalia Van-Arcken & Mendoza" width={1280} height={960} loading="lazy" decoding="async" />
+        <img src={asset('/optica-fachada.webp')} alt="Fachada de Opticalia Van-Arcken & Mendoza" width={1280} height={960} loading="lazy" decoding="async" />
         <div className="optica-photo__shade" />
         <div className="optica-photo__content" data-reveal>
           <p className="optica-photo__eyebrow">Opticalia Van-Arcken &amp; Mendoza</p>
@@ -86,18 +95,21 @@ export function Home() {
         </div>
       </section>
 
-      <section className="home-section home-section--tinted">
-        <h2 className="home-section__title" data-reveal>Nuestras gafas de sol</h2>
-        <div className="home-section__grid">
-          <div className="row g-4 justify-content-center" data-reveal-group>
-            {gafasDeSol.map((frame) => (
-              <div key={frame.id} className="col-6 col-md-4 col-xl-3">
-                <FrameCard frame={frame} accion="ver" />
-              </div>
-            ))}
+      {/* Solo aparece si el catálogo tiene gafas de sol (category "sol" en frames.json). */}
+      {gafasDeSol.length > 0 && (
+        <section className="home-section home-section--tinted">
+          <h2 className="home-section__title" data-reveal>Nuestras gafas de sol</h2>
+          <div className="home-section__grid">
+            <div className="row g-4 justify-content-center" data-reveal-group>
+              {gafasDeSol.map((frame) => (
+                <div key={frame.id} className="col-6 col-md-4 col-xl-3">
+                  <FrameCard frame={frame} accion="ver" />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Texto y botón a la izquierda; los 3 pasos como lista numerada a la derecha. */}
       <section className="vision-care" aria-labelledby="vision-care-title">

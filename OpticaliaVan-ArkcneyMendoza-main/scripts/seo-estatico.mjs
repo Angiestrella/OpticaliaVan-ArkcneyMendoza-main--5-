@@ -2,10 +2,11 @@
 //
 // GitHub Pages solo sirve archivos: si alguien (o Google) abre /catalogo directamente,
 // antes respondía "404" y mostraba la app desde 404.html. Este script crea una carpeta
-// con su propio index.html para cada página (catalogo/index.html, producto/diseno-1/index.html…),
+// con su propio index.html para cada página (catalogo/index.html, producto/bahamas-blue-nassau/index.html…),
 // cada uno con su título, descripción, vista previa para compartir y datos estructurados.
 // Así cada dirección responde "200 OK" y los buscadores ven la información correcta
-// aunque no ejecuten JavaScript. También genera sitemap.xml, robots.txt y 404.html.
+// aunque no ejecuten JavaScript. También genera sitemap.xml, robots.txt y 404.html,
+// y deja una copia de sitemap.xml y robots.txt en public/ para que se vean en el repositorio.
 //
 // Uso: node scripts/seo-estatico.mjs [carpeta-del-build]   (por defecto: dist)
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -35,11 +36,13 @@ if (!BLOQUE_HEAD.test(plantilla) || !plantilla.includes(MARCA_BODY)) {
 }
 
 // Usa funciones en los reemplazos: así un "$" del texto no se toma como comodín.
+// Al final quita los comentarios <!-- … --> del HTML: sirven a quien programa, no al visitante.
 function paginaHtml(ruta) {
   const datos = datosSeo(ruta, seo, frames)
   return plantilla
     .replace(BLOQUE_HEAD, () => etiquetasHead(datos, seo))
     .replace(MARCA_BODY, () => contenidoSinJavascript(datos, seo))
+    .replace(/[ \t]*<!--[\s\S]*?-->\r?\n?/g, '')
 }
 
 function escribir(rutaArchivo, contenido) {
@@ -55,8 +58,12 @@ for (const ruta of rutas) {
 // Para cualquier otra dirección: la app muestra "Página no encontrada" y Google no la guarda.
 escribir(join(dist, '404.html'), paginaHtml('/__pagina-no-encontrada__'))
 
+// sitemap.xml y robots.txt van en la raíz del sitio publicado, junto al index.html.
+// La copia en public/ es la misma: así se ven en el repositorio sin compilar.
 const hoy = new Date().toISOString().slice(0, 10)
-escribir(join(dist, 'sitemap.xml'), sitemapXml(seo, frames, hoy))
-escribir(join(dist, 'robots.txt'), robotsTxt(seo))
+for (const carpeta of [dist, join(raiz, 'public')]) {
+  escribir(join(carpeta, 'sitemap.xml'), sitemapXml(seo, frames, hoy))
+  escribir(join(carpeta, 'robots.txt'), robotsTxt(seo))
+}
 
 console.log(`SEO: ${rutas.length} páginas con su propio HTML, más 404.html, sitemap.xml y robots.txt en ${dist}`)

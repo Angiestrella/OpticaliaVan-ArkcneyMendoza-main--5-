@@ -1,301 +1,2655 @@
 [
   {
-    "id": "diseno-1",
-    "name": "Mario Hernandez Bogotá",
-    "price": 180000,
-    "brand": "Mario Hernandez",
+    "id": "bahamas-blue-nassau",
+    "name": "Bahamas Blue Nassau",
+    "price": 210000,
+    "brand": "Bahamas Blue",
     "category": "formula",
-    "genero": "hombre",
-    "trending": true,
-    "silhouette": "Rectangular de líneas marcadas",
-    "description": "Una montura de frente definido y líneas rectas, con una presencia contemporánea. Sus tonos azul, negro y oliva permiten elegir entre un acento de color y opciones más sobrias.",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Geométrica de metal ligero",
+    "description": "Montura metálica de líneas finas con un frente geométrico que se eleva suavemente hacia las sienes. La ceja y el puente plateados contrastan con el aro gris grafito, y las varillas, con un detalle estriado junto a la bisagra, terminan en carey azul. Sus plaquetas de silicona ajustables la hacen cómoda para todo el día.",
+    "colors": [
+      {
+        "id": "plateado",
+        "label": "Plateado",
+        "image": "/gafas/bahamas-blue-nassau-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/bahamas-blue-nassau-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/bahamas-blue-nassau-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/bahamas-blue-nassau-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bahamas-blue-exuma",
+    "name": "Bahamas Blue Exuma",
+    "price": 230000,
+    "brand": "Bahamas Blue",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato en acetato translúcido",
+    "description": "Montura de acetato azul translúcido con forma de ojo de gato: frente amplio y esquinas que se elevan con suavidad. Junto a la bisagra lleva una pieza dorada con incrustaciones en rojo y marfil, y las varillas, en azul pizarra, llevan la marca Bahamas en letras plateadas. Un diseño femenino y luminoso para el día a día.",
     "colors": [
       {
         "id": "azul",
-        "label": "Azul",
-        "image": "/gafas/diseno-1-azul.webp",
+        "label": "Azul translúcido",
+        "image": "/gafas/bahamas-blue-exuma-frontal.webp",
         "photos": [
           {
             "label": "Frontal",
-            "placeholder": true,
+            "placeholder": false,
             "id": "frontal",
-            "image": "/gafas/diseno-1-azul.webp"
+            "image": "/gafas/bahamas-blue-exuma-frontal.webp"
           },
           {
             "label": "Vista ¾",
-            "placeholder": true,
+            "placeholder": false,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-1-azul.webp"
+            "image": "/gafas/bahamas-blue-exuma-tres-cuartos.webp"
           },
           {
             "label": "Lateral",
-            "placeholder": true,
+            "placeholder": false,
             "id": "lateral",
-            "image": "/gafas/diseno-1-azul.webp"
-          }
-        ]
-      },
-      {
-        "id": "negro",
-        "label": "Negro",
-        "image": "/gafas/diseno-1-negro.webp",
-        "photos": [
-          {
-            "label": "Frontal",
-            "placeholder": true,
-            "id": "frontal",
-            "image": "/gafas/diseno-1-negro.webp"
-          },
-          {
-            "label": "Vista ¾",
-            "placeholder": true,
-            "id": "tres-cuartos",
-            "image": "/gafas/diseno-1-negro.webp"
-          },
-          {
-            "label": "Lateral",
-            "placeholder": true,
-            "id": "lateral",
-            "image": "/gafas/diseno-1-negro.webp"
-          }
-        ]
-      },
-      {
-        "id": "oliva",
-        "label": "Oliva",
-        "image": "/gafas/diseno-1-oliva.webp",
-        "photos": [
-          {
-            "label": "Frontal",
-            "placeholder": true,
-            "id": "frontal",
-            "image": "/gafas/diseno-1-oliva.webp"
-          },
-          {
-            "label": "Vista ¾",
-            "placeholder": true,
-            "id": "tres-cuartos",
-            "image": "/gafas/diseno-1-oliva.webp"
-          },
-          {
-            "label": "Lateral",
-            "placeholder": true,
-            "id": "lateral",
-            "image": "/gafas/diseno-1-oliva.webp"
+            "image": "/gafas/bahamas-blue-exuma-lateral.webp"
           }
         ]
       }
     ]
   },
   {
-    "id": "diseno-2",
-    "name": "Oakley Vertex",
-    "price": 165000,
-    "brand": "Oakley",
+    "id": "bahamas-blue-eleuthera",
+    "name": "Bahamas Blue Eleuthera",
+    "price": 250000,
+    "brand": "Bahamas Blue",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": true,
+    "silhouette": "Mariposa de acetato bicolor",
+    "description": "Montura de acetato rojo teja con forma de mariposa: frente amplio, esquinas superiores marcadas y un interior en carey morado que se asoma por los bordes. Las varillas son de metal dorado con un calado geométrico en forma de rombo y terminan en acetato rojo. Una montura protagonista para quien quiere que sus gafas se noten.",
+    "colors": [
+      {
+        "id": "rojo",
+        "label": "Rojo teja",
+        "image": "/gafas/bahamas-blue-eleuthera-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/bahamas-blue-eleuthera-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/bahamas-blue-eleuthera-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/bahamas-blue-eleuthera-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bahamas-blue-bimini",
+    "name": "Bahamas Blue Bimini",
+    "price": 190000,
+    "brand": "Bahamas Blue",
     "category": "formula",
     "genero": "unisex",
     "trending": false,
-    "silhouette": "Cuadrada con esquinas suaves",
-    "description": "Una silueta amplia y de esquinas suaves que combina un estilo casual con un frente llamativo. Disponible en café, morado y verde para personalizar el look.",
-    "colors": [
-      {
-        "id": "cafe",
-        "label": "Café",
-        "image": "/gafas/diseno-2-cafe.webp",
-        "photos": [
-          {
-            "label": "Frontal",
-            "placeholder": true,
-            "id": "frontal",
-            "image": "/gafas/diseno-2-cafe.webp"
-          },
-          {
-            "label": "Vista ¾",
-            "placeholder": true,
-            "id": "tres-cuartos",
-            "image": "/gafas/diseno-2-cafe.webp"
-          },
-          {
-            "label": "Lateral",
-            "placeholder": true,
-            "id": "lateral",
-            "image": "/gafas/diseno-2-cafe.webp"
-          }
-        ]
-      },
-      {
-        "id": "morado",
-        "label": "Morado",
-        "image": "/gafas/diseno-2-morado.webp",
-        "photos": [
-          {
-            "label": "Frontal",
-            "placeholder": true,
-            "id": "frontal",
-            "image": "/gafas/diseno-2-morado.webp"
-          },
-          {
-            "label": "Vista ¾",
-            "placeholder": true,
-            "id": "tres-cuartos",
-            "image": "/gafas/diseno-2-morado.webp"
-          },
-          {
-            "label": "Lateral",
-            "placeholder": true,
-            "id": "lateral",
-            "image": "/gafas/diseno-2-morado.webp"
-          }
-        ]
-      },
-      {
-        "id": "verde",
-        "label": "Verde",
-        "image": "/gafas/diseno-2-verde.webp",
-        "photos": [
-          {
-            "label": "Frontal",
-            "placeholder": true,
-            "id": "frontal",
-            "image": "/gafas/diseno-2-verde.webp"
-          },
-          {
-            "label": "Vista ¾",
-            "placeholder": true,
-            "id": "tres-cuartos",
-            "image": "/gafas/diseno-2-verde.webp"
-          },
-          {
-            "label": "Lateral",
-            "placeholder": true,
-            "id": "lateral",
-            "image": "/gafas/diseno-2-verde.webp"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "diseno-3",
-    "name": "Monastery Eclipse",
-    "price": 260000,
-    "brand": "Monastery",
-    "category": "sol",
-    "genero": "hombre",
-    "trending": false,
-    "silhouette": "Geométrica",
-    "description": "Gafas de sol de líneas geométricas y lentes oscuros, con un diseño de carácter marcado. Una opción para quienes buscan una montura protagonista al aire libre.",
+    "silhouette": "Redonda de metal dorado",
+    "description": "Montura redonda de metal fino en dorado, de estilo clásico con aire retro. El puente recto y las bisagras llevan un detalle de líneas en relieve, las plaquetas son ajustables y las varillas terminan en acetato café. Ligera y fácil de combinar con cualquier estilo.",
     "colors": [
       {
         "id": "dorado",
         "label": "Dorado",
-        "image": "/gafas/diseno-3-dorado.webp",
+        "image": "/gafas/bahamas-blue-bimini-frontal.webp",
         "photos": [
           {
             "label": "Frontal",
-            "placeholder": true,
+            "placeholder": false,
             "id": "frontal",
-            "image": "/gafas/diseno-3-dorado.webp"
+            "image": "/gafas/bahamas-blue-bimini-frontal.webp"
           },
           {
             "label": "Vista ¾",
-            "placeholder": true,
+            "placeholder": false,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-3-dorado.webp"
+            "image": "/gafas/bahamas-blue-bimini-tres-cuartos.webp"
           },
           {
             "label": "Lateral",
-            "placeholder": true,
+            "placeholder": false,
             "id": "lateral",
-            "image": "/gafas/diseno-3-dorado.webp"
-          }
-        ]
-      },
-      {
-        "id": "negro",
-        "label": "Negro",
-        "image": "/gafas/diseno-3-negro.webp",
-        "photos": [
-          {
-            "label": "Frontal",
-            "placeholder": true,
-            "id": "frontal",
-            "image": "/gafas/diseno-3-negro.webp"
-          },
-          {
-            "label": "Vista ¾",
-            "placeholder": true,
-            "id": "tres-cuartos",
-            "image": "/gafas/diseno-3-negro.webp"
-          },
-          {
-            "label": "Lateral",
-            "placeholder": true,
-            "id": "lateral",
-            "image": "/gafas/diseno-3-negro.webp"
+            "image": "/gafas/bahamas-blue-bimini-lateral.webp"
           }
         ]
       }
     ]
   },
   {
-    "id": "diseno-4",
-    "name": "Ray-Ban Aurora",
-    "price": 195000,
-    "brand": "Ray-Ban",
+    "id": "the-look-prisma",
+    "name": "The Look Prisma",
+    "price": 220000,
+    "brand": "The Look",
     "category": "formula",
-    "genero": "mujer",
+    "genero": "unisex",
     "trending": true,
-    "silhouette": "Cuadrada de bordes redondeados",
-    "description": "Una montura cuadrada de bordes redondeados y acabado cálido. El café ofrece un aire clásico y el morado suma un toque de color.",
+    "silhouette": "Hexagonal de acetato y metal",
+    "description": "Montura hexagonal que combina aros de acetato negro con bloques de color en azul eléctrico y azul cielo en las esquinas exteriores. El puente y el aro interior son de metal plateado, igual que las varillas delgadas, que terminan en acetato negro. Trae plaquetas ajustables. Un diseño geométrico y moderno con un toque de color.",
     "colors": [
       {
-        "id": "cafe",
-        "label": "Café",
-        "image": "/gafas/diseno-4-cafe.webp",
+        "id": "azul",
+        "label": "Negro con azul",
+        "image": "/gafas/the-look-prisma-frontal.webp",
         "photos": [
           {
             "label": "Frontal",
-            "placeholder": true,
+            "placeholder": false,
             "id": "frontal",
-            "image": "/gafas/diseno-4-cafe.webp"
+            "image": "/gafas/the-look-prisma-frontal.webp"
           },
           {
             "label": "Vista ¾",
-            "placeholder": true,
+            "placeholder": false,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-4-cafe.webp"
+            "image": "/gafas/the-look-prisma-tres-cuartos.webp"
           },
           {
             "label": "Lateral",
-            "placeholder": true,
+            "placeholder": false,
             "id": "lateral",
-            "image": "/gafas/diseno-4-cafe.webp"
+            "image": "/gafas/the-look-prisma-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "the-look-bosque",
+    "name": "The Look Bosque",
+    "price": 200000,
+    "brand": "The Look",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Redondeada de acetato grueso",
+    "description": "Montura de acetato verde oliva translúcido, gruesa y de forma redondeada, con puente en forma de ojo de cerradura y remaches metálicos en las esquinas del frente. Las varillas llevan por dentro una franja verde lima que asoma en las puntas, y la marca The Look en el costado. Un estilo retro con personalidad.",
+    "colors": [
+      {
+        "id": "verde",
+        "label": "Verde oliva",
+        "image": "/gafas/the-look-bosque-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/the-look-bosque-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/the-look-bosque-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/the-look-bosque-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trendi-metro",
+    "name": "Trendi Metro",
+    "price": 150000,
+    "brand": "Trendi",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": true,
+    "silhouette": "Rectangular de acetato translúcido",
+    "description": "Montura rectangular de la línea Essentials, en acetato translúcido de líneas rectas y puente marcado. Por dentro de las varillas se ve un alma metálica con textura, un detalle discreto que se nota de lado. Disponible en verde oliva y morado: una opción sobria y fácil de llevar todos los días.",
+    "colors": [
+      {
+        "id": "oliva",
+        "label": "Verde oliva",
+        "image": "/gafas/trendi-metro-oliva-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/trendi-metro-oliva-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/trendi-metro-oliva-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/trendi-metro-oliva-lateral.webp"
           }
         ]
       },
       {
         "id": "morado",
         "label": "Morado",
-        "image": "/gafas/diseno-4-morado.webp",
+        "image": "/gafas/trendi-metro-morado-frontal.webp",
         "photos": [
           {
             "label": "Frontal",
-            "placeholder": true,
+            "placeholder": false,
             "id": "frontal",
-            "image": "/gafas/diseno-4-morado.webp"
+            "image": "/gafas/trendi-metro-morado-frontal.webp"
           },
           {
             "label": "Vista ¾",
-            "placeholder": true,
+            "placeholder": false,
             "id": "tres-cuartos",
-            "image": "/gafas/diseno-4-morado.webp"
+            "image": "/gafas/trendi-metro-morado-tres-cuartos.webp"
           },
           {
             "label": "Lateral",
-            "placeholder": true,
+            "placeholder": false,
             "id": "lateral",
-            "image": "/gafas/diseno-4-morado.webp"
+            "image": "/gafas/trendi-metro-morado-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trendi-dalia",
+    "name": "Trendi Dalia",
+    "price": 185000,
+    "brand": "Trendi",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Geométrica de acetato y metal",
+    "description": "Montura de la línea Colour Tech con frente geométrico de esquinas suaves, en acetato color vino. Las varillas son de metal dorado delgado, con la marca grabada junto a la bisagra, y terminan en acetato del mismo tono del frente. Femenina, ligera y con un color que ilumina el rostro.",
+    "colors": [
+      {
+        "id": "rojo",
+        "label": "Vino",
+        "image": "/gafas/trendi-dalia-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/trendi-dalia-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/trendi-dalia-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/trendi-dalia-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trendi-contraste",
+    "name": "Trendi Contraste",
+    "price": 175000,
+    "brand": "Trendi",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Cuadrada de acetato bicolor",
+    "description": "Montura cuadrada de la línea Heritage, en acetato grueso negro por fuera y transparente por dentro: un contraste que se ve tanto en el frente como en las varillas. Frente amplio y de líneas firmes, con un aire clásico que no pasa de moda.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro y cristal",
+        "image": "/gafas/trendi-contraste-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/trendi-contraste-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/trendi-contraste-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/trendi-contraste-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trendi-jade",
+    "name": "Trendi Jade",
+    "price": 170000,
+    "brand": "Trendi",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular de acetato y metal",
+    "description": "Montura rectangular de la línea Colour Tech, con frente de acetato verde botella translúcido y varillas delgadas de metal gris oscuro que terminan en acetato verde. Ligera y de líneas limpias: un toque de color para un estilo sobrio.",
+    "colors": [
+      {
+        "id": "verde",
+        "label": "Verde botella",
+        "image": "/gafas/trendi-jade-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/trendi-jade-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/trendi-jade-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/trendi-jade-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trendi-aviador",
+    "name": "Trendi Aviador",
+    "price": 160000,
+    "brand": "Trendi",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Aviador de metal",
+    "description": "Montura estilo aviador en metal plateado, con el clásico doble puente recto y lentes en forma de gota. Las plaquetas son ajustables y las varillas, delgadas, terminan en acetato carey. Un diseño que nunca pasa de moda y va con cualquier estilo.",
+    "colors": [
+      {
+        "id": "plateado",
+        "label": "Plateado",
+        "image": "/gafas/trendi-aviador-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/trendi-aviador-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/trendi-aviador-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/trendi-aviador-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "valentin-aire",
+    "name": "Valentin Aire",
+    "price": 240000,
+    "brand": "Valentin",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Al aire, sin aro",
+    "description": "Montura al aire de la línea Italy Design: los lentes van sin aro, sujetos solo por el puente y las bisagras, así casi no se nota en el rostro. El metal es oro rosa, las varillas llevan la \"V\" de la marca y terminan en acetato transparente. Medidas: 55-17-145 (lente, puente y varilla, en milímetros).",
+    "colors": [
+      {
+        "id": "dorado",
+        "label": "Oro rosa",
+        "image": "/gafas/valentin-aire-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/valentin-aire-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/valentin-aire-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/valentin-aire-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "valentin-roma",
+    "name": "Valentin Roma",
+    "price": 190000,
+    "brand": "Valentin",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular de metal",
+    "description": "Montura rectangular de metal plateado de la línea Italy Design, con plaquetas ajustables. Las varillas, en gris, llevan la \"V\" de la marca y un corte geométrico junto a la bisagra, y terminan en acetato gris con el interior turquesa. Sobria, con un toque de color que solo se ve de lado.",
+    "colors": [
+      {
+        "id": "plateado",
+        "label": "Plateado y turquesa",
+        "image": "/gafas/valentin-roma-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/valentin-roma-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/valentin-roma-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/valentin-roma-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "valentin-florencia",
+    "name": "Valentin Florencia",
+    "price": 200000,
+    "brand": "Valentin",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Mariposa de metal",
+    "description": "Montura metálica en forma de mariposa de la línea Italy Design: el aro va pintado en rojo coral por fuera y dorado por dentro. El puente y las varillas son dorados, con la \"V\" de la marca, y terminan en acetato rojo. Femenina y luminosa.",
+    "colors": [
+      {
+        "id": "rojo",
+        "label": "Rojo coral y dorado",
+        "image": "/gafas/valentin-florencia-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/valentin-florencia-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/valentin-florencia-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/valentin-florencia-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "valentin-siena",
+    "name": "Valentin Siena",
+    "price": 195000,
+    "brand": "Valentin",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ovalada de metal dorado",
+    "description": "Montura ovalada de metal dorado de la línea Italy Design, con un filo en tono bronce sobre la ceja y plaquetas ajustables. Las bisagras tienen un calado ornamental y las varillas terminan en acetato transparente. Delicada y ligera. Medidas: 53-14-143 (lente, puente y varilla, en milímetros).",
+    "colors": [
+      {
+        "id": "dorado",
+        "label": "Dorado",
+        "image": "/gafas/valentin-siena-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/valentin-siena-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/valentin-siena-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/valentin-siena-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "valentin-venecia",
+    "name": "Valentin Venecia",
+    "price": 210000,
+    "brand": "Valentin",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato en acetato degradado",
+    "description": "Montura ojo de gato de la línea Italy Design, en acetato degradado: café oscuro en la ceja que se aclara hasta un rosa transparente abajo. Las varillas son de metal oro rosa con pequeños brillantes junto a la bisagra y terminan en acetato transparente. Elegante y femenina.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Café degradado",
+        "image": "/gafas/valentin-venecia-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/valentin-venecia-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/valentin-venecia-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/valentin-venecia-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dimilano-brera",
+    "name": "Dimilano Brera",
+    "price": 175000,
+    "brand": "Dimilano",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato transparente",
+    "description": "Montura ojo de gato en acetato transparente con un ligero tono champaña. Las varillas son de metal negro, con un adorno cruzado y un pequeño brillante junto a la bisagra, y terminan en acetato jaspeado gris y blanco. Liviana a la vista y fácil de combinar.",
+    "colors": [
+      {
+        "id": "transparente",
+        "label": "Transparente",
+        "image": "/gafas/dimilano-brera-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/dimilano-brera-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/dimilano-brera-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/dimilano-brera-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "oakley-ridge",
+    "name": "Oakley Ridge",
+    "price": 380000,
+    "brand": "Oakley",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": true,
+    "silhouette": "Geométrica de acetato grueso",
+    "description": "Montura geométrica de esquinas marcadas en acetato translúcido color oliva grafito. Las varillas tienen una silueta en zigzag muy característica y, junto a la bisagra, una placa cobriza con el logo de Oakley. Un diseño deportivo y moderno con mucha personalidad.",
+    "colors": [
+      {
+        "id": "oliva",
+        "label": "Oliva grafito",
+        "image": "/gafas/oakley-ridge-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/oakley-ridge-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/oakley-ridge-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/oakley-ridge-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "oakley-torque",
+    "name": "Oakley Torque",
+    "price": 360000,
+    "brand": "Oakley",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular deportiva",
+    "description": "Montura rectangular de frente café mate translúcido con plaquetas intercambiables, para ajustarla mejor a la nariz. Las varillas de metal en tono bronce llevan el logo de Oakley y terminan en goma negra, que sujeta firme sin apretar. Cómoda para todo el día y para la actividad física.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Café mate",
+        "image": "/gafas/oakley-torque-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/oakley-torque-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/oakley-torque-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/oakley-torque-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "oakley-frost",
+    "name": "Oakley Frost",
+    "price": 360000,
+    "brand": "Oakley",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Cuadrada de acetato transparente",
+    "description": "Montura cuadrada de acetato transparente tipo cristal, de líneas firmes y frente amplio. Las varillas, en gris translúcido, llevan una placa metálica con el logo de Oakley junto a la bisagra. Un clásico deportivo y versátil que combina con todo.",
+    "colors": [
+      {
+        "id": "transparente",
+        "label": "Transparente y gris",
+        "image": "/gafas/oakley-frost-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/oakley-frost-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/oakley-frost-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/oakley-frost-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trendi-clip-solar",
+    "name": "Trendi Clip Solar",
+    "price": 230000,
+    "brand": "Trendi",
+    "category": "sol",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular con clip de sol",
+    "description": "Dos gafas en una: una montura rectangular negra mate para tus lentes de fórmula y un clip de sol polarizado que se pone y se quita en segundos. La montura es de Ultem, un material liviano y flexible, con detalles metálicos en forma de rombo en las esquinas. Con el clip tienes gafas de sol con tu fórmula; sin él, gafas para el día a día.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro mate",
+        "image": "/gafas/trendi-clip-frontal.webp",
+        "photos": [
+          {
+            "label": "Con clip",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/trendi-clip-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/trendi-clip-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/trendi-clip-lateral.webp"
+          },
+          {
+            "label": "Sin clip",
+            "placeholder": false,
+            "id": "sin-clip",
+            "image": "/gafas/trendi-clip-sin-clip.webp"
+          },
+          {
+            "label": "Montura y clip",
+            "placeholder": false,
+            "id": "separados",
+            "image": "/gafas/trendi-clip-separados.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-riviera",
+    "name": "Carolina Herrera Riviera",
+    "price": 590000,
+    "brand": "Carolina Herrera",
+    "category": "sol",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Redonda con doble puente",
+    "description": "Gafas de sol redondas con aro de acetato que pasa de negro arriba a carey claro abajo y un doble puente de metal dorado. Los lentes son café degradado, las plaquetas ajustables y las varillas doradas llevan grabado el monograma CH de la marca y terminan en carey. Elegantes, con un aire retro.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey y negro",
+        "image": "/gafas/carolina-herrera-riviera-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-riviera-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-riviera-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-riviera-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pull-bear-soho",
+    "name": "Pull&Bear Soho",
+    "price": 170000,
+    "brand": "Pull&Bear",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Geométrica de metal dorado",
+    "description": "Montura metálica dorada de forma geométrica, entre redonda y hexagonal. El puente y las varillas tienen una textura estriada muy fina, las plaquetas son ajustables y las varillas terminan en acetato lila translúcido. Ligera y con estilo urbano.",
+    "colors": [
+      {
+        "id": "dorado",
+        "label": "Dorado",
+        "image": "/gafas/pull-bear-soho-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/pull-bear-soho-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/pull-bear-soho-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/pull-bear-soho-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pull-bear-brooklyn",
+    "name": "Pull&Bear Brooklyn",
+    "price": 220000,
+    "brand": "Pull&Bear",
+    "category": "sol",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Geométrica con clip de sol",
+    "description": "Dos gafas en una: montura de Ultem negra con un filo rojo vino y un clip de sol de lentes gris degradado que se pone y se quita. Las varillas negras llevan el logo de la marca en rojo y un detalle en degradado. Con el clip son gafas de sol con tu fórmula; sin él, gafas para todos los días.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro y vino",
+        "image": "/gafas/pull-bear-brooklyn-frontal.webp",
+        "photos": [
+          {
+            "label": "Con clip",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/pull-bear-brooklyn-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/pull-bear-brooklyn-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/pull-bear-brooklyn-lateral.webp"
+          },
+          {
+            "label": "Montura y clip",
+            "placeholder": false,
+            "id": "separados",
+            "image": "/gafas/pull-bear-brooklyn-separados.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-cartagena",
+    "name": "Arturo Calle Cartagena",
+    "price": 210000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato en degradado vino",
+    "description": "Montura ojo de gato en acetato degradado: rojo vino en la ceja que se aclara hasta un rosa transparente abajo. Las varillas son de metal dorado delgado y terminan en acetato vino. Femenina y con un color que ilumina el rostro.",
+    "colors": [
+      {
+        "id": "rojo",
+        "label": "Vino a rosa",
+        "image": "/gafas/arturo-calle-cartagena-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-cartagena-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-cartagena-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-cartagena-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "the-look-vuelo",
+    "name": "The Look Vuelo",
+    "price": 260000,
+    "brand": "The Look",
+    "category": "sol",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Aviador con clip de sol",
+    "description": "Montura estilo aviador de acetato gris transparente con doble puente metálico y un clip de sol polarizado de lentes gris azulado. Las varillas de metal tienen un relieve trenzado con la marca y terminan en acetato gris. Con el clip tienes gafas de sol con tu fórmula sin cambiar de gafas.",
+    "colors": [
+      {
+        "id": "transparente",
+        "label": "Gris cristal",
+        "image": "/gafas/the-look-vuelo-frontal.webp",
+        "photos": [
+          {
+            "label": "Con clip",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/the-look-vuelo-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/the-look-vuelo-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/the-look-vuelo-lateral.webp"
+          },
+          {
+            "label": "Montura y clip",
+            "placeholder": false,
+            "id": "separados",
+            "image": "/gafas/the-look-vuelo-separados.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pull-bear-malibu",
+    "name": "Pull&Bear Malibú",
+    "price": 220000,
+    "brand": "Pull&Bear",
+    "category": "sol",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Redonda con clip de sol",
+    "description": "Montura redonda de Ultem en gris lavanda translúcido con un clip de sol de lentes gris degradado. Las varillas negras tienen detalles amarillos y el logo de la marca, un toque juvenil y deportivo. Con el clip son gafas de sol con tu fórmula; sin él, gafas para el día a día.",
+    "colors": [
+      {
+        "id": "morado",
+        "label": "Gris lavanda",
+        "image": "/gafas/pull-bear-malibu-frontal.webp",
+        "photos": [
+          {
+            "label": "Con clip",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/pull-bear-malibu-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/pull-bear-malibu-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/pull-bear-malibu-lateral.webp"
+          },
+          {
+            "label": "Montura y clip",
+            "placeholder": false,
+            "id": "separados",
+            "image": "/gafas/pull-bear-malibu-separados.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pull-bear-austin",
+    "name": "Pull&Bear Austin",
+    "price": 230000,
+    "brand": "Pull&Bear",
+    "category": "sol",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Cuadrada con doble puente y clip",
+    "description": "Montura cuadrada de Ultem con doble puente, negra por fuera y roja por dentro, con un clip de sol de lentes gris oscuro. Las varillas negras llevan el logo de la marca en rojo y un detalle metálico. Con el clip la usas como gafas de sol con tu fórmula.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro y rojo",
+        "image": "/gafas/pull-bear-austin-frontal.webp",
+        "photos": [
+          {
+            "label": "Con clip",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/pull-bear-austin-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/pull-bear-austin-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/pull-bear-austin-lateral.webp"
+          },
+          {
+            "label": "Sin clip",
+            "placeholder": false,
+            "id": "sin-clip",
+            "image": "/gafas/pull-bear-austin-sin-clip.webp"
+          },
+          {
+            "label": "Montura y clip",
+            "placeholder": false,
+            "id": "separados",
+            "image": "/gafas/pull-bear-austin-separados.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pull-bear-lisboa",
+    "name": "Pull&Bear Lisboa",
+    "price": 160000,
+    "brand": "Pull&Bear",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ovalada de acetato transparente",
+    "description": "Montura ovalada de acetato transparente con un tono champaña. Por dentro de las varillas se ve un alma metálica con textura y el logo de la marca junto a la bisagra. Ligera, luminosa y fácil de combinar.",
+    "colors": [
+      {
+        "id": "transparente",
+        "label": "Champaña transparente",
+        "image": "/gafas/pull-bear-lisboa-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/pull-bear-lisboa-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/pull-bear-lisboa-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/pull-bear-lisboa-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-medellin",
+    "name": "Arturo Calle Medellín",
+    "price": 220000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular de metal plateado",
+    "description": "Montura rectangular de metal plateado, de líneas finas y plaquetas ajustables. Las varillas llevan una placa negra con el nombre de la marca y terminan en acetato negro. Sobria y elegante para el día a día.",
+    "colors": [
+      {
+        "id": "plateado",
+        "label": "Plateado",
+        "image": "/gafas/arturo-calle-medellin-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-medellin-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-medellin-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-medellin-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-santa-marta",
+    "name": "Arturo Calle Santa Marta",
+    "price": 210000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato en degradado azul",
+    "description": "Montura ojo de gato en acetato degradado: azul intenso en la ceja que se aclara hasta un celeste transparente abajo. Las varillas son de metal dorado delgado, con una pieza azul junto a la bisagra, y terminan en acetato celeste. Fresca y femenina.",
+    "colors": [
+      {
+        "id": "azul",
+        "label": "Azul a celeste",
+        "image": "/gafas/arturo-calle-santa-marta-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-santa-marta-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-santa-marta-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-santa-marta-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-bogota",
+    "name": "Arturo Calle Bogotá",
+    "price": 230000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Semi al aire de metal",
+    "description": "Montura rectangular semi al aire: el metal azul marino va solo arriba y el lente queda sujeto abajo por un hilo casi invisible. Tiene plaquetas ajustables y varillas azul marino con el nombre de la marca, que terminan en acetato café. Ligera y discreta.",
+    "colors": [
+      {
+        "id": "azul",
+        "label": "Azul marino",
+        "image": "/gafas/arturo-calle-bogota-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-bogota-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-bogota-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-bogota-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-manizales",
+    "name": "Arturo Calle Manizales",
+    "price": 210000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular de acetato",
+    "description": "Montura rectangular de acetato negro brillante con dos remaches metálicos en las esquinas. Las varillas, en acetato color caramelo con vetas, llevan el nombre de la marca y le dan un contraste cálido. Clásica, con un toque distinto.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro y caramelo",
+        "image": "/gafas/arturo-calle-manizales-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-manizales-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-manizales-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-manizales-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "the-look-piloto",
+    "name": "The Look Piloto",
+    "price": 260000,
+    "brand": "The Look",
+    "category": "sol",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Aviador de metal con clip",
+    "description": "Montura aviador de metal dorado con doble puente y lentes de forma geométrica, que trae un clip de sol polarizado. Las varillas tienen un relieve trenzado con la marca. Elige el clip negro de lentes gris oscuro o el clip carey de lentes café: con él tienes gafas de sol con tu fórmula.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Clip negro",
+        "image": "/gafas/the-look-piloto-negro-frontal.webp",
+        "photos": [
+          {
+            "label": "Con clip",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/the-look-piloto-negro-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/the-look-piloto-negro-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/the-look-piloto-negro-lateral.webp"
+          },
+          {
+            "label": "Montura y clip",
+            "placeholder": false,
+            "id": "separados",
+            "image": "/gafas/the-look-piloto-negro-separados.webp"
+          }
+        ]
+      },
+      {
+        "id": "cafe",
+        "label": "Clip carey",
+        "image": "/gafas/the-look-piloto-carey-frontal.webp",
+        "photos": [
+          {
+            "label": "Con clip",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/the-look-piloto-carey-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/the-look-piloto-carey-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/the-look-piloto-carey-lateral.webp"
+          },
+          {
+            "label": "Sin clip",
+            "placeholder": false,
+            "id": "sin-clip",
+            "image": "/gafas/the-look-piloto-carey-sin-clip.webp"
+          },
+          {
+            "label": "Montura y clip",
+            "placeholder": false,
+            "id": "separados",
+            "image": "/gafas/the-look-piloto-carey-separados.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "the-look-terra",
+    "name": "The Look Terra",
+    "price": 250000,
+    "brand": "The Look",
+    "category": "sol",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Geométrica con clip de sol",
+    "description": "Montura de acetato café translúcido con un frente geométrico de esquinas suaves y un clip de sol de lentes verdes. Las varillas llevan la marca grabada. Con el clip son gafas de sol con tu fórmula; sin él, una montura con mucho estilo.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Café translúcido",
+        "image": "/gafas/the-look-terra-frontal.webp",
+        "photos": [
+          {
+            "label": "Con clip",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/the-look-terra-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/the-look-terra-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/the-look-terra-lateral.webp"
+          },
+          {
+            "label": "Montura y clip",
+            "placeholder": false,
+            "id": "separados",
+            "image": "/gafas/the-look-terra-separados.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-cali",
+    "name": "Arturo Calle Cali",
+    "price": 190000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Rectangular de acetato negro",
+    "description": "Montura rectangular de acetato negro de líneas suaves, un clásico que va con todo. Las varillas, también negras, llevan el nombre de la marca junto a la bisagra.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro",
+        "image": "/gafas/arturo-calle-cali-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-cali-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-cali-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-cali-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-pereira",
+    "name": "Arturo Calle Pereira",
+    "price": 220000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Cuadrada con doble puente",
+    "description": "Montura cuadrada de acetato negro con doble puente, inspirada en el estilo aviador. Las varillas son de metal gris oscuro con la marca grabada y terminan en acetato negro. Moderna y con carácter.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro",
+        "image": "/gafas/arturo-calle-pereira-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-pereira-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-pereira-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-pereira-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-popayan",
+    "name": "Arturo Calle Popayán",
+    "price": 200000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Rectangular de acetato carey",
+    "description": "Montura rectangular de acetato carey en tonos café y miel, con una línea metálica en las varillas. Un diseño clásico y cálido que favorece casi cualquier rostro.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey",
+        "image": "/gafas/arturo-calle-popayan-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-popayan-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-popayan-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-popayan-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pull-bear-oslo",
+    "name": "Pull&Bear Oslo",
+    "price": 160000,
+    "brand": "Pull&Bear",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Redonda de acetato translúcido",
+    "description": "Montura redonda de acetato gris translúcido. Las varillas tienen un alma metálica con textura y el logo de la marca junto a la bisagra. Ligera y moderna, con un color neutro fácil de llevar.",
+    "colors": [
+      {
+        "id": "transparente",
+        "label": "Gris translúcido",
+        "image": "/gafas/pull-bear-oslo-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/pull-bear-oslo-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/pull-bear-oslo-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/pull-bear-oslo-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "monastery-couture-champana",
+    "name": "Monastery Couture Champaña",
+    "price": 290000,
+    "brand": "Monastery",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular de metal satinado",
+    "description": "Montura rectangular de la línea Couture, en metal champaña con acabado satinado y líneas rectas muy limpias. Las varillas, en acetato negro, llevan el nombre de la marca junto a la bisagra. Sobria, elegante y ligera.",
+    "colors": [
+      {
+        "id": "dorado",
+        "label": "Champaña y negro",
+        "image": "/gafas/monastery-couture-champana-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/monastery-couture-champana-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/monastery-couture-champana-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/monastery-couture-champana-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-amatista",
+    "name": "Carolina Herrera Amatista",
+    "price": 520000,
+    "brand": "Carolina Herrera",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Mariposa de acetato multicolor",
+    "description": "Montura de frente amplio en forma de mariposa, en acetato jaspeado con tonos morado, turquesa y caramelo. Junto a la bisagra lleva una pieza lila con el monograma dorado de la marca, y las varillas son de acetato morado. Femenina y llena de color.",
+    "colors": [
+      {
+        "id": "morado",
+        "label": "Morado jaspeado",
+        "image": "/gafas/carolina-herrera-amatista-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-amatista-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-amatista-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-amatista-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "oakley-sprint",
+    "name": "Oakley Sprint",
+    "price": 370000,
+    "brand": "Oakley",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular deportiva envolvente",
+    "description": "Montura deportiva negra de frente envolvente, pensada para quedarse firme al moverse. Las varillas combinan un tramo transparente con el logo de Oakley en blanco y puntas negras. Ligera y resistente para el día a día y la actividad física.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro",
+        "image": "/gafas/oakley-sprint-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/oakley-sprint-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/oakley-sprint-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/oakley-sprint-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-noir",
+    "name": "Carolina Herrera Noir",
+    "price": 610000,
+    "brand": "Carolina Herrera",
+    "category": "sol",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato",
+    "description": "Gafas de sol ojo de gato en acetato negro brillante, con una capa rosada en la ceja que asoma por el borde superior. Los lentes son café degradado y las varillas llevan el monograma CH de la marca. Un clásico femenino y sofisticado.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro",
+        "image": "/gafas/carolina-herrera-noir-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-noir-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-noir-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-noir-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bahamas-blue-cristal",
+    "name": "Bahamas Blue Cristal",
+    "price": 280000,
+    "brand": "Bahamas Blue",
+    "category": "sol",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Redondeada de acetato transparente",
+    "description": "Gafas de sol de acetato transparente con lentes gris oscuro y forma redondeada. Por dentro de las varillas se ve un alma metálica con la marca grabada, y en el frente lleva pequeños remaches plateados. Livianas y modernas.",
+    "colors": [
+      {
+        "id": "transparente",
+        "label": "Transparente",
+        "image": "/gafas/bahamas-blue-cristal-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/bahamas-blue-cristal-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/bahamas-blue-cristal-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/bahamas-blue-cristal-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "monastery-oro",
+    "name": "Monastery Oro",
+    "price": 450000,
+    "brand": "Monastery",
+    "category": "sol",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Geométrica de metal dorado",
+    "description": "Gafas de sol de metal dorado con un frente geométrico de bordes estriados y lentes ámbar con espejo dorado. En el puente lleva el monograma de la marca en metal, y las varillas son de acetato carey oscuro. Una montura protagonista, con mucho carácter.",
+    "colors": [
+      {
+        "id": "dorado",
+        "label": "Dorado",
+        "image": "/gafas/monastery-oro-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/monastery-oro-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/monastery-oro-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/monastery-oro-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "karl-lagerfeld-marine",
+    "name": "Karl Lagerfeld Marine",
+    "price": 480000,
+    "brand": "Karl Lagerfeld",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Rectangular de ceja recta",
+    "description": "Montura de acetato azul marino brillante con ceja recta y gruesa, al estilo de la marca. En la esquina del frente lleva un pequeño corazón metálico y las varillas tienen el nombre Karl Lagerfeld. Moderna, con mucha presencia.",
+    "colors": [
+      {
+        "id": "azul",
+        "label": "Azul marino",
+        "image": "/gafas/karl-lagerfeld-marine-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/karl-lagerfeld-marine-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/karl-lagerfeld-marine-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/karl-lagerfeld-marine-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "monastery-couture-celeste",
+    "name": "Monastery Couture Celeste",
+    "price": 300000,
+    "brand": "Monastery",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Rectangular de acetato",
+    "description": "Montura de la línea Couture en acetato azul celeste lechoso, con ceja recta y gruesa. Junto a la bisagra lleva una pieza metálica plateada y las varillas tienen el nombre de la marca. Un color suave y diferente para el día a día.",
+    "colors": [
+      {
+        "id": "azul",
+        "label": "Azul celeste",
+        "image": "/gafas/monastery-couture-celeste-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/monastery-couture-celeste-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/monastery-couture-celeste-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/monastery-couture-celeste-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-mosaico",
+    "name": "Carolina Herrera Mosaico",
+    "price": 590000,
+    "brand": "Carolina Herrera",
+    "category": "sol",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Cuadrada de acetato jaspeado",
+    "description": "Gafas de sol de acetato jaspeado en caramelo, turquesa y morado, con un frente cuadrado de esquinas marcadas y un detalle metálico abierto en las esquinas de abajo. Los lentes son gris azulado y las varillas llevan el monograma CH en azul. Llamativas y elegantes.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey multicolor",
+        "image": "/gafas/carolina-herrera-mosaico-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-mosaico-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-mosaico-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-mosaico-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-joya",
+    "name": "Carolina Herrera Joya",
+    "price": 650000,
+    "brand": "Carolina Herrera",
+    "category": "sol",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Mariposa de metal con cristales",
+    "description": "Gafas de sol de metal oro rosa en forma de mariposa, con cristales color champaña engastados en las esquinas superiores. Los lentes son rosados, las plaquetas ajustables y las varillas llevan grabado el nombre de la marca y terminan en acetato rosa. Una pieza de joyería para el rostro.",
+    "colors": [
+      {
+        "id": "dorado",
+        "label": "Oro rosa",
+        "image": "/gafas/carolina-herrera-joya-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-joya-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-joya-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-joya-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-felina",
+    "name": "Carolina Herrera Felina",
+    "price": 540000,
+    "brand": "Carolina Herrera",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato grueso",
+    "description": "Montura ojo de gato marcada, en acetato carey oscuro. Las varillas son de acetato a rayas rojas y negras, con el nombre Carolina Herrera en letras doradas. Un diseño atrevido con aire retro.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey y rojo",
+        "image": "/gafas/carolina-herrera-felina-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-felina-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-felina-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-felina-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "monastery-coral",
+    "name": "Monastery Coral",
+    "price": 430000,
+    "brand": "Monastery",
+    "category": "sol",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato grueso",
+    "description": "Gafas de sol ojo de gato en acetato color coral, de formas suaves y gruesas, con un filo dorado en la ceja. Los lentes son café con un ligero espejo dorado. En las varillas lleva una placa dorada calada con el monograma de la marca. Femeninas, alegres y con mucho estilo.",
+    "colors": [
+      {
+        "id": "rosa",
+        "label": "Coral",
+        "image": "/gafas/monastery-coral-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/monastery-coral-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/monastery-coral-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/monastery-coral-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mario-hernandez-clasico",
+    "name": "Mario Hernández Clásico",
+    "price": 390000,
+    "brand": "Mario Hernández",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Rectangular de acetato y metal",
+    "description": "Montura rectangular de acetato carey oscuro con un detalle dorado estriado en las esquinas. Las varillas son de metal dorado calado, con la \"M\" de la marca junto a la bisagra, y terminan en acetato negro. Elegante y sobria, con el sello de la marca colombiana.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey y dorado",
+        "image": "/gafas/mario-hernandez-clasico-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/mario-hernandez-clasico-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/mario-hernandez-clasico-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/mario-hernandez-clasico-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mario-hernandez-ejecutivo",
+    "name": "Mario Hernández Ejecutivo",
+    "price": 420000,
+    "brand": "Mario Hernández",
+    "category": "formula",
+    "genero": "hombre",
+    "trending": false,
+    "silhouette": "Cuadrada con doble puente",
+    "description": "Montura de acetato negro con un puente superior de metal dorado, al estilo aviador, y tres líneas doradas en las esquinas. Las varillas negras llevan el nombre de la marca en dorado. Medidas: 58-12-145 (lente, puente y varilla, en milímetros).",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro y dorado",
+        "image": "/gafas/mario-hernandez-ejecutivo-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/mario-hernandez-ejecutivo-frontal.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/mario-hernandez-ejecutivo-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mario-hernandez-monograma",
+    "name": "Mario Hernández Monograma",
+    "price": 380000,
+    "brand": "Mario Hernández",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Cuadrada de acetato",
+    "description": "Montura cuadrada de acetato carey oscuro con la \"M\" de la marca en metal dorado en las dos esquinas. Las varillas, en carey más claro, llevan una placa dorada con el nombre Mario Hernández. Clásica y fácil de llevar.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey oscuro",
+        "image": "/gafas/mario-hernandez-monograma-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/mario-hernandez-monograma-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/mario-hernandez-monograma-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/mario-hernandez-monograma-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "oakley-orbit",
+    "name": "Oakley Orbit",
+    "price": 380000,
+    "brand": "Oakley",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Redonda de acetato transparente",
+    "description": "Montura redonda de acetato transparente tipo cristal, de frente grueso. Las varillas, también transparentes, tienen la silueta en zigzag característica y una placa dorada con el logo de Oakley junto a la bisagra. Moderna y con mucha personalidad.",
+    "colors": [
+      {
+        "id": "transparente",
+        "label": "Transparente",
+        "image": "/gafas/oakley-orbit-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/oakley-orbit-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/oakley-orbit-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/oakley-orbit-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arturo-calle-villa-de-leyva",
+    "name": "Arturo Calle Villa de Leyva",
+    "price": 210000,
+    "brand": "Arturo Calle",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Geométrica de acetato carey",
+    "description": "Montura de acetato carey miel con un frente geométrico de esquinas suaves. Las varillas son de metal oro rosa con una placa del mismo tono con el nombre de la marca, y terminan en acetato carey. Cálida y femenina.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey miel",
+        "image": "/gafas/arturo-calle-villa-de-leyva-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/arturo-calle-villa-de-leyva-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/arturo-calle-villa-de-leyva-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/arturo-calle-villa-de-leyva-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mario-hernandez-bohemio",
+    "name": "Mario Hernández Bohemio",
+    "price": 360000,
+    "brand": "Mario Hernández",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Redonda de metal",
+    "description": "Montura redonda de metal dorado con el aro interior negro, plaquetas ajustables y un puente fino. Las varillas son doradas y terminan en acetato negro con la marca grabada. Estilo retro y liviano. Medidas: 51-20-145 (lente, puente y varilla, en milímetros).",
+    "colors": [
+      {
+        "id": "dorado",
+        "label": "Dorado y negro",
+        "image": "/gafas/mario-hernandez-bohemio-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/mario-hernandez-bohemio-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/mario-hernandez-bohemio-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/mario-hernandez-bohemio-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mario-hernandez-esmeralda",
+    "name": "Mario Hernández Esmeralda",
+    "price": 400000,
+    "brand": "Mario Hernández",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Octagonal de acetato degradado",
+    "description": "Montura de acetato degradado: verde esmeralda en la ceja que se aclara hasta un durazno transparente abajo, con una forma octagonal suave. En las esquinas lleva barras doradas y las varillas son de acetato carey claro. Un color lleno de estilo.",
+    "colors": [
+      {
+        "id": "verde",
+        "label": "Verde a durazno",
+        "image": "/gafas/mario-hernandez-esmeralda-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/mario-hernandez-esmeralda-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/mario-hernandez-esmeralda-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/mario-hernandez-esmeralda-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mario-hernandez-fiera",
+    "name": "Mario Hernández Fiera",
+    "price": 410000,
+    "brand": "Mario Hernández",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato grueso",
+    "description": "Montura ojo de gato de acetato carey, gruesa y de esquinas marcadas. Las varillas anchas llevan una gran \"M\" dorada calada, la firma de la marca. Atrevida y femenina.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey",
+        "image": "/gafas/mario-hernandez-fiera-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/mario-hernandez-fiera-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/mario-hernandez-fiera-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/mario-hernandez-fiera-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-petite-gris",
+    "name": "Carolina Herrera Petite Gris",
+    "price": 500000,
+    "brand": "Carolina Herrera",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato jaspeado",
+    "description": "Montura de la línea La Petite Capsule, en acetato jaspeado gris y negro con una línea blanca en la ceja. Las varillas, del mismo jaspeado, llevan el monograma CH dorado. Delicada y elegante.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Gris jaspeado",
+        "image": "/gafas/carolina-herrera-petite-gris-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-petite-gris-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-petite-gris-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-petite-gris-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-petite-negra",
+    "name": "Carolina Herrera Petite Negra",
+    "price": 500000,
+    "brand": "Carolina Herrera",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato",
+    "description": "Montura de la línea La Petite Capsule, en acetato negro brillante con forma de ojo de gato suave. Junto a la bisagra lleva una placa con el monograma CH repetido. Un clásico elegante para todos los días.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro",
+        "image": "/gafas/carolina-herrera-petite-negra-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-petite-negra-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-petite-negra-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-petite-negra-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-escarlata",
+    "name": "Carolina Herrera Escarlata",
+    "price": 520000,
+    "brand": "Carolina Herrera",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato bicolor",
+    "description": "Montura ojo de gato de acetato negro con una franja roja en la ceja que le da un toque de color. Las varillas negras llevan el monograma CH dorado y terminan con la punta característica de la marca.",
+    "colors": [
+      {
+        "id": "negro",
+        "label": "Negro y rojo",
+        "image": "/gafas/carolina-herrera-escarlata-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-escarlata-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-escarlata-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-escarlata-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "oakley-azure",
+    "name": "Oakley Azure",
+    "price": 360000,
+    "brand": "Oakley",
+    "category": "formula",
+    "genero": "unisex",
+    "trending": false,
+    "silhouette": "Cuadrada de acetato mate",
+    "description": "Montura cuadrada de acetato azul rey con acabado mate. Las varillas, del mismo azul, son delgadas y flexibles y llevan el logo de Oakley. Liviana, resistente y con un color que se nota.",
+    "colors": [
+      {
+        "id": "azul",
+        "label": "Azul mate",
+        "image": "/gafas/oakley-azure-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/oakley-azure-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/oakley-azure-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/oakley-azure-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "karl-lagerfeld-rouge",
+    "name": "Karl Lagerfeld Rouge",
+    "price": 480000,
+    "brand": "Karl Lagerfeld",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Mariposa geométrica de acetato",
+    "description": "Montura de acetato rojo vino con forma de mariposa geométrica y un pequeño corazón metálico en la esquina. Las varillas son de acetato carey y llevan una placa negra con la firma de Karl Lagerfeld en dorado. Llamativa y sofisticada.",
+    "colors": [
+      {
+        "id": "rojo",
+        "label": "Rojo vino",
+        "image": "/gafas/karl-lagerfeld-rouge-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/karl-lagerfeld-rouge-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/karl-lagerfeld-rouge-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/karl-lagerfeld-rouge-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-atardecer",
+    "name": "Carolina Herrera Atardecer",
+    "price": 630000,
+    "brand": "Carolina Herrera",
+    "category": "sol",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Máscara de metal",
+    "description": "Gafas de sol tipo máscara: un solo lente café degradado con forma de mariposa y un filo de metal coral en la ceja. Las varillas, también coral, llevan el monograma CH y terminan con la punta característica de la marca. Glamorosas y con mucho estilo.",
+    "colors": [
+      {
+        "id": "rojo",
+        "label": "Coral",
+        "image": "/gafas/carolina-herrera-atardecer-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-atardecer-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-atardecer-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-atardecer-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-rubi",
+    "name": "Carolina Herrera Rubí",
+    "price": 600000,
+    "brand": "Carolina Herrera",
+    "category": "sol",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato degradado",
+    "description": "Gafas de sol ojo de gato en acetato veteado que pasa de oliva arriba a coral abajo, con lentes café degradado. Las varillas de metal dorado llevan el monograma CH y terminan en acetato oliva. Femeninas y cálidas.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Oliva a coral",
+        "image": "/gafas/carolina-herrera-rubi-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-rubi-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-rubi-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-rubi-lateral.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carolina-herrera-miel",
+    "name": "Carolina Herrera Miel",
+    "price": 510000,
+    "brand": "Carolina Herrera",
+    "category": "formula",
+    "genero": "mujer",
+    "trending": false,
+    "silhouette": "Ojo de gato de acetato carey",
+    "description": "Montura ojo de gato de acetato carey miel con el interior rosado. Las varillas, del mismo carey, llevan el monograma CH junto a la bisagra. Suave, femenina y fácil de combinar.",
+    "colors": [
+      {
+        "id": "cafe",
+        "label": "Carey miel",
+        "image": "/gafas/carolina-herrera-miel-frontal.webp",
+        "photos": [
+          {
+            "label": "Frontal",
+            "placeholder": false,
+            "id": "frontal",
+            "image": "/gafas/carolina-herrera-miel-frontal.webp"
+          },
+          {
+            "label": "Vista ¾",
+            "placeholder": false,
+            "id": "tres-cuartos",
+            "image": "/gafas/carolina-herrera-miel-tres-cuartos.webp"
+          },
+          {
+            "label": "Lateral",
+            "placeholder": false,
+            "id": "lateral",
+            "image": "/gafas/carolina-herrera-miel-lateral.webp"
           }
         ]
       }
