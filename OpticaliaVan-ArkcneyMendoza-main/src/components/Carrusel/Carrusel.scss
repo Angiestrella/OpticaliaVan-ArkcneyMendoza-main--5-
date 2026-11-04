@@ -1,0 +1,104 @@
+@use "../../styles/variables" as *;
+
+$carrusel-espacio: $space-6;
+
+.carrusel {
+  position: relative;
+}
+
+// La fila desliza de lado y se detiene siempre al inicio de una tarjeta.
+// El relleno de arriba y abajo deja espacio a la tarjeta cuando sube y a su
+// sombra (si no, el desplazamiento lateral las recortaría).
+.carrusel__pista {
+  display: flex;
+  gap: $carrusel-espacio;
+  margin: -10px -6px -32px;
+  padding: 10px 6px 32px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: 6px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// 4 visibles en escritorio, 3 en tableta y 2 en celular (igual que antes la cuadrícula).
+.carrusel__item {
+  flex: 0 0 calc((100% - 3 * #{$carrusel-espacio}) / 4);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+@media (max-width: 1199.98px) {
+  .carrusel__item {
+    flex-basis: calc((100% - 2 * #{$carrusel-espacio}) / 3);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .carrusel__pista {
+    gap: $space-4;
+  }
+  .carrusel__item {
+    flex-basis: calc((100% - #{$space-4}) / 2);
+  }
+}
+
+// Flechas a los lados, a la altura de la foto, montadas sobre el borde.
+.carrusel__flecha {
+  position: absolute;
+  z-index: 3;
+  top: 34%;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba($color-blue, 0.18);
+  border-radius: 50%;
+  background: $color-white;
+  color: $color-azul-texto;
+  box-shadow: 0 8px 20px rgba(13, 57, 76, 0.16);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    opacity $motion-fast $motion-easing,
+    background-color $motion-fast $motion-easing,
+    color $motion-fast $motion-easing;
+
+  &:hover:not(:disabled) {
+    background: $color-blue;
+    color: $color-white;
+  }
+
+  // En el primer o el último grupo la flecha queda apagada, no desaparece:
+  // así no salta el diseño y se entiende que ya no hay más hacia ese lado.
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.carrusel__flecha--atras {
+  left: -20px;
+}
+
+.carrusel__flecha--adelante {
+  right: -20px;
+}
+
+@media (max-width: 767.98px) {
+  .carrusel__flecha {
+    width: 38px;
+    height: 38px;
+  }
+  .carrusel__flecha--atras {
+    left: -16px;
+  }
+  .carrusel__flecha--adelante {
+    right: -16px;
+  }
+}

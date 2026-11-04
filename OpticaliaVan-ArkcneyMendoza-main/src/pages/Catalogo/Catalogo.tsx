@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowDownUp, ChevronDown, Search, SlidersHorizontal } from 'lucide-react'
+import { useSearchParams } from 'react-router-dom'
+import { ArrowDownUp, ChevronDown, Info, Search, SlidersHorizontal } from 'lucide-react'
 import { FrameCard } from '../../components/FrameCard/FrameCard'
 import { frames } from '../../data'
 import { alternar } from '../../utils/alternar'
+import { categoriaPorSlug, categorias } from '../../utils/categorias'
 import { useFlechas } from '../../utils/useFlechas'
 import './Catalogo.scss'
 
@@ -13,17 +15,18 @@ const generos = [
 
 // Solo los tipos que hay en el catálogo; si hay uno solo (ej. no hay gafas de
 // sol), no se muestran estos filtros porque no cambiarían nada.
-const categorias = [
-  { id: 'sol', label: 'Sol' },
-  { id: 'formula', label: 'Recetadas' },
-].filter(({ id }) => frames.some((frame) => frame.category === id))
-const filtrosDeTipo = categorias.length > 1 ? categorias : []
+const conMonturas = categorias.filter(({ id }) => frames.some((frame) => frame.category === id))
+const filtrosDeTipo = conMonturas.length > 1 ? conMonturas : []
+const easyClick = categorias.find(({ id }) => id === 'easy-click')
 
 export function Catalogo() {
   const marcas = useMemo(() => [...new Set(frames.map((frame) => frame.brand))], [])
+  // "Ver catálogo completo" de Inicio llega con el tipo ya elegido (?tipo=sol).
+  const [searchParams] = useSearchParams()
+  const tipoInicial = categoriaPorSlug(searchParams.get('tipo'))?.id
 
   const [generosActivos, setGenerosActivos] = useState<string[]>([])
-  const [categoriasActivas, setCategoriasActivas] = useState<string[]>([])
+  const [categoriasActivas, setCategoriasActivas] = useState<string[]>(tipoInicial ? [tipoInicial] : [])
   const [marcasActivas, setMarcasActivas] = useState<string[]>([])
   const [marcasAbierto, setMarcasAbierto] = useState(false)
   const [busqueda, setBusqueda] = useState('')
@@ -158,6 +161,13 @@ export function Catalogo() {
             </button>
           )}
         </div>
+
+        {easyClick && categoriasActivas.includes(easyClick.id) && (
+          <p className="catalogo__aviso">
+            <Info size={18} aria-hidden="true" />
+            <span><strong>¿Qué es Easy Click?</strong> {easyClick.descripcion}</span>
+          </p>
+        )}
 
         <div className="catalogo__results">
           <p><strong>{resultado.length}</strong> {resultado.length === 1 ? 'modelo encontrado' : 'modelos encontrados'}</p>

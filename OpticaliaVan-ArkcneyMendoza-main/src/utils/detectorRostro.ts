@@ -18,5 +18,7 @@ export async function crearDetectorRostro(modo: 'IMAGE' | 'VIDEO', rostros: numb
     baseOptions: { modelAssetPath: URL_MODELO },
     runningMode: modo,
     numFaces: rostros,
+    // En video (probador) también la orientación de la cabeza, para girar el modelo 3D.
+    outputFacialTransformationMatrixes: modo === 'VIDEO',
   })
 }

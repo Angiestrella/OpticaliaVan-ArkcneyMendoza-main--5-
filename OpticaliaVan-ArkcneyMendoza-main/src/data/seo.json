@@ -5,7 +5,7 @@
     "idioma": "es-CO",
     "locale": "es_CO",
     "tituloInicio": "Opticalia Van-Arcken & Mendoza | Gafas y salud visual en Envigado",
-    "imagen": "/og-opticalia.jpg",
+    "imagen": "/marca/og-opticalia.jpg",
     "imagenAncho": 1200,
     "imagenAlto": 630,
     "imagenAlt": "Fachada de Opticalia Van-Arcken & Mendoza en Jumbo Las Vegas, Envigado",
@@ -49,7 +49,7 @@
     {
       "ruta": "/prueba-virtual",
       "titulo": "Pruébate las gafas en vivo con la cámara",
-      "descripcion": "Mira cómo te quedan las monturas en vivo con la cámara de tu celular o computador, incluso un modelo 3D. La imagen se procesa en tu dispositivo y no se guarda.",
+      "descripcion": "Mira en 3D cómo te quedan nuestras monturas, en vivo con la cámara de tu celular o computador. La imagen se procesa en tu dispositivo y no se guarda.",
       "frecuencia": "monthly",
       "prioridad": "0.7"
     },

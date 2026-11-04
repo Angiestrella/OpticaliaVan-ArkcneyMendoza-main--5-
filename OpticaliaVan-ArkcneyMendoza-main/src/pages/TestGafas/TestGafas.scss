@@ -542,6 +542,15 @@ $azul-oscuro: $color-azul-titulo;
   font-size: 20px;
 }
 
+// Aclaración bajo "Ideal para ti": por qué salen esas monturas.
+.test-gafas__results-title:has(+ .test-gafas__results-hint) {
+  margin-bottom: $space-1;
+}
+.test-gafas__results-hint {
+  margin: 0 0 $space-4;
+  text-align: left;
+}
+
 .test-gafas__results {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -677,6 +686,23 @@ $azul-oscuro: $color-azul-titulo;
     background-color: color.adjust($color-blue, $lightness: -8%);
     color: $color-white;
   }
+}
+
+// Por qué se sugiere una montura en "También te pueden gustar".
+.result-card__motivo {
+  align-self: flex-start;
+  margin: $space-3 2px 0;
+  padding: 3px 9px;
+  border-radius: $radius-pill;
+  background: rgba($color-blue, 0.09);
+  color: $color-azul-texto;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.result-card__motivo + .result-card__name {
+  margin-top: $space-2;
 }
 
 .result-card__name {

@@ -145,7 +145,7 @@ $crema-foto: #fdf5ed;
     ),
     // Un poco más ancha que la pantalla (112 %) y pegada a la izquierda: así las
     // gafas quedan a la derecha, lejos del título (solo se corta la punta de la varilla).
-    url("/fondo-catalogo-gafas.webp") left center / 112% auto no-repeat;
+    url("/fondos/fondo-catalogo-gafas.webp") left center / 112% auto no-repeat;
   background-color: $crema-foto;
 }
 
@@ -238,6 +238,26 @@ $crema-foto: #fdf5ed;
 .catalogo__filtros {
   margin-bottom: $space-4;
 }
+// Explica qué es Easy Click cuando se filtra por ese tipo.
+.catalogo__aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  margin: 0 0 $space-4;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: rgba($color-blue, 0.07);
+  color: $color-azul-titulo;
+  font-size: 14px;
+  line-height: 1.5;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: $color-blue-texto;
+  }
+}
+
 .catalogo__results {
   display: flex;
   align-items: center;
@@ -285,7 +305,7 @@ $crema-foto: #fdf5ed;
         rgba($crema-foto, 0.82) 60%,
         rgba($crema-foto, 0.45) 100%
       ),
-      url("/fondo-catalogo-gafas.webp") 72% center / cover no-repeat;
+      url("/fondos/fondo-catalogo-gafas.webp") 72% center / cover no-repeat;
     background-color: $crema-foto;
   }
   .catalogo__intro-texto {

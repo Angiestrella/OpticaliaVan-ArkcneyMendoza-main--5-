@@ -5,8 +5,10 @@ import { frames, opcionesColor } from '../../data'
 import { FaceShapeUpload } from '../../components/FaceShapeUpload/FaceShapeUpload'
 import { alternar } from '../../utils/alternar'
 import { asset } from '../../utils/asset'
-import { recomendar } from '../../utils/recomendar'
+import { categorias } from '../../utils/categorias'
+import { categoriaDelTipo, coloresDelTipo, recomendar } from '../../utils/recomendar'
 import { useFlechas } from '../../utils/useFlechas'
+import { hayPantallaAnterior, useVolver } from '../../utils/useVolver'
 import { IdentificarRostroManual } from './IdentificarRostroManual'
 import { OpcionTest } from './OpcionTest'
 import { ResultadosTest } from './ResultadosTest'
@@ -14,61 +16,103 @@ import { conIndice, estilos, PAUSA_AL_ELEGIR, PREGUNTAS, rostros, tipos } from '
 import { guardarRespuestas, leerRespuestas, type RespuestasTest } from './respuestasGuardadas'
 import './TestGafas.scss'
 
+type Ayuda = 'foto' | 'manual'
+
+// Cada vista del test tiene su propia dirección: ?paso=2, ?paso=resultado,
+// ?ayuda=foto… Así cada pregunta queda en el historial y el "Atrás" del
+// navegador o del celular vuelve a la pregunta anterior en vez de sacar a la
+// persona del test. La pregunta 1 no lleva ?paso (es /que-gafas-van-contigo).
+function pasoDesdeUrl(valor: string | null): number {
+  if (valor === 'resultado') return PREGUNTAS
+  const numero = Number(valor)
+  return Number.isInteger(numero) && numero >= 1 && numero <= PREGUNTAS ? numero - 1 : 0
+}
+
+function buscarDelPaso(paso: number, ayuda?: Ayuda): string {
+  const params = new URLSearchParams()
+  if (paso > 0) params.set('paso', paso === PREGUNTAS ? 'resultado' : String(paso + 1))
+  if (ayuda) params.set('ayuda', ayuda)
+  const texto = params.toString()
+  return texto ? `?${texto}` : ''
+}
+
 export function TestGafas() {
   const location = useLocation()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const paso = pasoDesdeUrl(searchParams.get('paso'))
+  // Desde Inicio, "Te ayudamos con una foto" abre directo esa ayuda (?ayuda=foto).
+  const ayuda = paso === 0 ? searchParams.get('ayuda') : null
+  const ayudaRostro = ayuda === 'foto' || ayuda === 'manual'
+  const manualRostro = ayuda === 'manual'
+  // De dónde se llegó a esta vista, para que "Volver" diga a dónde lleva:
+  // "formas" (se abrió la ayuda desde la pregunta 1) o "inicio" (el enlace de Inicio).
+  const desde = (location.state as { desde?: string } | null)?.desde
+  const volver = useVolver()
+
   // Resultado de una visita anterior (se lee una sola vez al abrir la página).
   const [guardadas] = useState<RespuestasTest | null>(leerRespuestas)
-  // Si se vuelve con "Atrás" desde la página de una montura recomendada, se muestra
-  // otra vez el resultado (la marca queda en el historial, ver el efecto de abajo).
-  const [alVolver] = useState(() =>
-    (location.state as { verResultado?: boolean } | null)?.verResultado ? guardadas : null,
-  )
-  const [paso, setPaso] = useState(alVolver ? PREGUNTAS : 0)
+  // Si se vuelve con "Atrás" desde la página de una montura recomendada, la
+  // página abre en ?paso=resultado sin respuestas en memoria: se usan las guardadas.
+  const [alAbrir] = useState(() => (paso === PREGUNTAS ? guardadas : null))
   // Flechas para moverse entre las respuestas de cualquier pregunta.
   const flechasRespuestas = useFlechas<HTMLDivElement>('.quiz-option')
-  const [direccion, setDireccion] = useState<'adelante' | 'atras'>('adelante')
-  const [rostro, setRostro] = useState<string | null>(alVolver?.rostro ?? null)
-  const [tipo, setTipo] = useState<string | null>(alVolver?.tipo ?? null)
-  const [estilo, setEstilo] = useState<string | null>(alVolver?.estilo ?? null)
-  const [colores, setColores] = useState<string[]>(alVolver?.colores ?? [])
-  // Desde Inicio, "Te ayudamos con una foto" abre directo esa ayuda (?ayuda=foto).
-  const [searchParams] = useSearchParams()
-  const [ayudaRostro, setAyudaRostro] = useState(searchParams.get('ayuda') === 'foto')
-  const [manualRostro, setManualRostro] = useState(false)
-  const [avisoGuardadas, setAvisoGuardadas] = useState(!alVolver)
+  const [rostro, setRostro] = useState<string | null>(alAbrir?.rostro ?? null)
+  const [tipo, setTipo] = useState<string | null>(alAbrir?.tipo ?? null)
+  const [estilo, setEstilo] = useState<string | null>(alAbrir?.estilo ?? null)
+  const [colores, setColores] = useState<string[]>(alAbrir?.colores ?? [])
+  const [avisoGuardadas, setAvisoGuardadas] = useState(!alAbrir)
   const avanceRef = useRef<number | undefined>(undefined)
+
+  // La animación entra por la derecha al avanzar y por la izquierda al
+  // retroceder, también cuando se usa el "Atrás" del navegador.
+  const [pasoMostrado, setPasoMostrado] = useState(paso)
+  const [direccion, setDireccion] = useState<'adelante' | 'atras'>('adelante')
+  if (paso !== pasoMostrado) {
+    setPasoMostrado(paso)
+    setDireccion(paso > pasoMostrado ? 'adelante' : 'atras')
+  }
 
   useEffect(() => () => window.clearTimeout(avanceRef.current), [])
 
-  // Mientras se ven los resultados, esta entrada del historial queda marcada: si la
-  // persona abre "Ver detalles" de una montura y vuelve con "Atrás", ve sus resultados.
-  const enResultados = paso === PREGUNTAS
-  const marcada = Boolean((location.state as { verResultado?: boolean } | null)?.verResultado)
+  // No se puede saltar a una pregunta sin responder las anteriores (por ejemplo
+  // al recargar en ?paso=3, porque las respuestas no se guardan hasta el final):
+  // se lleva a la primera que falta.
+  const primeraSinResponder = !rostro ? 0 : !tipo ? 1 : !estilo ? 2 : colores.length === 0 ? 3 : PREGUNTAS
   useEffect(() => {
-    if (enResultados === marcada) return
-    navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: enResultados ? { verResultado: true } : null })
-  }, [enResultados, marcada, navigate, location.pathname, location.search])
+    if (paso > primeraSinResponder) navigate({ search: buscarDelPaso(primeraSinResponder) }, { replace: true })
+  }, [paso, primeraSinResponder, navigate])
 
   // Cada pregunta nueva se ve desde arriba.
   useEffect(() => {
     if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [paso])
 
-  function irA(nuevo: number) {
+  // Avanzar, abrir una ayuda o saltar a una pregunta crea una entrada nueva en
+  // el historial, así cada "Volver" regresa exactamente a la vista anterior.
+  function irA(nuevo: number, conAyuda?: Ayuda, origen?: string) {
     window.clearTimeout(avanceRef.current)
-    setDireccion(nuevo >= paso ? 'adelante' : 'atras')
-    setPaso(nuevo)
+    navigate({ search: buscarDelPaso(nuevo, conAyuda) }, { state: origen ? { desde: origen } : null })
   }
+
+  // Todos los "Volver" y "Anterior" del test llevan a donde la persona estaba
+  // (como el "Atrás" del navegador): si abrió la ayuda con foto desde Inicio,
+  // vuelve a Inicio; si la abrió desde las formas, vuelve a las formas.
+  // "alternativa" es solo para quien entró directo a esta vista con un enlace.
+  function atras(alternativa: string) {
+    window.clearTimeout(avanceRef.current)
+    volver(alternativa)
+  }
+  const rutaDelPaso = (n: number, conAyuda?: Ayuda) => location.pathname + buscarDelPaso(n, conAyuda)
+  // La ayuda con foto vuelve a las formas solo si se abrió desde ellas; si no,
+  // al Inicio (de donde sale el enlace "¿No conoces la forma de tu rostro?").
+  const textoVolverDeFoto = desde === 'formas' ? 'Volver a las formas' : desde === 'inicio' || !hayPantallaAnterior() ? 'Volver al inicio' : 'Volver'
 
   // Preguntas de una sola respuesta: se marca la opción y avanza solo.
   function elegirYAvanzar(guardar: (id: string) => void, id: string) {
     guardar(id)
     window.clearTimeout(avanceRef.current)
-    avanceRef.current = window.setTimeout(() => {
-      setDireccion('adelante')
-      setPaso((p) => p + 1)
-    }, PAUSA_AL_ELEGIR)
+    avanceRef.current = window.setTimeout(() => irA(paso + 1), PAUSA_AL_ELEGIR)
   }
 
   // Al pasar de la última pregunta a los resultados se guardan las respuestas.
@@ -77,6 +121,14 @@ export function TestGafas() {
       guardarRespuestas({ rostro, tipo, estilo, colores })
     }
     irA(paso + 1)
+  }
+
+  // Al cambiar el tipo (también desde el resumen de resultados) se quitan los
+  // colores que ese tipo no tiene; si no queda ninguno, el test pide elegirlos de nuevo.
+  function elegirTipo(id: string) {
+    setTipo(id)
+    const disponibles = coloresDelTipo(frames, id, opcionesColor).map((c) => c.id)
+    setColores((actuales) => actuales.filter((c) => disponibles.includes(c)))
   }
 
   function verResultadoGuardado(r: RespuestasTest) {
@@ -94,8 +146,6 @@ export function TestGafas() {
     setTipo(null)
     setEstilo(null)
     setColores([])
-    setAyudaRostro(false)
-    setManualRostro(false)
     setAvisoGuardadas(false)
   }
 
@@ -106,6 +156,9 @@ export function TestGafas() {
     (paso === 3 && colores.length > 0)
 
   const { ideales, otras } = recomendar(frames, tipo, colores, rostro, estilo)
+  // La pregunta de colores solo ofrece los que existen en el tipo elegido:
+  // así "Ideal para ti" nunca queda vacío por pedir un color que no hay.
+  const coloresDisponibles = coloresDelTipo(frames, tipo, opcionesColor)
 
   const resumen = [
     { paso: 0, etiqueta: 'Rostro', valor: rostros.find((r) => r.id === rostro)?.label },
@@ -176,7 +229,7 @@ export function TestGafas() {
               )}
               <div className="test-gafas__head">
                 <h1>Selecciona la forma de tu rostro</h1>
-                <p className="test-gafas__hint">Elige la que más se parece a ti. Si no estás seguro, te ayudamos con una foto.</p>
+                <p className="test-gafas__hint">Elige la que más se parece a ti. Si no estás seguro, te ayudamos con una foto o con unas preguntas.</p>
               </div>
               <div className="test-gafas__grid test-gafas__grid--rostros">
                 {rostros.map((r, i) => (
@@ -189,10 +242,10 @@ export function TestGafas() {
                   type="button"
                   style={conIndice(rostros.length)}
                   className="quiz-option quiz-option--help"
-                  onClick={() => { setManualRostro(false); setAyudaRostro(true) }}
+                  onClick={() => irA(0, 'foto', 'formas')}
                 >
                   <span className="rostro-shape rostro-shape--help" aria-hidden="true">?</span>
-                  <span className="quiz-option__label">Identificar con una foto</span>
+                  <span className="quiz-option__label">Identificar con una foto o manual</span>
                 </button>
               </div>
             </>
@@ -200,20 +253,24 @@ export function TestGafas() {
 
           {paso === 0 && ayudaRostro && !manualRostro && (
             <div className="test-gafas__photo-help">
-              <button type="button" className="test-gafas__back test-gafas__back--top" onClick={() => setAyudaRostro(false)}>
-                <ArrowLeft size={18} aria-hidden="true" /> Volver a las formas
+              <button type="button" className="test-gafas__back test-gafas__back--top" onClick={() => atras('/')}>
+                <ArrowLeft size={18} aria-hidden="true" /> {textoVolverDeFoto}
               </button>
+              {/* Con el rostro identificado sigue a la pregunta 2; desde ahí,
+                  "Anterior" vuelve a esta ayuda, que es donde estaba. */}
               <FaceShapeUpload
-                onSelect={(shape) => { setRostro(shape); setAyudaRostro(false); irA(1) }}
-                onManual={() => setManualRostro(true)}
+                onSelect={(shape) => { setRostro(shape); irA(1) }}
+                onManual={() => irA(0, 'manual')}
               />
             </div>
           )}
 
           {paso === 0 && ayudaRostro && manualRostro && (
             <IdentificarRostroManual
-              onIdentificar={(identificado) => { setRostro(identificado); setAyudaRostro(false) }}
-              onVolver={() => setAyudaRostro(false)}
+              // Igual que con la foto: identificado el rostro, sigue a la pregunta 2.
+              onIdentificar={(identificado) => { setRostro(identificado); irA(1) }}
+              // Solo se llega aquí desde la ayuda con foto: "Volver" regresa a ella.
+              onVolver={() => atras(rutaDelPaso(0, 'foto'))}
             />
           )}
 
@@ -225,7 +282,7 @@ export function TestGafas() {
               </div>
               <div className="test-gafas__grid test-gafas__grid--tipos">
                 {tipos.map(({ id, label, descripcion, Icon }, i) => (
-                  <OpcionTest key={id} indice={i} variante="wide" seleccionada={tipo === id} onElegir={() => elegirYAvanzar(setTipo, id)}>
+                  <OpcionTest key={id} indice={i} variante="wide" seleccionada={tipo === id} onElegir={() => elegirYAvanzar(elegirTipo, id)}>
                     <span className="quiz-option__icon" aria-hidden="true"><Icon size={28} strokeWidth={1.8} /></span>
                     <span className="quiz-option__text">
                       <span className="quiz-option__label">{label}</span>
@@ -261,10 +318,12 @@ export function TestGafas() {
             <>
               <div className="test-gafas__head">
                 <h1>¿Qué colores te gustan?</h1>
-                <p className="test-gafas__hint">Puedes elegir más de uno.</p>
+                <p className="test-gafas__hint">
+                  Puedes elegir más de uno. Son los colores en que tenemos {categorias.find((c) => c.id === categoriaDelTipo(tipo))?.plural ?? 'gafas'}.
+                </p>
               </div>
               <div className="test-gafas__grid test-gafas__grid--colores">
-                {opcionesColor.map((c, i) => (
+                {coloresDisponibles.map((c, i) => (
                   <OpcionTest
                     key={c.id}
                     indice={i}
@@ -284,6 +343,7 @@ export function TestGafas() {
             <ResultadosTest
               ideales={ideales}
               otras={otras}
+              colores={colores}
               resumen={resumen}
               onEditar={irA}
               onReiniciar={reiniciar}
@@ -291,12 +351,13 @@ export function TestGafas() {
           )}
         </div>
 
-        {/* Atrás / Siguiente. En la ayuda con foto o manual cada vista trae sus propios botones. */}
+        {/* Anterior / Siguiente. En la ayuda con foto o manual cada vista trae sus propios botones.
+            En la pregunta 1 no hay "Anterior": para salir del test están el menú y el "Atrás" del navegador. */}
         {paso < PREGUNTAS && !(paso === 0 && ayudaRostro) && (
           <nav className="test-gafas__nav" aria-label="Navegación del test">
             {paso > 0 && (
-              <button type="button" className="test-gafas__back" onClick={() => irA(paso - 1)}>
-                <ArrowLeft size={18} aria-hidden="true" /> Atrás
+              <button type="button" className="test-gafas__back" onClick={() => atras(rutaDelPaso(paso - 1))}>
+                <ArrowLeft size={18} aria-hidden="true" /> Anterior
               </button>
             )}
             <button type="button" className="test-gafas__next" disabled={!puedeAvanzar} onClick={siguiente}>

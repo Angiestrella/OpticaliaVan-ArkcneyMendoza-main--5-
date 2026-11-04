@@ -59,7 +59,7 @@ export function Footer() {
         <div className="footer__video">
           <video
             ref={videoRef}
-            src={asset('/video-footer.mp4')}
+            src={asset('/videos/video-footer.mp4')}
             loop
             muted
             playsInline
@@ -89,7 +89,7 @@ export function Footer() {
       <div className="footer__bottom">
         <div className="footer__brand">
           <Link to="/" aria-label="Opticalia, ir al inicio">
-            <img src={asset('/logo-opticalia.svg')} alt="Opticalia Van-Arcken & Mendoza" loading="lazy" />
+            <img src={asset('/marca/logo-opticalia.svg')} alt="Opticalia Van-Arcken & Mendoza" loading="lazy" />
           </Link>
           <p>Una mirada más clara a lo que te hace único.</p>
         </div>

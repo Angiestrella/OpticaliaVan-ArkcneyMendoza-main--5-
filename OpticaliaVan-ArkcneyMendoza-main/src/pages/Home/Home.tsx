@@ -1,9 +1,12 @@
-import { useRef, type CSSProperties } from 'react'
+import { useRef, useState, type CSSProperties } from 'react'
+import { Carrusel } from '../../components/Carrusel/Carrusel'
 import { FrameCard } from '../../components/FrameCard/FrameCard'
 import { Link } from 'react-router-dom'
 import { ClipboardList, Clock, Glasses, MessageCircleQuestion, Palette, ScanFace, UserRound } from 'lucide-react'
 import { frames } from '../../data'
 import { asset } from '../../utils/asset'
+import { categorias } from '../../utils/categorias'
+import { useFlechas } from '../../utils/useFlechas'
 import { useParallax } from '../../utils/useParallax'
 import './Home.scss'
 
@@ -15,10 +18,16 @@ const pasosTest = [
   { label: 'Tus colores', Icon: Palette },
 ]
 
-// Inicio muestra 4 tarjetas por sección (una fila en escritorio); el resto está en el catálogo.
+// Inicio muestra 4 tarjetas por sección (una fila); el resto está en el catálogo.
 const TARJETAS_POR_SECCION = 4
-// Gafas de sol que salen primero en Inicio: una de cada marca para mostrar variedad.
-const SOL_EN_INICIO = ['carolina-herrera-joya', 'monastery-oro', 'the-look-piloto', 'bahamas-blue-cristal']
+// Las que salen primero en cada pestaña de "Elige tu tipo de gafas", de
+// marcas distintas para mostrar variedad. Si alguna ya no existe, se completa
+// con otras de ese tipo que no estén ya en Tendencias.
+const DESTACADAS_EN_INICIO: Record<string, string[]> = {
+  sol: ['carolina-herrera-joya', 'monastery-oro', 'bahamas-blue-cristal', 'carolina-herrera-riviera'],
+  formula: ['carolina-herrera-felina', 'mario-hernandez-bohemio', 'arturo-calle-popayan', 'karl-lagerfeld-marine'],
+  'easy-click': ['trendi-clip-solar', 'the-look-piloto', 'pull-bear-malibu', 'the-look-terra'],
+}
 
 const pasosConsulta = [
   { titulo: 'Trae tus gafas actuales', texto: 'Si ya usas gafas, llévalas contigo. También puedes traer una fórmula anterior si la tienes.', Icon: Glasses },
@@ -28,15 +37,24 @@ const pasosConsulta = [
 
 export function Home() {
   const opticaRef = useRef<HTMLElement>(null)
-  useParallax(opticaRef)
+  useParallax(opticaRef, 0.06)
 
   const tendencias = frames.filter((frame) => frame.trending).slice(0, TARJETAS_POR_SECCION)
-  // Primero las elegidas en SOL_EN_INICIO; si alguna ya no existe, se completa con las demás de sol.
-  const destacadaSol = (id: string) => (SOL_EN_INICIO.includes(id) ? 1 : 0)
-  const gafasDeSol = frames
-    .filter((frame) => frame.category === 'sol')
-    .sort((a, b) => destacadaSol(b.id) - destacadaSol(a.id))
-    .slice(0, TARJETAS_POR_SECCION)
+  // Solo las pestañas de los tipos que tienen monturas en el catálogo.
+  const tiposDeGafas = categorias
+    .map((categoria) => {
+      const destacadas = DESTACADAS_EN_INICIO[categoria.id] ?? []
+      const orden = (id: string) => (destacadas.includes(id) ? destacadas.indexOf(id) : destacadas.length)
+      const gafas = frames
+        .filter((frame) => frame.category === categoria.id && !tendencias.includes(frame))
+        .sort((a, b) => orden(a.id) - orden(b.id))
+        .slice(0, TARJETAS_POR_SECCION)
+      return { ...categoria, gafas }
+    })
+    .filter(({ gafas }) => gafas.length > 0)
+  const [tipoElegido, setTipoElegido] = useState(tiposDeGafas[0]?.id)
+  const tipoActivo = tiposDeGafas.find(({ id }) => id === tipoElegido) ?? tiposDeGafas[0]
+  const flechasPestanas = useFlechas<HTMLDivElement>('.home-tipos__tab')
 
   return (
     <>
@@ -63,29 +81,33 @@ export function Home() {
             <span className="home-discover__time"><Clock size={16} aria-hidden="true" /> Toma 2 minutos</span>
           </div>
 
-          {/* Lleva directo a identificar el rostro con una foto (?ayuda=foto, ver TestGafas). */}
-          <Link className="home-discover__photo-link" to="/que-gafas-van-contigo?ayuda=foto">
+          {/* Lleva directo a identificar el rostro con una foto (?ayuda=foto, ver TestGafas).
+              desde: así su botón dice "Volver al inicio" (y no "a las formas", que no se vieron). */}
+          <Link className="home-discover__photo-link" to="/que-gafas-van-contigo?ayuda=foto" state={{ desde: 'inicio' }}>
             ¿No conoces la forma de tu rostro? Te ayudamos con una foto <span aria-hidden="true">→</span>
           </Link>
         </div>
       </section>
 
+      {/* Cada tarjeta tiene "Ver detalle" (esa gafa); "Ver catálogo completo",
+          al final de la sección, lleva a todas. Las 4 van en una fila: si no
+          caben (tableta, celular) se pasan con flechas, sin bajar a otra fila. */}
       <section className="home-section">
         <h2 className="home-section__title" data-reveal>Tendencias</h2>
-        {/* Grid de Bootstrap: 2 por fila en celular, 3 en tablet, 4 en escritorio. */}
         <div className="home-section__grid">
-          <div className="row g-4 justify-content-center" data-reveal-group>
-            {tendencias.map((frame) => (
-              <div key={frame.id} className="col-6 col-md-4 col-xl-3">
-                <FrameCard frame={frame} accion="ver" />
-              </div>
-            ))}
+          <Carrusel etiqueta="Tendencias">
+            {tendencias.map((frame) => <FrameCard key={frame.id} frame={frame} accion="ver" />)}
+          </Carrusel>
+          <div className="home-section__mas">
+            <Link className="home-section__ver-todo" to="/catalogo">
+              Ver catálogo completo <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
       </section>
 
       <section id="optica" className="optica-photo" ref={opticaRef}>
-        <img src={asset('/optica-fachada.webp')} alt="Fachada de Opticalia Van-Arcken & Mendoza" width={1280} height={960} loading="lazy" decoding="async" />
+        <img src={asset('/fotos/optica-equipo.webp')} alt="El equipo de Opticalia Van-Arcken & Mendoza dentro de la óptica" width={1774} height={887} loading="lazy" decoding="async" />
         <div className="optica-photo__shade" />
         <div className="optica-photo__content" data-reveal>
           <p className="optica-photo__eyebrow">Opticalia Van-Arcken &amp; Mendoza</p>
@@ -95,17 +117,46 @@ export function Home() {
         </div>
       </section>
 
-      {/* Solo aparece si el catálogo tiene gafas de sol (category "sol" en frames.json). */}
-      {gafasDeSol.length > 0 && (
-        <section className="home-section home-section--tinted">
-          <h2 className="home-section__title" data-reveal>Nuestras gafas de sol</h2>
+      {/* Pestañas Sol / Oftálmicas / Easy Click (category en frames.json). El
+          botón del final lleva al catálogo ya filtrado por la pestaña abierta. */}
+      {tipoActivo && (
+        <section className="home-section home-section--tinted" aria-labelledby="home-tipos-titulo">
+          <h2 id="home-tipos-titulo" className="home-section__title" data-reveal>Elige tu tipo de gafas</h2>
           <div className="home-section__grid">
-            <div className="row g-4 justify-content-center" data-reveal-group>
-              {gafasDeSol.map((frame) => (
-                <div key={frame.id} className="col-6 col-md-4 col-xl-3">
-                  <FrameCard frame={frame} accion="ver" />
-                </div>
-              ))}
+            {tiposDeGafas.length > 1 && (
+              <div className="home-tipos__tabs" role="tablist" aria-label="Tipo de gafas" ref={flechasPestanas}>
+                {tiposDeGafas.map(({ id, label }) => (
+                  <button
+                    key={id}
+                    id={`home-tab-${id}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={id === tipoActivo.id}
+                    aria-controls="home-tipos-panel"
+                    // Solo la pestaña abierta entra con Tab; entre pestañas se pasa con las flechas.
+                    tabIndex={id === tipoActivo.id ? 0 : -1}
+                    className={`home-tipos__tab ${id === tipoActivo.id ? 'home-tipos__tab--activa' : ''}`}
+                    onClick={() => setTipoElegido(id)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div id="home-tipos-panel" role="tabpanel" aria-labelledby={`home-tab-${tipoActivo.id}`}>
+              <p className="home-tipos__descripcion">
+                {tipoActivo.id === 'easy-click' && <strong>2 en 1. </strong>}
+                {tipoActivo.descripcion}
+              </p>
+              {/* key: al cambiar de pestaña la fila vuelve al principio. */}
+              <Carrusel key={tipoActivo.id} etiqueta={tipoActivo.tipo}>
+                {tipoActivo.gafas.map((frame) => <FrameCard key={frame.id} frame={frame} accion="ver" />)}
+              </Carrusel>
+              <div className="home-section__mas">
+                <Link className="home-section__ver-todo" to={`/catalogo?tipo=${tipoActivo.slug}`}>
+                  Ver catálogo completo de {tipoActivo.plural} <span aria-hidden="true">→</span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

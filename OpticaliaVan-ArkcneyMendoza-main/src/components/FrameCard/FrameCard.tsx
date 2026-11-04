@@ -46,9 +46,9 @@ export function FrameCard({ frame, accion = 'cotizar' }: { frame: Frame; accion?
     // h-100 (utilidad de Bootstrap): todas las tarjetas de una fila quedan del mismo alto.
     <article ref={cardRef} className="frame-card h-100" onPointerMove={inclinar} onPointerLeave={soltar}>
       <div className="frame-card__photo">
-        {(frame.trending || frame.category === 'sol') && (
+        {(frame.trending || frame.category !== 'formula') && (
           <span className="frame-card__badge">
-            {frame.trending ? 'Tendencia' : 'Gafas de sol'}
+            {frame.trending ? 'Tendencia' : frame.category === 'sol' ? 'Gafas de sol' : 'Easy Click · 2 en 1'}
           </span>
         )}
         {/* key: al cambiar de color la foto nueva entra con un fundido. */}
@@ -57,22 +57,22 @@ export function FrameCard({ frame, accion = 'cotizar' }: { frame: Frame; accion?
         )}
       </div>
 
-      {palette.length > 1 && (
-        <div className="frame-card__colors" ref={flechasColores}>
-          {palette.map((color) => (
-            <button
-              key={color.id}
-              type="button"
-              // Con el nombre de la montura: el color se anuncia antes que el nombre de la tarjeta.
-              aria-label={`${frame.name} en color ${color.label.toLowerCase()}`}
-              aria-pressed={color.id === colorId}
-              className={`frame-card__swatch ${color.id === colorId ? 'frame-card__swatch--selected' : ''}`}
-              style={{ backgroundColor: color.hex }}
-              onClick={() => setColorId(color.id)}
-            />
-          ))}
-        </div>
-      )}
+      {/* La fila de colores siempre ocupa su espacio (vacía si hay un solo
+          color): así los nombres de las tarjetas de una fila quedan alineados. */}
+      <div className="frame-card__colors" ref={flechasColores}>
+        {palette.length > 1 && palette.map((color) => (
+          <button
+            key={color.id}
+            type="button"
+            // Con el nombre de la montura: el color se anuncia antes que el nombre de la tarjeta.
+            aria-label={`${frame.name} en color ${color.label.toLowerCase()}`}
+            aria-pressed={color.id === colorId}
+            className={`frame-card__swatch ${color.id === colorId ? 'frame-card__swatch--selected' : ''}`}
+            style={{ backgroundColor: color.hex }}
+            onClick={() => setColorId(color.id)}
+          />
+        ))}
+      </div>
 
       <p className="frame-card__name">
         <Link className="frame-card__link" to={`/producto/${frame.id}`}>{frame.name}</Link>
@@ -87,8 +87,10 @@ export function FrameCard({ frame, accion = 'cotizar' }: { frame: Frame; accion?
           Cotizar
         </button>
       ) : (
+        // "Ver detalle" es solo de esta gafa; el catálogo completo de la
+        // categoría tiene su propio botón al final de cada sección de Inicio.
         <Link className="frame-card__quote" to={`/producto/${frame.id}`} tabIndex={-1} aria-hidden="true">
-          Ver más <span aria-hidden="true">→</span>
+          Ver detalle <span aria-hidden="true">→</span>
         </Link>
       )}
 

@@ -24,20 +24,28 @@ describe('recomendar', () => {
     expect(ideales.map((f) => f.id)).toEqual(['diseno-3'])
   })
 
-  it('el color pesa más y la categoría (mujer/hombre) desempata', () => {
+  it('en "ideales" solo pone monturas en los colores elegidos', () => {
+    // diseno-1 es la única oftálmica con negro.
+    const { ideales } = recomendar(catalogo, 'recetadas', ['negro'])
+    expect(ideales.map((f) => f.id)).toEqual(['diseno-1'])
+  })
+
+  it('la categoría (mujer/hombre) ordena las que están en tus colores', () => {
     // diseno-2 y diseno-4 tienen morado; solo diseno-4 es de mujer.
     const { ideales } = recomendar(catalogo, 'recetadas', ['morado'], null, 'mujer')
-    expect(ideales[0].id).toBe('diseno-4')
-    expect(ideales[1].id).toBe('diseno-2')
+    expect(ideales.map((f) => f.id)).toEqual(['diseno-4', 'diseno-2'])
   })
 
-  it('"otras" no repite las ideales', () => {
+  it('"otras" no repite las ideales y dice por qué se sugiere cada una', () => {
     const { ideales, otras } = recomendar(catalogo, 'recetadas', ['negro'])
-    expect(otras.every((f) => !ideales.includes(f))).toBe(true)
-    expect(otras.map((f) => f.id)).toEqual(['diseno-3'])
+    expect(otras.every(({ frame }) => !ideales.includes(frame))).toBe(true)
+    // Primero la de tus colores en otro tipo (sol), luego oftálmicas de otro color.
+    expect(otras.map(({ frame }) => frame.id)).toEqual(['diseno-3', 'diseno-2', 'diseno-4'])
+    expect(otras[0].motivo).toBe('En tus colores · Gafas de sol')
+    expect(otras[1].motivo).toBe('En otro color')
   })
 
-  it('si no hay monturas del tipo buscado, sugiere hasta 6 alternativas', () => {
+  it('si no hay del tipo buscado en esos colores, sugiere hasta 6 alternativas', () => {
     const soloRecetadas = Array.from({ length: 8 }, (_, i) => montura(`formula-${i}`, 'formula', 'unisex', ['negro']))
     const { ideales, otras } = recomendar(soloRecetadas, 'sol', ['negro'])
     expect(ideales).toEqual([])

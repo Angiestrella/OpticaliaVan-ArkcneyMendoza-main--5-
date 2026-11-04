@@ -54,8 +54,9 @@ export function IdentificarRostroManual({ onIdentificar, onVolver }: Props) {
         ))}
       </div>
       <nav className="test-gafas__nav" aria-label="Navegación">
+        {/* En la segunda pregunta vuelve a la primera; en la primera, a la ayuda con foto (de donde se llega). */}
         <button type="button" className="test-gafas__back" onClick={atras}>
-          <ArrowLeft size={18} aria-hidden="true" /> Atrás
+          <ArrowLeft size={18} aria-hidden="true" /> {formaCara ? 'Atrás' : 'Volver a la foto'}
         </button>
         {formaCara && largoCara && (
           <button type="button" className="test-gafas__next" onClick={identificar}>

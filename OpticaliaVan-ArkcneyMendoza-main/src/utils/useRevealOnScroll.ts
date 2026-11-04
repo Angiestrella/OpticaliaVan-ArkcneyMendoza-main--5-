@@ -18,7 +18,9 @@ export function useRevealOnScroll() {
           io.unobserve(entrada.target)
         }
       },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+      // threshold 0: basta con que asome. Con un porcentaje, un bloque muy alto
+      // (la cuadrícula de 67 monturas) nunca llegaba a verse lo suficiente.
+      { rootMargin: '0px 0px -8% 0px', threshold: 0 },
     )
 
     const observar = (nodo: Element | Document) => {

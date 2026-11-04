@@ -46,7 +46,15 @@ src/
   utils/              Funciones y hooks (recomendar, whatsapp, sitemap, almacen, detectorRostro, seo, useSeo…)
   styles/             Variables, estilos base y animaciones compartidas
   **/*.test.ts        Pruebas automáticas (Vitest), junto al archivo que prueban
-public/               Imágenes (WebP), videos comprimidos, modelo 3D, navegacion.xml e imagen para compartir
+public/               Archivos del sitio: favicon, navegacion.xml, robots.txt y sitemap.xml en la raíz
+  gafas/              Fotos de cada montura (frontal, tres cuartos, lateral)
+    3d/               Modelos 3D (.glb) de la prueba virtual
+  rostros/            Imágenes de las formas de rostro del test
+    referencia/       PNG originales que usa la ayuda con foto para comparar rostros
+  marca/              Logo e imagen para compartir en redes (og-opticalia.jpg)
+  videos/             Videos comprimidos y su imagen de portada (poster)
+  fondos/             Fondos de secciones (inicio y catálogo)
+  fotos/              Fotos de la óptica y del equipo
 scripts/              seo-estatico.mjs: después de compilar crea un HTML por página, sitemap.xml, robots.txt y 404.html
 ```
 
@@ -108,7 +116,7 @@ scripts/              seo-estatico.mjs: después de compilar crea un HTML por p�
 
 **SEO (posicionamiento en buscadores)**
 - Textos en un solo lugar: `src/data/seo.json` tiene el título y la descripción de cada página y los datos de la óptica. `src/utils/seo.ts` arma con eso todas las etiquetas; lo usan la página y el script de publicación, así siempre coinciden. Las monturas toman su título, descripción, precio y foto de `frames.json`.
-- Cada página tiene: `<title>` y `<meta name="description">` propios, dirección oficial (`<link rel="canonical">`), `robots` (la página no encontrada lleva `noindex`), vista previa para compartir en WhatsApp, Facebook y X (Open Graph y Twitter Cards, con la imagen `public/og-opticalia.jpg` de 1200 × 630) y datos estructurados de schema.org en JSON-LD: la óptica (`Optician`: dirección, teléfono, mapa, redes) y el sitio (`WebSite`) en todas, y en cada montura `Product` (marca, fotos, precio en COP) con su `BreadcrumbList`.
+- Cada página tiene: `<title>` y `<meta name="description">` propios, dirección oficial (`<link rel="canonical">`), `robots` (la página no encontrada lleva `noindex`), vista previa para compartir en WhatsApp, Facebook y X (Open Graph y Twitter Cards, con la imagen `public/marca/og-opticalia.jpg` de 1200 × 630) y datos estructurados de schema.org en JSON-LD: la óptica (`Optician`: dirección, teléfono, mapa, redes) y el sitio (`WebSite`) en todas, y en cada montura `Product` (marca, fotos, precio en COP) con su `BreadcrumbList`.
 - Un HTML por página: GitHub Pages solo sirve archivos, así que antes `/catalogo` respondía "404" (Google no guarda páginas con ese error). `scripts/seo-estatico.mjs` crea `catalogo/index.html`, `producto/ray-ban-aurora/index.html`, etc., cada uno con sus etiquetas ya puestas: responde "200" y los buscadores y redes ven la información correcta aunque no ejecuten JavaScript (también lleva un `<noscript>` con el título, la descripción y enlaces). Al navegar dentro de la app, `utils/useSeo.ts` actualiza las mismas etiquetas.
 - `robots.txt` (permite todo e indica el sitemap) y `sitemap.xml` con fecha de actualización. Se generan al publicar y quedan también en `public/`, para verlos en el repositorio junto al `index.html`.
 - Direcciones amigables: cada montura usa su nombre (`/producto/bahamas-blue-nassau`); las de los diseños de prueba que ya no están (`/producto/diseno-1` a `diseno-4`) redirigen al catálogo en Firebase (`firebase.json`). Nota: los buscadores leen `robots.txt` solo en la raíz del dominio (`angiestrella.github.io`), por eso el sitemap conviene enviarlo también en Google Search Console.

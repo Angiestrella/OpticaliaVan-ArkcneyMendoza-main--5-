@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react'
-import { Glasses, Sun } from 'lucide-react'
+import { Glasses, Layers, Sun } from 'lucide-react'
 
 // Opciones de cada pregunta del test. Los colores salen de src/data/colors.json.
 // Las fotos de rostros están en WebP de 320 px (~18 KB cada una) para que el test
-// cargue rápido; los PNG originales solo los usa la ayuda con foto (FaceShapeUpload).
+// cargue rápido; los PNG originales (public/rostros/referencia) solo los usa la ayuda con foto (FaceShapeUpload).
 
 export const rostros: Array<{ id: string; label: string; image: string; imageAlt: string }> = [
   { id: 'diamante', label: 'Diamante', image: '/rostros/diamante.webp', imageAlt: 'Rostro con forma de diamante' },
@@ -14,9 +14,11 @@ export const rostros: Array<{ id: string; label: string; image: string; imageAlt
   { id: 'triangular', label: 'Triangular', image: '/rostros/triangular.webp', imageAlt: 'Rostro con forma triangular' },
 ]
 
+// El id "recetadas" se conserva para que sigan sirviendo los resultados ya guardados.
 export const tipos = [
-  { id: 'recetadas', label: 'Recetadas', descripcion: 'Para usar con tu fórmula en el día a día.', Icon: Glasses },
+  { id: 'recetadas', label: 'Oftálmicas', descripcion: 'Para usar con tu fórmula en el día a día.', Icon: Glasses },
   { id: 'sol', label: 'Sol', descripcion: 'Protección y estilo al aire libre.', Icon: Sun },
+  { id: 'easy-click', label: 'Easy Click', descripcion: 'Dos en una: oftálmicas con un clip de sol que pones y quitas.', Icon: Layers },
 ]
 
 // Cada categoría se ilustra con una montura real del catálogo.

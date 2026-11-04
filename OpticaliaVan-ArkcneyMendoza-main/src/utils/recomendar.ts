@@ -1,16 +1,42 @@
 import type { Frame } from '../data/types'
+import { categoriaDe } from './categorias'
 
-// Ordena los modelos por coincidencia de color, afinidad orientativa con la
-// forma del rostro y estilo. "ideales" son los del tipo buscado (recetadas o
-// sol); "otras" completa con el resto del catálogo para dar más opciones.
+// Una sugerencia de "También te pueden gustar", con el motivo que se muestra en la tarjeta.
+export interface Sugerencia {
+  frame: Frame
+  motivo: string
+}
+
+// Respuesta "¿Qué buscas?" del test → category de frames.json.
+export function categoriaDelTipo(tipo: string | null) {
+  return tipo === 'sol' || tipo === 'easy-click' ? tipo : 'formula'
+}
+
+// Los colores en que hay monturas de ese tipo (los únicos que ofrece el test).
+export function coloresDelTipo<T extends { id: string }>(frames: Frame[], tipo: string | null, opciones: T[]): T[] {
+  const delTipo = frames.filter((frame) => frame.category === categoriaDelTipo(tipo))
+  return opciones.filter((opcion) => delTipo.some((frame) => frame.colors.some((c) => c.id === opcion.id)))
+}
+
+// El color de la montura que se muestra en el resultado: el primero que
+// coincide con los elegidos (así se ve la foto en ese color), o el principal.
+export function colorParaMostrar(frame: Frame, colores: string[]) {
+  return frame.colors.find((c) => colores.includes(c.id)) ?? frame.colors[0]
+}
+
+// "ideales": solo del tipo buscado (oftálmicas, sol o Easy Click) Y en alguno
+// de los colores elegidos, ordenadas por afinidad con el rostro y el estilo.
+// "otras" ("También te pueden gustar") da más opciones, cada una con su motivo:
+// primero en tus colores pero de otro tipo, luego del tipo buscado que van con
+// tu rostro aunque sean de otro color.
 export function recomendar(
   frames: Frame[],
   tipo: string | null,
   colores: string[],
   rostro: string | null = null,
   estilo: string | null = null,
-): { ideales: Frame[]; otras: Frame[] } {
-  const categoria = tipo === 'sol' ? 'sol' : 'formula'
+): { ideales: Frame[]; otras: Sugerencia[] } {
+  const categoria = categoriaDelTipo(tipo)
   const coincidencias = (frame: Frame) =>
     frame.colors.filter((c) => colores.includes(c.id)).length
 
@@ -108,14 +134,31 @@ export function recomendar(
   }
   const generoPreferido = estilo === 'mujer' || estilo === 'hombre' ? estilo : null
 
+  const vaConTuRostro = (frame: Frame) => Boolean(rostro && afinidadRostro[rostro]?.includes(frame.id))
   const puntuacion = (frame: Frame) =>
-    coincidencias(frame) * 3 +
-    (rostro && afinidadRostro[rostro]?.includes(frame.id) ? 2 : 0) +
-    (generoPreferido && frame.genero === generoPreferido ? 1 : 0)
+    (vaConTuRostro(frame) ? 2 : 0) +
+    (generoPreferido && frame.genero === generoPreferido ? 1 : 0) +
+    // Desempate: la que tiene más de los colores elegidos.
+    coincidencias(frame) * 0.5
 
   const ordenadas = [...frames].sort((a, b) => puntuacion(b) - puntuacion(a))
-  const ideales = ordenadas.filter((frame) => frame.category === categoria).slice(0, 6)
-  // Si no hay ninguna del tipo buscado (ej. no hay gafas de sol), se muestran más alternativas.
-  const otras = ordenadas.filter((frame) => !ideales.includes(frame)).slice(0, ideales.length > 0 ? 3 : 6)
+  const enTusColores = (frame: Frame) => coincidencias(frame) > 0
+  const delTipo = (frame: Frame) => frame.category === categoria
+
+  const ideales = ordenadas.filter((frame) => delTipo(frame) && enTusColores(frame)).slice(0, 6)
+
+  const otroTipo: Sugerencia[] = ordenadas
+    .filter((frame) => !delTipo(frame) && enTusColores(frame))
+    .map((frame) => ({ frame, motivo: `En tus colores · ${categoriaDe(frame).tipo}` }))
+  const otroColor: Sugerencia[] = ordenadas
+    .filter((frame) => delTipo(frame) && !enTusColores(frame))
+    .map((frame) => ({ frame, motivo: vaConTuRostro(frame) ? 'Va con tu rostro · en otro color' : 'En otro color' }))
+
+  // Con ideales: 3 sugerencias, hasta 2 en tus colores y el resto de otro color.
+  // Sin ideales (no hay de ese tipo en esos colores): 6, primero las del tipo
+  // buscado en otros colores, que es lo más parecido a lo que pidió.
+  const otras = ideales.length > 0
+    ? [...otroTipo.slice(0, 2), ...otroColor, ...otroTipo.slice(2)].slice(0, 3)
+    : [...otroColor.slice(0, 4), ...otroTipo, ...otroColor.slice(4)].slice(0, 6)
   return { ideales, otras }
 }

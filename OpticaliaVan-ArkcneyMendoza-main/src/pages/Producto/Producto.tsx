@@ -3,6 +3,8 @@ import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
 import { Camera, ChevronLeft, ChevronRight } from 'lucide-react'
 import { CotizarPanel } from '../../components/CotizarPanel/CotizarPanel'
 import { frames } from '../../data'
+import { tienePruebaVirtual } from '../PruebaVirtual/modelos3d'
+import { categoriaDe } from '../../utils/categorias'
 import { getPalette } from '../../utils/colors'
 import { formatPrice } from '../../utils/formatPrice'
 import { asset } from '../../utils/asset'
@@ -24,7 +26,10 @@ export function Producto() {
   const frame = frames.find((f) => f.id === id)
   // Los hooks no pueden ir después de un return condicional, así que este se
   // inicializa antes de saber si frame existe.
-  const [colorId, setColorId] = useState(frame?.colors[0]?.id)
+  // Desde los resultados del test llega con el color que se vio en la tarjeta.
+  const [colorId, setColorId] = useState(
+    () => (location.state as { color?: string } | null)?.color ?? frame?.colors[0]?.id,
+  )
   const flechasColores = useFlechas<HTMLDivElement>('.producto__color-swatch')
 
   // Un id que no existe en frames.json no tiene página: de vuelta al catálogo.
@@ -136,15 +141,24 @@ export function Producto() {
               </div>
             </>
           )}
-          <Link
-            className="producto__try-btn"
-            to="/prueba-virtual"
-            state={{ seleccionada: frame.id }}
-          >
-            <Camera size={21} aria-hidden="true" />
-            <span><strong>Probar gafas en vivo</strong><small>Abre el probador con esta montura</small></span>
-            <ChevronRight size={20} aria-hidden="true" />
-          </Link>
+          {/* Solo las monturas con modelo 3D se pueden probar (ver modelos3d.ts). */}
+          {tienePruebaVirtual(frame.id) ? (
+            <Link
+              className="producto__try-btn"
+              to="/prueba-virtual"
+              // En el color que se está viendo (la Trendi Metro tiene un modelo por color).
+              state={{ seleccionada: frame.id, color: selected?.id }}
+            >
+              <Camera size={21} aria-hidden="true" />
+              <span><strong>Probar gafas en vivo</strong><small>Abre el probador con esta montura en 3D</small></span>
+              <ChevronRight size={20} aria-hidden="true" />
+            </Link>
+          ) : (
+            <p className="producto__try-btn producto__try-btn--pronto">
+              <Camera size={21} aria-hidden="true" />
+              <span><strong>Prueba virtual: próximamente</strong><small>Esta montura todavía no está disponible para probártela en vivo.</small></span>
+            </p>
+          )}
           </section>
         </div>
 
@@ -153,6 +167,11 @@ export function Producto() {
           <p className="producto__price">Desde {formatPrice(frame.price)}</p>
           <span className="producto__silhouette">{frame.silhouette}</span>
           <p className="producto__description">{frame.description}</p>
+          {frame.category === 'easy-click' && (
+            <p className="producto__dos-en-uno">
+              <strong>Easy Click · 2 en 1.</strong> {categoriaDe(frame).descripcion}
+            </p>
+          )}
 
           {palette.length > 1 && <div className="producto__section">
             <h2 className="producto__section-title">Elige un color</h2>
@@ -175,7 +194,7 @@ export function Producto() {
             <h2 id="producto-detalles" className="producto__section-title">Detalles de la montura</h2>
             <dl>
               <div><dt>Marca</dt><dd>{frame.brand}</dd></div>
-              <div><dt>Tipo</dt><dd>{frame.category === 'sol' ? 'Gafas de sol' : 'Montura para fórmula'}</dd></div>
+              <div><dt>Tipo</dt><dd>{categoriaDe(frame).tipo}</dd></div>
               <div><dt>Color seleccionado</dt><dd>{selected?.label ?? '—'}</dd></div>
               <div><dt>Colores disponibles</dt><dd>{frame.colors.map((color) => color.label).join(', ')}</dd></div>
             </dl>

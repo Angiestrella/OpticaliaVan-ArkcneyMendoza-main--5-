@@ -29,10 +29,13 @@
           ))
   );
 
-  background: rgba($color-white, 0.5);
+  // Casi sólido: con un fondo más transparente, al bajar se veían los textos
+  // de la página detrás de los enlaces y no se entendían.
+  background: rgba($color-white, 0.95);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-bottom: $border-width-base solid rgba($color-blue, 0.3);
+  box-shadow: 0 4px 18px rgba($color-black, 0.08);
 }
 
 // Primer cuadro, antes de que Navbar.tsx mida el scroll: en Inicio la portada ya

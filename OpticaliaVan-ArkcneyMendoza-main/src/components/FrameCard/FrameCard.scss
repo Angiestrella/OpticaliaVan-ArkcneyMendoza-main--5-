@@ -2,9 +2,14 @@
 
 // --rx/--ry (inclinación) y --mx/--my (posición del brillo) los pone
 // FrameCard.tsx según dónde esté el mouse.
+// En columna: el precio y el botón quedan siempre abajo (margin-top: auto en
+// el pie), así en una fila todas las tarjetas los tienen a la misma altura.
+// container-type: el pie se acomoda según el ancho de la tarjeta (celular).
 .frame-card {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
   padding: 12px 12px 16px;
   border: 1px solid rgba($color-blue, 0.1);
   border-radius: $radius-lg;
@@ -100,11 +105,14 @@
   box-shadow: 0 3px 10px rgba($color-black, 0.08);
 }
 
+// Alto fijo aunque esté vacía (montura de un solo color).
 .frame-card__colors {
   display: flex;
   justify-content: center;
   gap: $space-2;
+  min-height: 24px;
   margin-top: $space-3;
+  padding-top: 2px;
 }
 
 .frame-card__swatch {
@@ -123,16 +131,18 @@
 }
 
 .frame-card__name {
-  margin: $space-3 2px 0;
+  margin: $space-2 2px 0;
   font-weight: 700;
   line-height: 1.35;
 }
 
+// El precio nunca se parte en dos líneas ("Desde" arriba y el valor abajo).
 .frame-card__price {
   margin: 0;
   font-size: 14px;
   font-weight: 700;
   color: $color-azul-texto;
+  white-space: nowrap;
 }
 
 .frame-card__description {
@@ -146,6 +156,7 @@
   align-items: center;
   justify-content: space-between;
   gap: $space-2;
+  margin-top: auto; // pegado abajo
   padding: $space-3 2px 0;
   border-top: 1px solid rgba($color-blue, 0.11);
 }
@@ -154,6 +165,27 @@
   font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
+}
+
+// Tarjeta angosta (dos por fila en celular): "Ver detalles" va debajo del
+// precio en vez de salirse por la derecha, y la etiqueta de arriba puede
+// ocupar dos líneas sin pasarse del borde de la foto.
+@container (max-width: 200px) {
+  .frame-card__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .frame-card__badge {
+    top: 8px;
+    left: 8px;
+    max-width: calc(100% - 16px);
+    padding: 5px 8px;
+    font-size: 9px;
+  }
+  .frame-card__name {
+    font-size: 15px;
+  }
 }
 
 // El enlace del nombre cubre toda la tarjeta, así cualquier clic lleva al producto.
@@ -210,7 +242,7 @@
   }
 }
 
-// "Ver más" (en Inicio) es un enlace con el mismo aspecto del botón.
+// "Ver detalle" (en Inicio) es un enlace con el mismo aspecto del botón.
 a.frame-card__quote {
   display: block;
   text-align: center;

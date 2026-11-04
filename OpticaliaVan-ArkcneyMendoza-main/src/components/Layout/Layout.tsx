@@ -52,7 +52,9 @@ export function Layout() {
         </Suspense>
       </main>
       <Footer />
-      {normalizarRuta(pathname) !== '/agenda' && <WhatsAppFloat />}
+      {/* No en la agenda ni en el probador: taparía sus botones y la fila de
+          monturas (el probador ya tiene "Cotizar esta montura"). */}
+      {!['/agenda', '/prueba-virtual'].includes(normalizarRuta(pathname)) && <WhatsAppFloat />}
     </>
   )
 }

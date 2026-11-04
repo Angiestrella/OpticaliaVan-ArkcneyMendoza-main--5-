@@ -25,7 +25,7 @@
       rgba($color-sand, 0.35) 56%,
       rgba($color-sand, 0) 72%
     ),
-    url("/fondo-mujer-eligiendo-gafas.webp") right 35% / cover no-repeat;
+    url("/fondos/fondo-mujer-eligiendo-gafas.webp") right 35% / cover no-repeat;
   background-color: $color-sand;
   display: flex;
   align-items: center;
@@ -148,7 +148,7 @@
         rgba($color-sand, 0) 170px,
         $color-sand 250px
       ),
-      url("/fondo-mujer-eligiendo-gafas.webp") 75% 0 / max(100%, 600px) auto
+      url("/fondos/fondo-mujer-eligiendo-gafas.webp") 75% 0 / max(100%, 600px) auto
         no-repeat;
     background-color: $color-sand;
   }
@@ -197,10 +197,96 @@
   );
 }
 
-// Solo limita el ancho: las columnas las pone el grid de Bootstrap (row / col-*) en Home.tsx.
+// Solo limita el ancho: la fila de tarjetas la arma el Carrusel.
 .home-section__grid {
   max-width: 1100px;
   margin: 0 auto;
+}
+
+// "Ver catálogo completo": botón relleno y centrado bajo la fila, para que no
+// se confunda con el "Ver detalle" de cada tarjeta (que es solo un contorno).
+.home-section__mas {
+  display: flex;
+  justify-content: center;
+  margin-top: $space-7;
+}
+
+.home-section__ver-todo {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  border-radius: $radius-pill;
+  background: $color-blue-texto;
+  box-shadow: 0 8px 22px rgba($color-blue, 0.24);
+  color: $color-white;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  text-wrap: balance;
+  transition: background-color $motion-fast $motion-easing;
+
+  &:hover {
+    background: color.adjust($color-blue, $lightness: -8%);
+    color: $color-white;
+  }
+
+  @media (max-width: 575.98px) {
+    padding: $space-3 $space-5;
+    font-size: 15px;
+  }
+}
+
+// ====== Pestañas Sol / Oftálmicas / Easy Click ======
+.home-tipos__tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin: (-$space-3) auto $space-4;
+}
+
+.home-tipos__tab {
+  padding: $space-2 $space-5;
+  border: $border-width-base solid rgba($color-blue, 0.25);
+  border-radius: $radius-pill;
+  background: $color-white;
+  color: $color-azul-texto;
+  font-family: $font-text;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color $motion-fast $motion-easing,
+    color $motion-fast $motion-easing,
+    border-color $motion-fast $motion-easing;
+
+  &:hover {
+    border-color: $color-blue;
+  }
+}
+
+.home-tipos__tab--activa {
+  border-color: $color-blue-texto;
+  background: $color-blue-texto;
+  color: $color-white;
+
+  &:hover {
+    border-color: $color-blue-texto;
+  }
+}
+
+.home-tipos__descripcion {
+  max-width: 560px;
+  margin: 0 auto $space-6;
+  color: rgba($color-black, 0.7);
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.55;
+
+  strong {
+    color: $color-azul-titulo;
+  }
 }
 
 // ====== Prepárate para tu consulta visual ======
@@ -210,7 +296,7 @@
   position: relative;
   overflow: hidden;
   padding: clamp(56px, 8vw, 104px) $space-6;
-  background: url("/fondo-pared-crema.webp") center / cover no-repeat;
+  background: url("/fondos/fondo-pared-crema.webp") center / cover no-repeat;
   background-color: #f6eee2;
 }
 
@@ -505,14 +591,16 @@ $consulta-paso: 0.85s;
 
   // Un poco más alta que la sección para que el efecto de profundidad
   // (useParallax mueve --parallax al bajar) nunca deje bordes vacíos.
+  // La foto tiene poco espacio sobre las cabezas: se alinea arriba y el
+  // efecto es suave (ver Home.tsx) para que no se corten.
   img {
     position: absolute;
-    inset: -14% 0;
+    inset: -8% 0;
     display: block;
     width: 100%;
-    height: 128%;
+    height: 116%;
     object-fit: cover;
-    object-position: center 48%;
+    object-position: center top;
     translate: 0 var(--parallax, 0px);
     will-change: translate;
   }

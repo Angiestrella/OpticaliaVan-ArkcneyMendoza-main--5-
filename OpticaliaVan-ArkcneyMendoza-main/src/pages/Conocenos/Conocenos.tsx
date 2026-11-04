@@ -79,10 +79,10 @@ export function Conocenos() {
           controls
           playsInline
           preload="auto"
-          poster={asset('/conocenos-poster.webp')}
+          poster={asset('/videos/conocenos-poster.webp')}
           aria-label="Video de los optómetras de Opticalia Van-Arcken y Mendoza saludando desde la óptica"
         >
-          <source src={asset('/conocenos.mp4')} type="video/mp4" />
+          <source src={asset('/videos/conocenos.mp4')} type="video/mp4" />
           Tu navegador no puede reproducir este video.
         </video>
         <div className="about-hero__veil" />

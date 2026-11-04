@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import {
   Calendar,
   Check,
@@ -15,6 +16,7 @@ import {
 import { contacto } from '../../data'
 import { alternar } from '../../utils/alternar'
 import { formatLongDate, toInputDate } from '../../utils/formatDate'
+import { useVolver } from '../../utils/useVolver'
 import { buildWhatsappUrl } from '../../utils/whatsapp'
 import { GrupoOpciones, type OpcionAgenda } from './GrupoOpciones'
 import './Agenda.scss'
@@ -35,7 +37,16 @@ const horarios: OpcionAgenda[] = [
 const MAX_MENSAJE = 200
 
 export function Agenda() {
-  const [paso, setPaso] = useState(1)
+  // Cada paso tiene su dirección (/agenda, ?paso=2, ?paso=3): así el "Atrás"
+  // del navegador vuelve al paso anterior sin borrar lo escrito, en vez de
+  // sacar a la persona del formulario. "Volver" hace lo mismo.
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const volver = useVolver()
+  const pasoUrl = Number(searchParams.get('paso'))
+  const paso = pasoUrl === 2 || pasoUrl === 3 ? pasoUrl : 1
+  const irAPaso = (nuevo: number) => navigate({ search: nuevo > 1 ? `?paso=${nuevo}` : '' })
   const [nombre, setNombre] = useState('')
   const [necesidadIds, setNecesidadIds] = useState<string[]>([])
   const [fecha, setFecha] = useState('')
@@ -55,11 +66,20 @@ export function Agenda() {
   const fechaValida = fecha !== '' && fecha >= hoy
   const puedeContinuarPreferencias = Boolean(fechaValida && horario)
 
+  // Si se entra directo a ?paso=2 o 3 (enlace, recarga) sin los datos de
+  // antes, se lleva al primer paso que falta.
+  const primerPasoIncompleto = !puedeContinuarDatos ? 1 : !puedeContinuarPreferencias ? 2 : 3
+  useEffect(() => {
+    if (paso > primerPasoIncompleto) {
+      navigate({ search: primerPasoIncompleto > 1 ? `?paso=${primerPasoIncompleto}` : '' }, { replace: true })
+    }
+  }, [paso, primerPasoIncompleto, navigate])
+
   // Enter dentro del formulario avanza al siguiente paso (si ya se puede).
   function alEnviar(e: FormEvent) {
     e.preventDefault()
-    if (paso === 1 && puedeContinuarDatos) setPaso(2)
-    else if (paso === 2 && puedeContinuarPreferencias) setPaso(3)
+    if (paso === 1 && puedeContinuarDatos) irAPaso(2)
+    else if (paso === 2 && puedeContinuarPreferencias) irAPaso(3)
   }
 
   // Solo hay mensaje (y botón activo) cuando están los 4 datos obligatorios;
@@ -228,7 +248,7 @@ export function Agenda() {
 
         <div className="agenda__navigation">
           {paso > 1 && (
-            <button type="button" className="agenda__back" onClick={() => setPaso((actual) => actual - 1)}>Volver</button>
+            <button type="button" className="agenda__back" onClick={() => volver(location.pathname + (paso > 2 ? `?paso=${paso - 1}` : ''))}>Volver</button>
           )}
           {paso < 3 ? (
             <div className="agenda__next-wrap">

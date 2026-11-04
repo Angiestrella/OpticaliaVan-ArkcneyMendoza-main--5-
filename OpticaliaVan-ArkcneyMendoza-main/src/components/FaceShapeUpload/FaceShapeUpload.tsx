@@ -18,12 +18,12 @@ type Landmark = { x: number; y: number }
 type PerfilRostro = { forma: FaceShape; medidas: number[] }
 
 const imagenesReferencia: Array<{ forma: FaceShape; src: string }> = [
-  { forma: 'diamante', src: '/Retrato%20minimalista%20de%20rostro%20diamante%20(1).png' },
-  { forma: 'redondo', src: '/Retrato%20masculino%20con%20c%C3%ADrculo%20azul.png' },
-  { forma: 'rectangular', src: '/rostro_rectangular_mujer_transparente.png' },
-  { forma: 'ovalado', src: '/Retrato%20de%20rostro%20ovalado%20con%20contorno%20azul.png' },
-  { forma: 'corazon', src: '/Retrato%20con%20contorno%20facial%20de%20coraz%C3%B3n.png' },
-  { forma: 'triangular', src: '/Retrato%20con%20tri%C3%A1ngulo%20facial%20azul.png' },
+  { forma: 'diamante', src: '/rostros/referencia/diamante.png' },
+  { forma: 'redondo', src: '/rostros/referencia/redondo.png' },
+  { forma: 'rectangular', src: '/rostros/referencia/rectangular.png' },
+  { forma: 'ovalado', src: '/rostros/referencia/ovalado.png' },
+  { forma: 'corazon', src: '/rostros/referencia/corazon.png' },
+  { forma: 'triangular', src: '/rostros/referencia/triangular.png' },
 ]
 
 function medir(p: Landmark[]): number[] {

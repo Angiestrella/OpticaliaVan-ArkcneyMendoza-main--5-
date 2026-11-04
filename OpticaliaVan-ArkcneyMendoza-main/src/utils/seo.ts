@@ -88,6 +88,13 @@ function tituloCompleto(seo: SeoConfig, titulo: string): string {
   return `${titulo} | ${seo.sitio.nombre}`
 }
 
+// Igual que "tipo" en utils/categorias.ts (aquí no se puede importar, ver arriba).
+function tipoDeMontura(frame: Frame): string {
+  if (frame.category === 'sol') return 'Gafas de sol'
+  if (frame.category === 'easy-click') return 'Easy Click (2 en 1)'
+  return 'Montura oftálmica'
+}
+
 // Datos estructurados del negocio (schema.org): Google los usa para mostrar la
 // óptica con su dirección, teléfono y redes. Solo datos que aparecen en la página.
 export function jsonLdSitio(seo: SeoConfig): Record<string, unknown> {
@@ -137,7 +144,7 @@ function jsonLdProducto(seo: SeoConfig, frame: Frame, canonica: string): Record<
         description: frame.description,
         sku: frame.id,
         brand: { '@type': 'Brand', name: frame.brand },
-        category: frame.category === 'sol' ? 'Gafas de sol' : 'Montura para fórmula',
+        category: tipoDeMontura(frame),
         color: frame.colors.map((c) => c.label).join(', '),
         image: frame.colors.map((c) => urlAbsoluta(sitio, c.image)),
         offers: {
@@ -188,7 +195,7 @@ export function datosSeo(pathname: string, seo: SeoConfig, frames: Frame[]): Dat
   const frame = producto ? frames.find((f) => f.id === decodeURIComponent(producto[1])) : undefined
   if (frame) {
     const canonica = urlCanonica(sitio, ruta)
-    const tipo = frame.category === 'sol' ? 'gafas de sol' : 'montura para fórmula'
+    const tipo = tipoDeMontura(frame).toLocaleLowerCase('es').replace('easy click', 'Easy Click')
     return {
       ruta,
       titulo: tituloCompleto(seo, `${frame.name}, ${tipo}`),

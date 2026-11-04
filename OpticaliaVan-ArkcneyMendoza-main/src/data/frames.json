@@ -239,7 +239,7 @@
     "description": "Montura rectangular de la línea Essentials, en acetato translúcido de líneas rectas y puente marcado. Por dentro de las varillas se ve un alma metálica con textura, un detalle discreto que se nota de lado. Disponible en verde oliva y morado: una opción sobria y fácil de llevar todos los días.",
     "colors": [
       {
-        "id": "oliva",
+        "id": "verde",
         "label": "Verde oliva",
         "image": "/gafas/trendi-metro-oliva-frontal.webp",
         "photos": [
@@ -682,7 +682,7 @@
     "description": "Montura geométrica de esquinas marcadas en acetato translúcido color oliva grafito. Las varillas tienen una silueta en zigzag muy característica y, junto a la bisagra, una placa cobriza con el logo de Oakley. Un diseño deportivo y moderno con mucha personalidad.",
     "colors": [
       {
-        "id": "oliva",
+        "id": "verde",
         "label": "Oliva grafito",
         "image": "/gafas/oakley-ridge-frontal.webp",
         "photos": [
@@ -789,7 +789,7 @@
     "name": "Trendi Clip Solar",
     "price": 230000,
     "brand": "Trendi",
-    "category": "sol",
+    "category": "easy-click",
     "genero": "hombre",
     "trending": false,
     "silhouette": "Rectangular con clip de sol",
@@ -846,7 +846,7 @@
     "description": "Gafas de sol redondas con aro de acetato que pasa de negro arriba a carey claro abajo y un doble puente de metal dorado. Los lentes son café degradado, las plaquetas ajustables y las varillas doradas llevan grabado el monograma CH de la marca y terminan en carey. Elegantes, con un aire retro.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey y negro",
         "image": "/gafas/carolina-herrera-riviera-frontal.webp",
         "photos": [
@@ -915,7 +915,7 @@
     "name": "Pull&Bear Brooklyn",
     "price": 220000,
     "brand": "Pull&Bear",
-    "category": "sol",
+    "category": "easy-click",
     "genero": "unisex",
     "trending": false,
     "silhouette": "Geométrica con clip de sol",
@@ -997,14 +997,14 @@
     "name": "The Look Vuelo",
     "price": 260000,
     "brand": "The Look",
-    "category": "sol",
+    "category": "easy-click",
     "genero": "hombre",
     "trending": false,
     "silhouette": "Aviador con clip de sol",
     "description": "Montura estilo aviador de acetato gris transparente con doble puente metálico y un clip de sol polarizado de lentes gris azulado. Las varillas de metal tienen un relieve trenzado con la marca y terminan en acetato gris. Con el clip tienes gafas de sol con tu fórmula sin cambiar de gafas.",
     "colors": [
       {
-        "id": "transparente",
+        "id": "gris",
         "label": "Gris cristal",
         "image": "/gafas/the-look-vuelo-frontal.webp",
         "photos": [
@@ -1041,7 +1041,7 @@
     "name": "Pull&Bear Malibú",
     "price": 220000,
     "brand": "Pull&Bear",
-    "category": "sol",
+    "category": "easy-click",
     "genero": "unisex",
     "trending": false,
     "silhouette": "Redonda con clip de sol",
@@ -1085,7 +1085,7 @@
     "name": "Pull&Bear Austin",
     "price": 230000,
     "brand": "Pull&Bear",
-    "category": "sol",
+    "category": "easy-click",
     "genero": "hombre",
     "trending": false,
     "silhouette": "Cuadrada con doble puente y clip",
@@ -1325,7 +1325,7 @@
     "name": "The Look Piloto",
     "price": 260000,
     "brand": "The Look",
-    "category": "sol",
+    "category": "easy-click",
     "genero": "unisex",
     "trending": false,
     "silhouette": "Aviador de metal con clip",
@@ -1363,7 +1363,7 @@
         ]
       },
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Clip carey",
         "image": "/gafas/the-look-piloto-carey-frontal.webp",
         "photos": [
@@ -1406,7 +1406,7 @@
     "name": "The Look Terra",
     "price": 250000,
     "brand": "The Look",
-    "category": "sol",
+    "category": "easy-click",
     "genero": "unisex",
     "trending": false,
     "silhouette": "Geométrica con clip de sol",
@@ -1533,7 +1533,7 @@
     "description": "Montura rectangular de acetato carey en tonos café y miel, con una línea metálica en las varillas. Un diseño clásico y cálido que favorece casi cualquier rostro.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey",
         "image": "/gafas/arturo-calle-popayan-frontal.webp",
         "photos": [
@@ -1571,7 +1571,7 @@
     "description": "Montura redonda de acetato gris translúcido. Las varillas tienen un alma metálica con textura y el logo de la marca junto a la bisagra. Ligera y moderna, con un color neutro fácil de llevar.",
     "colors": [
       {
-        "id": "transparente",
+        "id": "gris",
         "label": "Gris translúcido",
         "image": "/gafas/pull-bear-oslo-frontal.webp",
         "photos": [
@@ -1913,7 +1913,7 @@
     "description": "Gafas de sol de acetato jaspeado en caramelo, turquesa y morado, con un frente cuadrado de esquinas marcadas y un detalle metálico abierto en las esquinas de abajo. Los lentes son gris azulado y las varillas llevan el monograma CH en azul. Llamativas y elegantes.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey multicolor",
         "image": "/gafas/carolina-herrera-mosaico-frontal.webp",
         "photos": [
@@ -1989,7 +1989,7 @@
     "description": "Montura ojo de gato marcada, en acetato carey oscuro. Las varillas son de acetato a rayas rojas y negras, con el nombre Carolina Herrera en letras doradas. Un diseño atrevido con aire retro.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey y rojo",
         "image": "/gafas/carolina-herrera-felina-frontal.webp",
         "photos": [
@@ -2065,7 +2065,7 @@
     "description": "Montura rectangular de acetato carey oscuro con un detalle dorado estriado en las esquinas. Las varillas son de metal dorado calado, con la \"M\" de la marca junto a la bisagra, y terminan en acetato negro. Elegante y sobria, con el sello de la marca colombiana.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey y dorado",
         "image": "/gafas/mario-hernandez-clasico-frontal.webp",
         "photos": [
@@ -2135,7 +2135,7 @@
     "description": "Montura cuadrada de acetato carey oscuro con la \"M\" de la marca en metal dorado en las dos esquinas. Las varillas, en carey más claro, llevan una placa dorada con el nombre Mario Hernández. Clásica y fácil de llevar.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey oscuro",
         "image": "/gafas/mario-hernandez-monograma-frontal.webp",
         "photos": [
@@ -2211,7 +2211,7 @@
     "description": "Montura de acetato carey miel con un frente geométrico de esquinas suaves. Las varillas son de metal oro rosa con una placa del mismo tono con el nombre de la marca, y terminan en acetato carey. Cálida y femenina.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey miel",
         "image": "/gafas/arturo-calle-villa-de-leyva-frontal.webp",
         "photos": [
@@ -2325,7 +2325,7 @@
     "description": "Montura ojo de gato de acetato carey, gruesa y de esquinas marcadas. Las varillas anchas llevan una gran \"M\" dorada calada, la firma de la marca. Atrevida y femenina.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey",
         "image": "/gafas/mario-hernandez-fiera-frontal.webp",
         "photos": [
@@ -2363,7 +2363,7 @@
     "description": "Montura de la línea La Petite Capsule, en acetato jaspeado gris y negro con una línea blanca en la ceja. Las varillas, del mismo jaspeado, llevan el monograma CH dorado. Delicada y elegante.",
     "colors": [
       {
-        "id": "negro",
+        "id": "gris",
         "label": "Gris jaspeado",
         "image": "/gafas/carolina-herrera-petite-gris-frontal.webp",
         "photos": [
@@ -2553,7 +2553,7 @@
     "description": "Gafas de sol tipo máscara: un solo lente café degradado con forma de mariposa y un filo de metal coral en la ceja. Las varillas, también coral, llevan el monograma CH y terminan con la punta característica de la marca. Glamorosas y con mucho estilo.",
     "colors": [
       {
-        "id": "rojo",
+        "id": "rosa",
         "label": "Coral",
         "image": "/gafas/carolina-herrera-atardecer-frontal.webp",
         "photos": [
@@ -2591,7 +2591,7 @@
     "description": "Gafas de sol ojo de gato en acetato veteado que pasa de oliva arriba a coral abajo, con lentes café degradado. Las varillas de metal dorado llevan el monograma CH y terminan en acetato oliva. Femeninas y cálidas.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "rosa",
         "label": "Oliva a coral",
         "image": "/gafas/carolina-herrera-rubi-frontal.webp",
         "photos": [
@@ -2629,7 +2629,7 @@
     "description": "Montura ojo de gato de acetato carey miel con el interior rosado. Las varillas, del mismo carey, llevan el monograma CH junto a la bisagra. Suave, femenina y fácil de combinar.",
     "colors": [
       {
-        "id": "cafe",
+        "id": "carey",
         "label": "Carey miel",
         "image": "/gafas/carolina-herrera-miel-frontal.webp",
         "photos": [
