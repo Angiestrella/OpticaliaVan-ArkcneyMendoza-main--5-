@@ -37,13 +37,52 @@
 .cotizar__header {
   flex-shrink: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: $space-5 $space-6;
+  gap: $space-3;
+  padding: $space-4 $space-6;
   background-color: $color-sand;
 
   h2 {
+    margin: 0;
     font-size: 20px;
+  }
+}
+
+// En el encabezado fijo: sigue a la vista al bajar por las opciones.
+.cotizar__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-1 $space-3;
+}
+
+.cotizar__opcional {
+  margin: 0;
+  padding: 3px 10px;
+  border-radius: $radius-pill;
+  background: $color-white;
+  color: $color-azul-texto;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cotizar__contexto {
+  margin-bottom: $space-5;
+
+  p {
+    margin: 0;
+    color: rgba($color-black, 0.72);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .cotizar__contexto-titulo {
+    margin-bottom: $space-1;
+    color: $color-azul-titulo;
+    font-family: $font-display;
+    font-size: 16px;
+    font-weight: 700;
   }
 }
 
@@ -161,9 +200,17 @@
 }
 
 .cotizar__note {
-  margin: $space-2 0 $space-4;
+  margin: $space-1 0 $space-3;
   font-size: 13px;
-  color: rgba($color-black, 0.6);
+  color: rgba($color-black, 0.65);
+}
+
+.cotizar__ayuda {
+  margin: 0 0 $space-2;
+  color: $color-azul-titulo;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .cotizar__advisor {
@@ -309,4 +356,40 @@
   color: rgba($color-black, 0.72);
   font-size: 11px;
   line-height: 1.45;
+}
+
+// Pantallas bajas: pie más compacto, para que las opciones se vean al abrir.
+@media (max-height: 700px) {
+  .cotizar__header {
+    padding-block: $space-3;
+  }
+
+  .cotizar__body {
+    padding-block: $space-4;
+  }
+
+  .cotizar__footer {
+    padding-block: $space-3;
+  }
+
+  .cotizar__total {
+    font-size: 16px;
+  }
+
+  .cotizar__note {
+    margin-bottom: $space-2;
+    font-size: 12px;
+  }
+
+  .cotizar__ayuda {
+    font-size: 12px;
+  }
+
+  .cotizar__advisor {
+    padding: $space-3;
+  }
+
+  .cotizar__response {
+    display: none;
+  }
 }

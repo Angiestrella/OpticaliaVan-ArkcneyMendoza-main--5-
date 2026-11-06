@@ -73,6 +73,8 @@ export function CotizarPanel({
     return () => window.removeEventListener('keydown', alPresionarTecla)
   }, [onClose])
 
+  // Nada es obligatorio: sin elegir nada también se puede escribir al asesor.
+  const hayEleccion = Boolean(material) || filtros.length > 0
   const total =
     frame.price +
     (material?.price ?? 0) +
@@ -102,8 +104,9 @@ export function CotizarPanel({
     filtros.length > 0
       ? `• Filtros: ${filtros.map((f) => `${nombreFiltro(f)} (${priceLabel(f.price)})`).join(', ')}`
       : '',
-    `Total aproximado: ${formatPrice(total)}`,
-    'Te enviaré mi fórmula por este chat para confirmar el precio exacto.',
+    ...(hayEleccion
+      ? [`Total aproximado: ${formatPrice(total)}`, 'Te enviaré mi fórmula por este chat para confirmar el precio exacto.']
+      : ['Aún no he elegido lentes ni filtros. Quisiera tu asesoría para elegirlos y confirmar el valor final.']),
   ]
     .filter((linea) => linea !== '')
     .join('\n')
@@ -123,9 +126,13 @@ export function CotizarPanel({
         role="dialog"
         aria-modal="true"
         aria-labelledby="cotizar-titulo"
+        aria-describedby="cotizar-contexto"
       >
         <div className="cotizar__header">
-          <h2 id="cotizar-titulo">Cotizar</h2>
+          <div className="cotizar__heading">
+            <h2 id="cotizar-titulo">Cotizar</h2>
+            <p className="cotizar__opcional">Todas las opciones son opcionales</p>
+          </div>
           <button
             ref={cerrarRef}
             type="button"
@@ -138,6 +145,11 @@ export function CotizarPanel({
         </div>
 
         <div className="cotizar__body" ref={flechasOpciones}>
+          <div id="cotizar-contexto" className="cotizar__contexto">
+            <p className="cotizar__contexto-titulo">Personaliza tu cotización</p>
+            <p>Selecciona los lentes o filtros que te interesen. No tienes que elegir todo: puedes dejar opciones sin seleccionar y consultar directamente con nuestro asesor por WhatsApp.</p>
+          </div>
+
           <div className="cotizar__frame">
             <div>
               <p className="cotizar__label">Montura (sin lentes)</p>
@@ -179,7 +191,7 @@ export function CotizarPanel({
                 </button>
                 {f.id === 'tinte' && filtroIds.includes('tinte') && (
                   <fieldset className="cotizar__tintes" aria-labelledby="cotizar-tintes-title">
-                    <p id="cotizar-tintes-title" className="cotizar__tintes-title">Elige el tinte terapéutico</p>
+                    <p id="cotizar-tintes-title" className="cotizar__tintes-title">Elige el tinte terapéutico (opcional)</p>
                     <div className="cotizar__tintes-list">
                       {opcionesLente.tintes.map((t) => (
                         <button
@@ -219,13 +231,18 @@ export function CotizarPanel({
 
         <div className="cotizar__footer">
           <div className="cotizar__total">
-            <span>Total aproximado</span>
+            <span>{hayEleccion ? 'Total aproximado' : 'Valor de la montura'}</span>
             <span>{formatPrice(total)}</span>
           </div>
           <p className="cotizar__note">
-            El precio de la montura no incluye los lentes. El total suma los
-            lentes y filtros que elegiste y es aproximado: el valor exacto se
-            confirma con tu fórmula.
+            {hayEleccion
+              ? 'Suma la montura y lo que elegiste. Es aproximado: el valor exacto se confirma con tu fórmula.'
+              : 'Es una referencia, sin lentes. El valor final se confirma con el asesor.'}
+          </p>
+          <p className="cotizar__ayuda">
+            {hayEleccion
+              ? 'Tu selección irá en el mensaje de WhatsApp para el asesor.'
+              : '¿Aún tienes dudas? También puedes hablar directamente con nuestro asesor.'}
           </p>
           <a
             className="cotizar__advisor"
