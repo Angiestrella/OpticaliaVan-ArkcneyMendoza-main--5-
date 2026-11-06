@@ -1,6 +1,7 @@
 import { opcionesColor } from '../../data'
 import { guardar, leer } from '../../utils/almacen'
-import { estilos, rostros, tipos } from './opciones'
+import { esFormaRostro } from '../TestRostro/formasRostro'
+import { estilos, tipos } from './opciones'
 
 // Las respuestas del test se guardan en el navegador (localStorage, como JSON)
 // para que quien vuelva a la página pueda ver su resultado sin repetir el test.
@@ -26,7 +27,7 @@ export function leerRespuestas(): RespuestasTest | null {
     ? r.colores.filter((id) => opcionesColor.some((c) => c.id === id))
     : []
   const valido =
-    rostros.some((o) => o.id === r.rostro) &&
+    esFormaRostro(r.rostro) &&
     tipos.some((o) => o.id === r.tipo) &&
     estilos.some((o) => o.id === r.estilo) &&
     colores.length > 0

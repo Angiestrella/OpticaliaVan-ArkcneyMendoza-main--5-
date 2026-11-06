@@ -8,6 +8,7 @@ const Home = lazy(() => import('./pages/Home/Home').then((m) => ({ default: m.Ho
 const Catalogo = lazy(() => import('./pages/Catalogo/Catalogo').then((m) => ({ default: m.Catalogo })))
 const Producto = lazy(() => import('./pages/Producto/Producto').then((m) => ({ default: m.Producto })))
 const TestGafas = lazy(() => import('./pages/TestGafas/TestGafas').then((m) => ({ default: m.TestGafas })))
+const TestRostro = lazy(() => import('./pages/TestRostro/TestRostro').then((m) => ({ default: m.TestRostro })))
 const PruebaVirtual = lazy(() => import('./pages/PruebaVirtual/PruebaVirtual').then((m) => ({ default: m.PruebaVirtual })))
 const Agenda = lazy(() => import('./pages/Agenda/Agenda').then((m) => ({ default: m.Agenda })))
 const Conocenos = lazy(() => import('./pages/Conocenos/Conocenos').then((m) => ({ default: m.Conocenos })))
@@ -22,6 +23,7 @@ function App() {
         <Route path="catalogo" element={<Catalogo />} />
         <Route path="producto/:id" element={<Producto />} />
         <Route path="que-gafas-van-contigo" element={<TestGafas />} />
+        <Route path="tipo-de-rostro" element={<TestRostro />} />
         <Route path="prueba-virtual" element={<PruebaVirtual />} />
         <Route path="agenda" element={<Agenda />} />
         <Route path="conocenos" element={<Conocenos />} />

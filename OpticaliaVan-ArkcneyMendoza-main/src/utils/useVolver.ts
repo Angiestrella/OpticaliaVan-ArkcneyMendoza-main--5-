@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 // true si antes de esta pantalla hubo otra de la página en esta pestaña
 // (React Router guarda en history.state.idx cuántas entradas lleva).
-export function hayPantallaAnterior() {
+function hayPantallaAnterior() {
   return (window.history.state?.idx ?? 0) > 0
 }
 

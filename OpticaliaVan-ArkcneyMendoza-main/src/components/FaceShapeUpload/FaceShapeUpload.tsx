@@ -111,7 +111,7 @@ export function FaceShapeUpload({ onSelect, onManual }: { onSelect: (shape: Face
       else if (result.faceLandmarks.length > 1) setError('La foto muestra más de un rostro. Sube una imagen donde aparezcas solo tú.')
       else setShape(await clasificar(result.faceLandmarks[0], detector))
     } catch {
-      setError('No pudimos analizar la foto. Revisa tu conexión e inténtalo de nuevo, o elige la forma manualmente.')
+      setError('No pudimos analizar la foto. Revisa tu conexión e inténtalo de nuevo, o haz el test manual.')
     } finally {
       detector?.close()
       bitmap?.close()
@@ -156,15 +156,15 @@ export function FaceShapeUpload({ onSelect, onManual }: { onSelect: (shape: Face
         <div className="face-upload__result">
           {/* <output>: resultado que el lector de pantalla anuncia apenas aparece. */}
           <output>Por las proporciones medidas, tu rostro parece ser <strong>{labels[shape]}</strong>.</output>
-          <small>Es una estimación: la pose, el cabello y la iluminación pueden influir. Puedes elegir otra forma manualmente.</small>
+          <small>Es una estimación: la pose, el cabello y la iluminación pueden influir. También puedes hacer el test manual.</small>
           <button type="button" className="test-gafas__next" onClick={() => onSelect(shape)}>
-            Continuar con esta forma
+            Ver mi resultado
           </button>
         </div>
       )}
 
       <button type="button" className="test-gafas__restart face-upload__manual" onClick={onManual}>
-        Prefiero elegir mi rostro manualmente
+        Prefiero hacer el test manual
       </button>
     </div>
   )

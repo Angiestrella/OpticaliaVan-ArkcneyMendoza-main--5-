@@ -1,39 +1,38 @@
 import { useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, History, Sparkles } from 'lucide-react'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { ArrowLeft, ArrowRight, Glasses, History, ScanFace, Sparkles } from 'lucide-react'
 import { frames, opcionesColor } from '../../data'
-import { FaceShapeUpload } from '../../components/FaceShapeUpload/FaceShapeUpload'
 import { alternar } from '../../utils/alternar'
 import { asset } from '../../utils/asset'
 import { categorias } from '../../utils/categorias'
 import { categoriaDelTipo, coloresDelTipo, recomendar } from '../../utils/recomendar'
 import { useFlechas } from '../../utils/useFlechas'
-import { hayPantallaAnterior, useVolver } from '../../utils/useVolver'
-import { IdentificarRostroManual } from './IdentificarRostroManual'
+import { esFormaRostro } from '../TestRostro/formasRostro'
 import { OpcionTest } from './OpcionTest'
 import { ResultadosTest } from './ResultadosTest'
-import { conIndice, estilos, PAUSA_AL_ELEGIR, PREGUNTAS, rostros, tipos } from './opciones'
+import { estilos, PAUSA_AL_ELEGIR, PREGUNTAS, rostros, tipos } from './opciones'
 import { guardarRespuestas, leerRespuestas, type RespuestasTest } from './respuestasGuardadas'
 import './TestGafas.scss'
 
-type Ayuda = 'foto' | 'manual'
+// Los 3 indicadores de la introducción.
+const pasosIntro = [
+  { texto: 'Identifica la forma de tu rostro', Icon: ScanFace },
+  { texto: 'Descubre qué monturas te favorecen', Icon: Glasses },
+  { texto: 'Encuentra tu estilo ideal', Icon: Sparkles },
+]
 
-// Cada vista del test tiene su propia dirección: ?paso=2, ?paso=resultado,
-// ?ayuda=foto… Así cada pregunta queda en el historial y el "Atrás" del
-// navegador o del celular vuelve a la pregunta anterior en vez de sacar a la
-// persona del test. La pregunta 1 no lleva ?paso (es /que-gafas-van-contigo).
+// Cada vista del test tiene su propia dirección: ?paso=2, ?paso=resultado…
+// Así cada pregunta queda en el historial y el "Atrás" del navegador o del
+// celular vuelve a la pregunta anterior en vez de sacar a la persona del test.
+// /que-gafas-van-contigo (sin nada) es la introducción; la pregunta 1 es ?paso=1.
 function pasoDesdeUrl(valor: string | null): number {
   if (valor === 'resultado') return PREGUNTAS
   const numero = Number(valor)
   return Number.isInteger(numero) && numero >= 1 && numero <= PREGUNTAS ? numero - 1 : 0
 }
 
-function buscarDelPaso(paso: number, ayuda?: Ayuda): string {
-  const params = new URLSearchParams()
-  if (paso > 0) params.set('paso', paso === PREGUNTAS ? 'resultado' : String(paso + 1))
-  if (ayuda) params.set('ayuda', ayuda)
-  const texto = params.toString()
-  return texto ? `?${texto}` : ''
+function buscarDelPaso(paso: number): string {
+  return `?paso=${paso === PREGUNTAS ? 'resultado' : paso + 1}`
 }
 
 export function TestGafas() {
@@ -41,14 +40,8 @@ export function TestGafas() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const paso = pasoDesdeUrl(searchParams.get('paso'))
-  // Desde Inicio, "Te ayudamos con una foto" abre directo esa ayuda (?ayuda=foto).
-  const ayuda = paso === 0 ? searchParams.get('ayuda') : null
-  const ayudaRostro = ayuda === 'foto' || ayuda === 'manual'
-  const manualRostro = ayuda === 'manual'
-  // De dónde se llegó a esta vista, para que "Volver" diga a dónde lleva:
-  // "formas" (se abrió la ayuda desde la pregunta 1) o "inicio" (el enlace de Inicio).
-  const desde = (location.state as { desde?: string } | null)?.desde
-  const volver = useVolver()
+  // Introducción: la dirección sin ?paso. "Empezar mi test" lleva a ?paso=1.
+  const enIntro = !searchParams.has('paso')
 
   // Resultado de una visita anterior (se lee una sola vez al abrir la página).
   const [guardadas] = useState<RespuestasTest | null>(leerRespuestas)
@@ -57,7 +50,12 @@ export function TestGafas() {
   const [alAbrir] = useState(() => (paso === PREGUNTAS ? guardadas : null))
   // Flechas para moverse entre las respuestas de cualquier pregunta.
   const flechasRespuestas = useFlechas<HTMLDivElement>('.quiz-option')
-  const [rostro, setRostro] = useState<string | null>(alAbrir?.rostro ?? null)
+  // Es la pregunta 1. Si se viene del resultado del test de rostro, llega ya
+  // marcada y se puede cambiar; entrando directo, la persona la elige.
+  const [rostro, setRostro] = useState<string | null>(() => {
+    const recibido = (location.state as { rostro?: unknown } | null)?.rostro
+    return esFormaRostro(recibido) ? recibido : (alAbrir?.rostro ?? null)
+  })
   const [tipo, setTipo] = useState<string | null>(alAbrir?.tipo ?? null)
   const [estilo, setEstilo] = useState<string | null>(alAbrir?.estilo ?? null)
   const [colores, setColores] = useState<string[]>(alAbrir?.colores ?? [])
@@ -66,11 +64,13 @@ export function TestGafas() {
 
   // La animación entra por la derecha al avanzar y por la izquierda al
   // retroceder, también cuando se usa el "Atrás" del navegador.
-  const [pasoMostrado, setPasoMostrado] = useState(paso)
+  // (La introducción cuenta como -1: de ella a la pregunta 1 es "adelante").
+  const posicion = enIntro ? -1 : paso
+  const [pasoMostrado, setPasoMostrado] = useState(posicion)
   const [direccion, setDireccion] = useState<'adelante' | 'atras'>('adelante')
-  if (paso !== pasoMostrado) {
-    setPasoMostrado(paso)
-    setDireccion(paso > pasoMostrado ? 'adelante' : 'atras')
+  if (posicion !== pasoMostrado) {
+    setPasoMostrado(posicion)
+    setDireccion(posicion > pasoMostrado ? 'adelante' : 'atras')
   }
 
   useEffect(() => () => window.clearTimeout(avanceRef.current), [])
@@ -80,33 +80,33 @@ export function TestGafas() {
   // se lleva a la primera que falta.
   const primeraSinResponder = !rostro ? 0 : !tipo ? 1 : !estilo ? 2 : colores.length === 0 ? 3 : PREGUNTAS
   useEffect(() => {
-    if (paso > primeraSinResponder) navigate({ search: buscarDelPaso(primeraSinResponder) }, { replace: true })
-  }, [paso, primeraSinResponder, navigate])
+    if (paso > primeraSinResponder) {
+      navigate({ search: buscarDelPaso(primeraSinResponder) }, { replace: true, state: rostro ? { rostro } : null })
+    }
+  }, [paso, primeraSinResponder, navigate, rostro])
 
   // Cada pregunta nueva se ve desde arriba.
   useEffect(() => {
     if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [paso])
+  }, [paso, enIntro])
 
-  // Avanzar, abrir una ayuda o saltar a una pregunta crea una entrada nueva en
-  // el historial, así cada "Volver" regresa exactamente a la vista anterior.
-  function irA(nuevo: number, conAyuda?: Ayuda, origen?: string) {
+  // Cada paso es una entrada del historial; el rostro viaja con ella para no
+  // perderse al recargar (las demás respuestas se guardan al final).
+  function irA(nuevo: number) {
     window.clearTimeout(avanceRef.current)
-    navigate({ search: buscarDelPaso(nuevo, conAyuda) }, { state: origen ? { desde: origen } : null })
+    navigate({ search: buscarDelPaso(nuevo) }, { state: rostro ? { rostro } : null })
   }
 
-  // Todos los "Volver" y "Anterior" del test llevan a donde la persona estaba
-  // (como el "Atrás" del navegador): si abrió la ayuda con foto desde Inicio,
-  // vuelve a Inicio; si la abrió desde las formas, vuelve a las formas.
-  // "alternativa" es solo para quien entró directo a esta vista con un enlace.
-  function atras(alternativa: string) {
+  // "Anterior" lleva siempre a la pregunta anterior de este test; desde la
+  // primera, a su introducción.
+  function anterior() {
+    if (paso > 0) {
+      irA(paso - 1)
+      return
+    }
     window.clearTimeout(avanceRef.current)
-    volver(alternativa)
+    navigate({ search: '' }, { state: rostro ? { rostro } : null })
   }
-  const rutaDelPaso = (n: number, conAyuda?: Ayuda) => location.pathname + buscarDelPaso(n, conAyuda)
-  // La ayuda con foto vuelve a las formas solo si se abrió desde ellas; si no,
-  // al Inicio (de donde sale el enlace "¿No conoces la forma de tu rostro?").
-  const textoVolverDeFoto = desde === 'formas' ? 'Volver a las formas' : desde === 'inicio' || !hayPantallaAnterior() ? 'Volver al inicio' : 'Volver'
 
   // Preguntas de una sola respuesta: se marca la opción y avanza solo.
   function elegirYAvanzar(guardar: (id: string) => void, id: string) {
@@ -141,7 +141,8 @@ export function TestGafas() {
   }
 
   function reiniciar() {
-    irA(0)
+    window.clearTimeout(avanceRef.current)
+    navigate({ search: buscarDelPaso(0) }, { state: null })
     setRostro(null)
     setTipo(null)
     setEstilo(null)
@@ -167,8 +168,8 @@ export function TestGafas() {
     { paso: 3, etiqueta: 'Colores', valor: opcionesColor.filter((c) => colores.includes(c.id)).map((c) => c.label).join(', ') },
   ]
 
-  // Cambia en cada pregunta o sub-vista: así la vista nueva entra con su animación.
-  const claveVista = paso === 0 ? `0-${ayudaRostro ? (manualRostro ? 'manual' : 'foto') : 'formas'}` : String(paso)
+  // Cambia en cada pregunta: así la vista nueva entra con su animación.
+  const claveVista = enIntro ? 'intro' : String(paso)
 
   // Al cambiar de pregunta, el botón que se tocó desaparece: el foco del
   // teclado pasa al título nuevo para que el lector de pantalla lo lea y la
@@ -188,7 +189,7 @@ export function TestGafas() {
   return (
     <section className="test-gafas">
       <div className="test-gafas__shell" ref={flechasRespuestas}>
-        {paso < PREGUNTAS && (
+        {paso < PREGUNTAS && !enIntro && (
           <header className="test-gafas__top">
             <p className="test-gafas__eyebrow"><Sparkles size={15} aria-hidden="true" /> ¿Qué gafas van contigo?</p>
             <div className="test-gafas__progress">
@@ -211,7 +212,7 @@ export function TestGafas() {
         )}
 
         <div ref={vistaRef} key={claveVista} className={`test-gafas__view test-gafas__view--${direccion}`}>
-          {paso === 0 && !ayudaRostro && (
+          {enIntro && (
             <>
               {guardadas && avisoGuardadas && rostro === null && (
                 <div className="test-gafas__guardado">
@@ -227,9 +228,33 @@ export function TestGafas() {
                   </div>
                 </div>
               )}
+              {/* Introducción: explica el test antes de la primera pregunta. */}
+              <div className="test-intro">
+                <p className="test-intro__eyebrow">¿Qué gafas van contigo?</p>
+                <h1 className="test-intro__title">Encuentra las gafas que van contigo.</h1>
+                <p className="test-intro__text">
+                  Te ayudaremos a descubrir qué tipo de gafas armonizan mejor con tu rostro y tu estilo. Responde unas sencillas preguntas y encuentra las monturas ideales para ti.
+                </p>
+                <ul className="test-intro__steps">
+                  {pasosIntro.map(({ texto, Icon }) => (
+                    <li key={texto}>
+                      <span className="test-intro__step-icon" aria-hidden="true"><Icon size={18} strokeWidth={1.8} /></span>
+                      {texto}
+                    </li>
+                  ))}
+                </ul>
+                <button type="button" className="test-intro__cta" onClick={() => irA(0)}>
+                  Empezar mi test <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </>
+          )}
+
+          {paso === 0 && !enIntro && (
+            <>
               <div className="test-gafas__head">
                 <h1>Selecciona la forma de tu rostro</h1>
-                <p className="test-gafas__hint">Elige la que más se parece a ti. Si no estás seguro, te ayudamos con una foto o con unas preguntas.</p>
+                <p className="test-gafas__hint">Elige la que más se parece a ti.</p>
               </div>
               <div className="test-gafas__grid test-gafas__grid--rostros">
                 {rostros.map((r, i) => (
@@ -238,40 +263,20 @@ export function TestGafas() {
                     <span className="quiz-option__label">{r.label}</span>
                   </OpcionTest>
                 ))}
-                <button
-                  type="button"
-                  style={conIndice(rostros.length)}
-                  className="quiz-option quiz-option--help"
-                  onClick={() => irA(0, 'foto', 'formas')}
-                >
-                  <span className="rostro-shape rostro-shape--help" aria-hidden="true">?</span>
-                  <span className="quiz-option__label">Identificar con una foto o manual</span>
-                </button>
               </div>
+
+              {/* Fuera de la cuadrícula (no es una forma más). El test de rostro
+                  devuelve a la persona aquí, a la pregunta 2, con su forma elegida. */}
+              <aside className="test-gafas__face-help" aria-labelledby="ayuda-rostro-titulo">
+                <div className="test-gafas__face-help-text">
+                  <h2 id="ayuda-rostro-titulo" className="test-gafas__face-help-title">¿No sabes cuál es tu tipo de rostro?</h2>
+                  <p className="test-gafas__face-help-desc">Te ayudamos a identificarlo con una foto o respondiendo unas preguntas.</p>
+                </div>
+                <Link className="test-gafas__face-help-cta" to="/tipo-de-rostro?desde=gafas">
+                  Descubrir mi tipo de rostro <span aria-hidden="true">→</span>
+                </Link>
+              </aside>
             </>
-          )}
-
-          {paso === 0 && ayudaRostro && !manualRostro && (
-            <div className="test-gafas__photo-help">
-              <button type="button" className="test-gafas__back test-gafas__back--top" onClick={() => atras('/')}>
-                <ArrowLeft size={18} aria-hidden="true" /> {textoVolverDeFoto}
-              </button>
-              {/* Con el rostro identificado sigue a la pregunta 2; desde ahí,
-                  "Anterior" vuelve a esta ayuda, que es donde estaba. */}
-              <FaceShapeUpload
-                onSelect={(shape) => { setRostro(shape); irA(1) }}
-                onManual={() => irA(0, 'manual')}
-              />
-            </div>
-          )}
-
-          {paso === 0 && ayudaRostro && manualRostro && (
-            <IdentificarRostroManual
-              // Igual que con la foto: identificado el rostro, sigue a la pregunta 2.
-              onIdentificar={(identificado) => { setRostro(identificado); irA(1) }}
-              // Solo se llega aquí desde la ayuda con foto: "Volver" regresa a ella.
-              onVolver={() => atras(rutaDelPaso(0, 'foto'))}
-            />
           )}
 
           {paso === 1 && (
@@ -351,15 +356,13 @@ export function TestGafas() {
           )}
         </div>
 
-        {/* Anterior / Siguiente. En la ayuda con foto o manual cada vista trae sus propios botones.
-            En la pregunta 1 no hay "Anterior": para salir del test están el menú y el "Atrás" del navegador. */}
-        {paso < PREGUNTAS && !(paso === 0 && ayudaRostro) && (
+        {/* Anterior / Siguiente. La introducción solo tiene "Empezar mi test";
+            en la pregunta 1, "Anterior" vuelve a ella. */}
+        {paso < PREGUNTAS && !enIntro && (
           <nav className="test-gafas__nav" aria-label="Navegación del test">
-            {paso > 0 && (
-              <button type="button" className="test-gafas__back" onClick={() => atras(rutaDelPaso(paso - 1))}>
-                <ArrowLeft size={18} aria-hidden="true" /> Anterior
-              </button>
-            )}
+            <button type="button" className="test-gafas__back" onClick={anterior}>
+              <ArrowLeft size={18} aria-hidden="true" /> Anterior
+            </button>
             <button type="button" className="test-gafas__next" disabled={!puedeAvanzar} onClick={siguiente}>
               {paso === PREGUNTAS - 1 ? 'Ver mis gafas' : 'Siguiente'} <ArrowRight size={18} aria-hidden="true" />
             </button>

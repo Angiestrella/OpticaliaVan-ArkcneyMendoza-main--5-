@@ -89,11 +89,21 @@
   }
 }
 
-.frame-card__badge {
+// Una debajo de la otra: dos etiquetas no caben lado a lado en una tarjeta angosta.
+.frame-card__badges {
   position: absolute;
   z-index: 1;
   top: 12px;
   left: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-1;
+  pointer-events: none;
+}
+
+.frame-card__badge {
   padding: 6px 10px;
   border-radius: $radius-pill;
   background: rgba($color-white, 0.94);
@@ -103,6 +113,18 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   box-shadow: 0 3px 10px rgba($color-black, 0.08);
+}
+
+.frame-card__badge--prueba {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  background: $color-blue-texto;
+  color: $color-white;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 11px;
+  font-weight: 700;
 }
 
 // Alto fijo aunque esté vacía (montura de un solo color).
@@ -176,10 +198,22 @@
     align-items: flex-start;
     gap: 2px;
   }
-  .frame-card__badge {
+  // En la tarjeta angosta las gafas llenan el centro de la foto: "Tendencia" va
+  // arriba y la prueba virtual abajo, para no taparlas.
+  .frame-card__badges {
     top: 8px;
+    bottom: 8px;
     left: 8px;
-    max-width: calc(100% - 16px);
+    right: 8px;
+  }
+
+  .frame-card__badge--prueba {
+    margin-top: auto;
+    line-height: 1.25;
+  }
+
+  .frame-card__badge {
+    max-width: 100%;
     padding: 5px 8px;
     font-size: 9px;
   }
@@ -247,4 +281,16 @@ a.frame-card__quote {
   display: block;
   text-align: center;
   text-decoration: none;
+}
+
+// Pantallas muy angostas: el texto completo no cabe en una línea y se cortaría
+// o taparía la montura, así que queda "Prueba virtual".
+@media (max-width: 360px) {
+  .frame-card__badge--prueba {
+    white-space: nowrap;
+  }
+
+  .frame-card__badge-extra {
+    display: none;
+  }
 }

@@ -1,0 +1,73 @@
+@use "../../styles/variables" as *;
+
+// Lo propio de este test. Lo demás (tarjetas, progreso, botones) se comparte
+// con el test de gafas: ver TestGafas.scss.
+.rostro-resultado {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 48px);
+  margin-bottom: $space-7;
+}
+
+.rostro-resultado__imgs {
+  display: grid;
+  gap: $space-3;
+}
+
+// Resultado combinado: las formas que reúne, una al lado de la otra.
+.rostro-resultado__imgs--2,
+.rostro-resultado__imgs--3 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.rostro-resultado__img {
+  width: 100%;
+  height: auto;
+  border-radius: $radius-xl;
+}
+
+.rostro-resultado__title {
+  margin: 0 0 $space-3;
+  color: $color-azul-titulo;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.2;
+}
+
+.rostro-resultado__forma {
+  margin: 0 0 $space-3;
+  color: $color-blue-texto;
+  font-family: $font-display;
+  font-size: clamp(26px, 3.4vw, 36px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.rostro-resultado__text {
+  max-width: 52ch;
+  margin: 0;
+  color: rgba($color-black, 0.8);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.rostro-resultado__nota {
+  margin: $space-3 0 0;
+  color: rgba($color-black, 0.65);
+  font-size: 14px;
+}
+
+.rostro-resultado__again {
+  margin-top: $space-5;
+}
+
+@media (max-width: 640px) {
+  .rostro-resultado {
+    grid-template-columns: 1fr;
+  }
+  .rostro-resultado__imgs {
+    width: 100%;
+    max-width: 280px;
+    margin-inline: auto;
+  }
+}

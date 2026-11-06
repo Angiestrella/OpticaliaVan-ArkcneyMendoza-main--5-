@@ -10,34 +10,110 @@
   height: calc(100svh - #{$navbar-height});
 }
 
-// A todo el ancho de la página. Fondo: mujer eligiendo gafas, a la derecha; el
-// degradado claro de la izquierda deja leer el texto sin tapar a la mujer. El
-// texto queda alineado con el resto del contenido (columna de 1100 px).
+// A todo el ancho de la página. Fondo abstracto: celeste #6FC1DF con
+// degradados azules y blancos, una forma orgánica grande a la derecha y luces
+// difuminadas que se mueven despacio. Sin fotos. La izquierda lleva un velo
+// blanco suave para que el texto se lea bien. El texto queda alineado con el
+// resto del contenido (columna de 1100 px).
+$discover-celeste: #6fc1df;
+
 .home-discover {
+  position: relative;
+  isolation: isolate; // las formas (z-index -1) quedan detrás del texto, dentro del panel
+  overflow: hidden;
   min-height: clamp(460px, 38vw, 560px);
   margin: 0;
   padding: clamp(48px, 6vw, 88px) max(#{$space-6}, calc((100% - 1100px) / 2));
   background:
-    linear-gradient(
-      90deg,
-      rgba($color-sand, 0.97) 0%,
-      rgba($color-sand, 0.92) 38%,
-      rgba($color-sand, 0.35) 56%,
-      rgba($color-sand, 0) 72%
-    ),
-    url("/fondos/fondo-mujer-eligiendo-gafas.webp") right 35% / cover no-repeat;
-  background-color: $color-sand;
+    linear-gradient(90deg, rgba($color-white, 0.42) 0%, rgba($color-white, 0.18) 40%, rgba($color-white, 0) 62%),
+    linear-gradient(160deg, color.adjust($discover-celeste, $lightness: 10%) 0%, $discover-celeste 45%, color.adjust($discover-celeste, $lightness: -8%) 100%);
+  background-color: $discover-celeste;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: $space-6;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  // Forma orgánica grande (una "mancha" azul-blanca) a la derecha, que cambia
+  // de contorno y flota despacio.
+  &::before {
+    top: -18%;
+    right: -12%;
+    width: min(70vw, 820px);
+    aspect-ratio: 1;
+    border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
+    background:
+      radial-gradient(circle at 32% 30%, rgba($color-white, 0.75) 0%, rgba($color-white, 0) 42%),
+      radial-gradient(circle at 70% 75%, rgba($color-blue, 0.55) 0%, rgba($color-blue, 0) 60%),
+      linear-gradient(145deg, rgba($color-white, 0.45) 0%, rgba($discover-celeste, 0.2) 50%, rgba($color-blue, 0.45) 100%);
+    filter: blur(6px);
+    animation: discover-forma 28s ease-in-out infinite alternate;
+  }
+
+  // Luces difuminadas que van en otro sentido, para dar profundidad.
+  &::after {
+    inset: -30%;
+    background:
+      radial-gradient(closest-side, rgba($color-white, 0.65), rgba($color-white, 0)) 18% 78% / 36% 42% no-repeat,
+      radial-gradient(closest-side, rgba($color-blue, 0.35), rgba($color-blue, 0)) 88% 18% / 32% 38% no-repeat,
+      radial-gradient(closest-side, rgba($color-white, 0.5), rgba($color-white, 0)) 62% 92% / 30% 30% no-repeat,
+      radial-gradient(closest-side, rgba($color-blue, 0.22), rgba($color-blue, 0)) 40% 10% / 28% 30% no-repeat;
+    animation: discover-luces 36s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes discover-forma {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
+  }
+  50% {
+    transform: translate3d(-4%, 5%, 0) rotate(14deg);
+    border-radius: 58% 42% 38% 62% / 55% 62% 38% 45%;
+  }
+  100% {
+    transform: translate3d(3%, -3%, 0) rotate(-8deg);
+    border-radius: 48% 52% 55% 45% / 38% 55% 45% 62%;
+  }
+}
+
+@keyframes discover-luces {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(5%, -4%, 0) scale(1.06); }
+  100% { transform: translate3d(-4%, 3%, 0) scale(0.96); }
+}
+
+// Con "reducir movimiento" las formas se quedan quietas (el fondo se sigue viendo).
+@media (prefers-reduced-motion: reduce) {
+  .home-discover::before,
+  .home-discover::after {
+    animation: none;
+  }
+}
+
+// En celular la forma orgánica se corre hacia arriba para no quedar detrás
+// de los botones.
+@media (max-width: 760px) {
+  .home-discover::before {
+    top: -30%;
+    right: -40%;
+    width: 120vw;
+  }
 }
 
 .home-discover__copy {
   max-width: 620px;
 }
 .home-discover__eyebrow {
-  color: $color-blue-texto;
+  color: $color-azul-titulo; // sobre el celeste, el azul medio no contrasta
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -47,23 +123,43 @@
   margin-bottom: $space-3;
 }
 .home-discover__copy > p:not(.home-discover__eyebrow) {
-  color: rgba($color-black, 0.72);
+  color: rgba($color-black, 0.8);
 }
+
+// Botón principal: azul de marca más oscuro que el fondo celeste, texto blanco
+// (contraste alto) y una sombra azul oscura que lo despega del fondo.
+$discover-cta: color.adjust($color-blue, $lightness: -10%);
 .home-discover__cta {
   display: inline-flex;
   gap: $space-3;
   align-items: center;
-  padding: $space-4 $space-6;
+  padding: 18px 34px;
   border-radius: $radius-pill;
-  background: $color-blue-texto;
+  background: $discover-cta;
   color: $color-white;
+  font-size: 17px;
   font-weight: 700;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  box-shadow: 0 8px 22px rgba($color-blue, 0.28);
+  box-shadow:
+    0 10px 24px rgba($color-azul-titulo, 0.3),
+    0 2px 6px rgba($color-azul-titulo, 0.18);
+  transition:
+    background-color $motion-base $motion-easing,
+    box-shadow $motion-base $motion-easing,
+    translate $motion-base $motion-easing;
 }
 .home-discover__cta:hover {
   color: $color-white;
-  background: color.adjust($color-blue, $lightness: -8%);
+  background: color.adjust($color-blue, $lightness: -16%);
+  translate: 0 -2px;
+  box-shadow:
+    0 14px 30px rgba($color-azul-titulo, 0.36),
+    0 3px 8px rgba($color-azul-titulo, 0.2);
+}
+.home-discover__cta:focus-visible {
+  outline: $focus-ring-width solid $color-white;
+  outline-offset: 3px;
 }
 
 // Los 4 pasos del test, como fichas pequeñas.
@@ -112,7 +208,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: rgba($color-black, 0.62);
+  color: rgba($color-black, 0.78);
   font-size: 14px;
   font-weight: 600;
 }
@@ -123,34 +219,16 @@
   align-items: center;
   gap: 6px;
   margin-top: $space-5;
-  color: $color-azul-texto;
+  color: $color-azul-titulo;
   font-size: 14px;
   font-weight: 700;
   text-decoration: underline;
-  text-decoration-color: rgba($color-azul-texto, 0.3);
+  text-decoration-color: rgba($color-azul-titulo, 0.35);
   text-underline-offset: 4px;
 
   &:hover {
-    color: $color-blue-texto;
+    color: $color-azul-titulo;
     text-decoration-color: currentColor;
-  }
-}
-
-// En pantallas angostas el texto ocupa todo el ancho y taparía a la mujer:
-// la foto se ve nítida arriba y se desvanece hacia el texto, que va debajo.
-@media (max-width: 760px) {
-  .home-discover {
-    padding-top: 250px;
-    background:
-      linear-gradient(
-        180deg,
-        rgba($color-sand, 0) 0,
-        rgba($color-sand, 0) 170px,
-        $color-sand 250px
-      ),
-      url("/fondos/fondo-mujer-eligiendo-gafas.webp") 75% 0 / max(100%, 600px) auto
-        no-repeat;
-    background-color: $color-sand;
   }
 }
 
@@ -292,12 +370,25 @@
 // ====== Prepárate para tu consulta visual ======
 // Fondo: pared crema con sombras de plantas. Texto a la izquierda y los 3 pasos
 // como lista numerada (unida por una línea) a la derecha.
+// "overflow: clip" (no "hidden"): hidden convertiría la sección en un
+// contenedor de scroll y las animaciones con view() nunca avanzarían.
 .vision-care {
   position: relative;
-  overflow: hidden;
+  isolation: isolate;
+  overflow: clip;
   padding: clamp(56px, 8vw, 104px) $space-6;
-  background: url("/fondos/fondo-pared-crema.webp") center / cover no-repeat;
   background-color: #f6eee2;
+
+  // La foto va en una capa propia, un poco más alta que la sección, para
+  // poder desplazarla suavemente con el scroll sin que se vea el borde.
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -8% 0;
+    background: url("/fondos/fondo-pared-crema.webp") center / cover no-repeat;
+    pointer-events: none;
+  }
 }
 
 .vision-care__inner {
@@ -403,83 +494,90 @@ $consulta-numero: 56px;
   font-family: $font-display;
   font-size: 17px;
   font-weight: 800;
+}
 
-  // Onda que sale del número cuando aparece.
-  &::after {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border: 2px solid $color-blue;
-    border-radius: 50%;
-    opacity: 0;
-    pointer-events: none;
+// ---- Animación ligada al scroll (Scroll-driven Animations) ----
+// No tiene duración en segundos: el avance lo da el scroll. Cada elemento usa
+// "animation-timeline: view()", su propio recorrido por la pantalla:
+// 0 % cuando asoma por abajo y 100 % cuando ya entró lo indicado en
+// "animation-range". Si subes, la animación retrocede.
+// Como cada paso de la lista entra a la pantalla un poco después que el
+// anterior, aparecen en orden sin necesidad de retrasos.
+//
+// Solo en navegadores que lo soportan y si la persona no pidió "reducir
+// movimiento". En los demás casos todo se ve quieto y completo desde el
+// inicio (nada queda oculto).
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    // Fondo: se desplaza despacio mientras la sección cruza la pantalla.
+    .vision-care::before {
+      animation: consulta-fondo linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    // Texto y botón de la izquierda: suben un poco y aparecen.
+    .vision-care__intro {
+      animation: consulta-intro linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+
+    // Número de cada paso.
+    .vision-care__number {
+      animation: consulta-numero linear both;
+      animation-timeline: view();
+      animation-range: entry 20% entry 100%;
+    }
+
+    // Tarjeta: llega desde la derecha y un poco abajo, con algo de profundidad.
+    .vision-care__card {
+      animation: consulta-tarjeta linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+
+    // Línea hacia el siguiente número: se dibuja después de que su paso entró.
+    .vision-care__step:not(:last-child)::after {
+      animation: consulta-linea linear both;
+      animation-timeline: view();
+      animation-range: entry 80% cover 45%;
+    }
   }
 }
 
-// ---- Animación en secuencia (data-reveal="secuencia") ----
-// 01 aparece → la línea baja hasta el 02 → aparece el 02 → la línea baja → 03.
-// Cada paso dura $consulta-paso; --i (0, 1, 2) lo pone Home.tsx.
-$consulta-paso: 0.85s;
-
-.reveal-listo .vision-care__steps.is-visible {
-  animation: none;
-} // la lista no se mueve; se animan sus partes
-
-.reveal-listo .vision-care__steps:not(.is-visible) {
-  .vision-care__number,
-  .vision-care__card {
-    opacity: 0;
+// Las curvas de suavizado van dentro de los keyframes (animation-timing-function
+// por tramo), así el movimiento frena suave al final sin rebote.
+@keyframes consulta-fondo {
+  from {
+    translate: 0 -5%;
   }
-  .vision-care__step::after {
-    transform: scaleY(0);
+  to {
+    translate: 0 5%;
   }
 }
 
-.reveal-listo .vision-care__steps.is-visible {
-  .vision-care__number {
-    animation: consulta-numero 0.55s cubic-bezier(0.3, 1.5, 0.5, 1) both;
-    animation-delay: calc(0.25s + var(--i) * #{$consulta-paso});
+@keyframes consulta-intro {
+  from {
+    opacity: 0;
+    translate: 0 40px;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
   }
-
-  .vision-care__number::after {
-    animation: consulta-onda 0.9s ease-out both;
-    animation-delay: calc(0.35s + var(--i) * #{$consulta-paso});
-  }
-
-  .vision-care__step::after {
-    animation: consulta-linea 0.5s ease-in-out both;
-    animation-delay: calc(0.6s + var(--i) * #{$consulta-paso});
-  }
-
-  .vision-care__card {
-    animation: consulta-tarjeta 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-    animation-delay: calc(0.35s + var(--i) * #{$consulta-paso});
+  to {
+    opacity: 1;
+    translate: 0 0;
   }
 }
 
 @keyframes consulta-numero {
-  0% {
-    opacity: 0;
-    scale: 0.4;
-  }
-  60% {
-    opacity: 1;
-    scale: 1.12;
-  }
-  100% {
-    opacity: 1;
-    scale: 1;
-  }
-}
-
-@keyframes consulta-onda {
   from {
-    opacity: 0.6;
-    scale: 1;
+    opacity: 0;
+    scale: 0.7;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
   }
   to {
-    opacity: 0;
-    scale: 1.7;
+    opacity: 1;
+    scale: 1;
   }
 }
 
@@ -495,11 +593,14 @@ $consulta-paso: 0.85s;
 @keyframes consulta-tarjeta {
   from {
     opacity: 0;
-    translate: 24px 0;
+    translate: 40px 24px;
+    scale: 0.96;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
   }
   to {
     opacity: 1;
     translate: 0 0;
+    scale: 1;
   }
 }
 
@@ -573,6 +674,231 @@ $consulta-paso: 0.85s;
   }
   .vision-care__card {
     padding: $space-4;
+  }
+}
+
+// ====== Herramientas digitales (test de rostro y probador virtual) ======
+// Dos tarjetas celestes (#6FC1DF) lado a lado, antes del footer. Las formas
+// del fondo son solo CSS: cada tarjeta tiene su composición en ::before y
+// ::after. Toda la tarjeta es un enlace.
+$herramienta-celeste: #6fc1df;
+$herramienta-cta: color.adjust($color-blue, $lightness: -10%);
+
+.herramientas {
+  padding: clamp(56px, 7vw, 96px) $space-6;
+  background: $color-white;
+}
+
+.herramientas__inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-6;
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.herramienta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 300px;
+  padding: clamp(28px, 3.5vw, 40px);
+  border-radius: $radius-xl;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba($color-white, 0.5) 0%, rgba($color-white, 0) 55%),
+    linear-gradient(135deg, color.adjust($herramienta-celeste, $lightness: 8%) 0%, $herramienta-celeste 50%, color.adjust($herramienta-celeste, $lightness: -6%) 100%);
+  background-size: 100% 100%, 160% 160%;
+  background-position: 0 0, 0% 0%;
+  color: $color-azul-titulo;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba($color-azul-titulo, 0.06);
+  transition:
+    translate $motion-slow $motion-easing,
+    box-shadow $motion-slow $motion-easing,
+    background-position $motion-slow $motion-easing;
+
+  &:hover {
+    color: $color-azul-titulo;
+    translate: 0 -4px;
+    background-position: 0 0, 100% 100%; // el degradado se corre un poco
+    box-shadow: 0 16px 36px rgba($color-azul-titulo, 0.14);
+  }
+
+  &:focus-visible {
+    outline: $focus-ring-width solid $focus-ring-color;
+    outline-offset: 4px;
+  }
+
+  // Formas abstractas, detrás del texto y a la derecha.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: scale $motion-slow $motion-easing;
+    animation: herramienta-flotar 18s ease-in-out infinite alternate;
+  }
+  &::after {
+    animation-duration: 23s;
+    animation-direction: alternate-reverse;
+  }
+  &:hover::before,
+  &:hover::after {
+    scale: 1.06;
+  }
+}
+
+// Tarjeta 1: un orbe azul difuminado y un aro blanco fino que lo cruza.
+.herramienta--rostro {
+  &::before {
+    right: -60px;
+    bottom: -90px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle at 40% 40%, rgba($color-blue, 0.55) 0%, rgba($color-blue, 0) 68%);
+    filter: blur(4px);
+  }
+  &::after {
+    top: -70px;
+    right: 40px;
+    width: 220px;
+    height: 220px;
+    border: $border-width-base solid rgba($color-white, 0.6);
+  }
+}
+
+// Tarjeta 2: dos círculos claros que se cruzan (eco abstracto de unos lentes),
+// en la esquina de abajo a la derecha, lejos del texto.
+.herramienta--probador {
+  &::before,
+  &::after {
+    bottom: -50px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle at 35% 30%, rgba($color-white, 0.55) 0%, rgba($color-white, 0.12) 70%);
+    border: $border-width-base solid rgba($color-white, 0.45);
+  }
+  &::before {
+    right: 90px;
+  }
+  &::after {
+    right: -30px;
+    background: radial-gradient(circle at 35% 30%, rgba($color-blue, 0.32) 0%, rgba($color-blue, 0.06) 70%);
+  }
+}
+
+@keyframes herramienta-flotar {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -14px 10px;
+  }
+}
+
+.herramienta__eyebrow {
+  margin-bottom: $space-3;
+  color: $color-azul-titulo;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.herramienta__title {
+  max-width: 16ch;
+  margin: 0 0 $space-3;
+  color: $color-azul-titulo;
+  font-size: clamp(24px, 2.4vw, 30px);
+  line-height: 1.15;
+}
+
+.herramienta__text {
+  max-width: 34ch;
+  margin: 0 0 $space-6;
+  color: rgba($color-black, 0.78);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+// Mismo estilo que el botón principal del panel de arriba ("Empezar el test").
+.herramienta__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  margin-top: auto;
+  padding: 14px 26px;
+  border-radius: $radius-pill;
+  background: $herramienta-cta;
+  color: $color-white;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba($color-azul-titulo, 0.22);
+  transition: background-color $motion-base $motion-easing;
+
+  span {
+    transition: translate $motion-base $motion-easing;
+  }
+}
+.herramienta:hover .herramienta__cta {
+  background: color.adjust($color-blue, $lightness: -16%);
+
+  span {
+    translate: 3px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .herramienta,
+  .herramienta::before,
+  .herramienta::after {
+    animation: none;
+    transition: none;
+  }
+  .herramienta:hover {
+    translate: none;
+  }
+}
+
+// Tablet y celular: una debajo de la otra; las formas se achican y se corren
+// a la esquina para no quedar detrás del texto.
+@media (max-width: 860px) {
+  .herramientas__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .herramientas {
+    padding-inline: $space-4;
+  }
+  .herramienta {
+    min-height: 0;
+  }
+  .herramienta--rostro::before {
+    width: 200px;
+    height: 200px;
+  }
+  .herramienta--rostro::after {
+    top: -100px;
+    right: -90px;
+  }
+  .herramienta--probador::before,
+  .herramienta--probador::after {
+    bottom: -45px;
+    width: 110px;
+    height: 110px;
+  }
+  .herramienta--probador::before {
+    right: 50px;
+  }
+  .herramienta--probador::after {
+    right: -35px;
   }
 }
 

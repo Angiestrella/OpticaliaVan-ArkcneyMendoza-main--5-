@@ -42,9 +42,16 @@
     {
       "ruta": "/que-gafas-van-contigo",
       "titulo": "¿Qué gafas van contigo? Test de estilo",
-      "descripcion": "Responde 4 preguntas (forma de tu rostro, tipo de gafas, estilo y colores) y recibe monturas recomendadas para ti. También puedes identificar tu rostro con una foto.",
+      "descripcion": "Responde 4 preguntas (forma de tu rostro, tipo de gafas, categoría y colores) y recibe monturas recomendadas para ti.",
       "frecuencia": "monthly",
       "prioridad": "0.8"
+    },
+    {
+      "ruta": "/tipo-de-rostro",
+      "titulo": "¿Qué tipo de rostro tengo? Test de forma de rostro",
+      "descripcion": "Sube una foto o haz el test manual y descubre si tu rostro es ovalado, redondo, rectangular, diamante, corazón o triangular.",
+      "frecuencia": "monthly",
+      "prioridad": "0.7"
     },
     {
       "ruta": "/prueba-virtual",

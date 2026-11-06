@@ -10,7 +10,7 @@ import { useFlechas } from '../../utils/useFlechas'
 import { useParallax } from '../../utils/useParallax'
 import './Home.scss'
 
-// Las 4 preguntas del test, para que se entienda qué va a pasar antes de empezar.
+// Las 4 preguntas del test de gafas, para que se entienda qué va a pasar antes de empezar.
 const pasosTest = [
   { label: 'Tu rostro', Icon: ScanFace },
   { label: 'Qué buscas', Icon: Glasses },
@@ -33,6 +33,26 @@ const pasosConsulta = [
   { titulo: 'Trae tus gafas actuales', texto: 'Si ya usas gafas, llévalas contigo. También puedes traer una fórmula anterior si la tienes.', Icon: Glasses },
   { titulo: 'Piensa en tu día a día', texto: 'Cuenta para qué actividades necesitas ver mejor: leer, trabajar frente a pantallas, conducir u otras.', Icon: ClipboardList },
   { titulo: 'Anota tus dudas', texto: 'Si has notado cambios en tu visión o tienes preguntas, apuntarlas te ayudará a recordarlas.', Icon: MessageCircleQuestion },
+]
+
+// Las dos tarjetas antes del footer: el test de rostro y la prueba virtual.
+const herramientas = [
+  {
+    id: 'rostro',
+    etiqueta: 'Asesoría',
+    titulo: '¿Sabes cuál es tu tipo de rostro?',
+    texto: 'Descúbrelo con un test sencillo y conoce las características de tu rostro.',
+    accion: 'Descubrir mi tipo de rostro',
+    to: '/tipo-de-rostro',
+  },
+  {
+    id: 'probador',
+    etiqueta: 'Experiencia digital',
+    titulo: '¿Cómo te quedan antes de ir?',
+    texto: 'Pruébate diferentes monturas virtualmente y descubre tu próximo estilo antes de agendar tu cita.',
+    accion: 'Probar gafas ahora',
+    to: '/prueba-virtual',
+  },
 ]
 
 export function Home() {
@@ -81,9 +101,7 @@ export function Home() {
             <span className="home-discover__time"><Clock size={16} aria-hidden="true" /> Toma 2 minutos</span>
           </div>
 
-          {/* Lleva directo a identificar el rostro con una foto (?ayuda=foto, ver TestGafas).
-              desde: así su botón dice "Volver al inicio" (y no "a las formas", que no se vieron). */}
-          <Link className="home-discover__photo-link" to="/que-gafas-van-contigo?ayuda=foto" state={{ desde: 'inicio' }}>
+          <Link className="home-discover__photo-link" to="/tipo-de-rostro">
             ¿No conoces la forma de tu rostro? Te ayudamos con una foto <span aria-hidden="true">→</span>
           </Link>
         </div>
@@ -165,16 +183,17 @@ export function Home() {
       {/* Texto y botón a la izquierda; los 3 pasos como lista numerada a la derecha. */}
       <section className="vision-care" aria-labelledby="vision-care-title">
         <div className="vision-care__inner">
-          <div className="vision-care__intro" data-reveal>
+          {/* Sin data-reveal: esta sección se anima con el scroll (CSS
+              animation-timeline: view(), ver Home.scss), no al aparecer. */}
+          <div className="vision-care__intro">
             <p className="vision-care__eyebrow">Una consulta más tranquila</p>
             <h2 id="vision-care-title">Prepárate para tu consulta visual</h2>
             <p>Unos pequeños detalles antes de venir pueden ayudar a que aproveches mejor la visita.</p>
             <Link className="vision-care__cta" to="/agenda">Agenda tu cita <span aria-hidden="true">→</span></Link>
           </div>
 
-          {/* data-reveal="secuencia": al aparecer, los números salen uno a uno y la
-              línea se dibuja de un número al siguiente (ver Home.scss). */}
-          <ol className="vision-care__steps" data-reveal="secuencia">
+          {/* Cada paso avanza con el scroll: número, tarjeta y la línea al siguiente. */}
+          <ol className="vision-care__steps">
             {pasosConsulta.map(({ titulo, texto, Icon }, i) => (
               <li key={titulo} className="vision-care__step" style={{ '--i': i } as CSSProperties}>
                 <span className="vision-care__number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
@@ -185,6 +204,21 @@ export function Home() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Accesos a las herramientas digitales, antes del footer. Toda la
+          tarjeta es el enlace; el "botón" de adentro es solo visual. */}
+      <section className="herramientas" aria-label="Prueba nuestras herramientas antes de tu visita">
+        <div className="herramientas__inner">
+          {herramientas.map(({ id, etiqueta, titulo, texto, accion, to }) => (
+            <Link key={id} className={`herramienta herramienta--${id}`} to={to}>
+              <span className="herramienta__eyebrow">{etiqueta}</span>
+              <h2 className="herramienta__title">{titulo}</h2>
+              <p className="herramienta__text">{texto}</p>
+              <span className="herramienta__cta">{accion} <span aria-hidden="true">→</span></span>
+            </Link>
+          ))}
         </div>
       </section>
     </>

@@ -282,24 +282,311 @@ $azul-oscuro: $color-azul-titulo;
   border: $border-width-base solid $border-color-subtle;
 }
 
-.rostro-shape--help {
-  display: grid;
-  width: 80px;
-  height: 80px;
-  place-items: center;
-  border: none;
-  border-radius: 50%;
-  background: rgba($color-blue, 0.1);
-  color: $color-blue;
-  font-size: 34px;
-  font-weight: 800;
+// ====== Ayuda "¿No sabes qué tipo de rostro tienes?" ======
+// Bloque horizontal bajo las 6 formas: degradado celeste (#6FC1DF) con dos
+// formas suaves hechas con CSS, texto a la izquierda y botón sólido a la
+// derecha. El botón abre la ayuda con foto / preguntas que ya existía.
+$ayuda-celeste: #6fc1df;
+
+.test-gafas__face-help {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-6;
+  margin-top: $space-7;
+  padding: clamp(24px, 3.5vw, 36px) clamp(24px, 4vw, 44px);
+  border-radius: $radius-lg;
+  background:
+    radial-gradient(90% 120% at 0% 0%, rgba($color-white, 0.55) 0%, rgba($color-white, 0) 60%),
+    linear-gradient(120deg, color.adjust($ayuda-celeste, $lightness: 8%) 0%, $ayuda-celeste 55%, color.adjust($ayuda-celeste, $lightness: -5%) 100%);
+
+  // Luz azul difuminada y un aro blanco fino, detrás del botón.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: ayuda-flotar 20s ease-in-out infinite alternate;
+  }
+  &::before {
+    right: -40px;
+    bottom: -120px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba($color-blue, 0.45) 0%, rgba($color-blue, 0) 68%);
+  }
+  &::after {
+    top: -90px;
+    right: 18%;
+    width: 200px;
+    height: 200px;
+    border: $border-width-base solid rgba($color-white, 0.55);
+    animation-direction: alternate-reverse;
+    animation-duration: 26s;
+  }
 }
 
-.quiz-option--help {
-  border-style: dashed;
-  border-color: rgba($color-blue, 0.45);
-  background: rgba($color-blue, 0.04);
-  color: $color-blue-texto;
+@keyframes ayuda-flotar {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -16px 10px;
+  }
+}
+
+.test-gafas__face-help-text {
+  max-width: 520px;
+}
+
+.test-gafas__face-help-title {
+  margin: 0 0 $space-2;
+  color: $color-azul-titulo;
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.2;
+}
+
+.test-gafas__face-help-desc {
+  margin: 0;
+  color: rgba($color-black, 0.78);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+// Botón sólido: azul de marca oscurecido + texto blanco (alto contraste),
+// igual que "Empezar el test" del inicio. Lo comparte la introducción.
+.test-gafas__face-help-cta,
+.test-intro__cta {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: $space-2;
+  padding: 16px 30px;
+  border: 0;
+  border-radius: $radius-pill;
+  background: color.adjust($color-blue, $lightness: -10%);
+  color: $color-white;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba($color-azul-titulo, 0.24);
+  transition:
+    background-color $motion-base $motion-easing,
+    translate $motion-base $motion-easing,
+    box-shadow $motion-base $motion-easing;
+
+  &:hover {
+    color: $color-white;
+  }
+
+  span {
+    transition: translate $motion-base $motion-easing;
+  }
+
+  &:hover {
+    background: color.adjust($color-blue, $lightness: -16%);
+    translate: 0 -2px;
+    box-shadow: 0 12px 26px rgba($color-azul-titulo, 0.3);
+
+    span {
+      translate: 3px 0;
+    }
+  }
+
+  &:focus-visible {
+    outline: $focus-ring-width solid $color-white;
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .test-gafas__face-help::before,
+  .test-gafas__face-help::after {
+    animation: none;
+  }
+  .test-gafas__face-help-cta:hover,
+  .test-intro__cta:hover {
+    translate: none;
+  }
+}
+
+// Tablet y celular: el botón baja debajo del texto, a todo el ancho.
+@media (max-width: 760px) {
+  .test-gafas__face-help {
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-5;
+  }
+  .test-gafas__face-help::after {
+    top: -110px;
+    right: -80px; // el aro se va a la esquina para no cruzar el título
+  }
+  .test-gafas__face-help-cta {
+    justify-content: center;
+    white-space: normal;
+  }
+}
+
+// ====== Introducción del test ======
+// Primera vista de /que-gafas-van-contigo: un panel de marca (no un
+// formulario) con la misma base celeste, luces y formas del bloque de ayuda
+// y del inicio. "Empezar mi test" lleva a la pregunta 1.
+.test-intro {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: clamp(440px, 52vh, 560px);
+  justify-content: center;
+  padding: clamp(36px, 6vw, 72px) clamp(24px, 6vw, 72px);
+  border-radius: $radius-xl;
+  background:
+    radial-gradient(80% 90% at 0% 0%, rgba($color-white, 0.6) 0%, rgba($color-white, 0) 60%),
+    linear-gradient(130deg, color.adjust($ayuda-celeste, $lightness: 10%) 0%, $ayuda-celeste 50%, color.adjust($ayuda-celeste, $lightness: -6%) 100%);
+
+  // Forma orgánica grande a la derecha (cambia de contorno despacio) y un aro
+  // blanco fino que la cruza.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+  &::before {
+    top: -12%;
+    right: -14%;
+    width: min(62%, 560px);
+    aspect-ratio: 1;
+    border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
+    background:
+      radial-gradient(circle at 30% 28%, rgba($color-white, 0.7) 0%, rgba($color-white, 0) 45%),
+      radial-gradient(circle at 70% 75%, rgba($color-blue, 0.5) 0%, rgba($color-blue, 0) 62%),
+      linear-gradient(145deg, rgba($color-white, 0.4) 0%, rgba($color-blue, 0.4) 100%);
+    filter: blur(4px);
+    animation: intro-forma 26s ease-in-out infinite alternate;
+  }
+  &::after {
+    right: 18%;
+    bottom: -140px;
+    width: 300px;
+    height: 300px;
+    border: $border-width-base solid rgba($color-white, 0.5);
+    border-radius: 50%;
+    animation: ayuda-flotar 22s ease-in-out infinite alternate-reverse;
+  }
+}
+
+@keyframes intro-forma {
+  0% {
+    translate: 0 0;
+    rotate: 0deg;
+    border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
+  }
+  100% {
+    translate: -4% 5%;
+    rotate: 12deg;
+    border-radius: 58% 42% 40% 60% / 55% 60% 40% 45%;
+  }
+}
+
+.test-intro__eyebrow {
+  margin: 0 0 $space-3;
+  color: $color-azul-titulo;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.test-intro__title {
+  max-width: 14ch;
+  margin: 0 0 $space-4;
+  color: $color-azul-titulo;
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: 1.05;
+}
+
+.test-intro__text {
+  max-width: 52ch;
+  margin: 0 0 $space-6;
+  color: rgba($color-black, 0.8);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+// Los 3 indicadores: fichas blancas pequeñas, como los pasos del inicio.
+.test-intro__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin: 0 0 $space-7;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: 5px 14px 5px 5px;
+    border-radius: $radius-pill;
+    background: rgba($color-white, 0.85);
+    color: $color-azul-titulo;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+.test-intro__step-icon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba($color-blue, 0.12);
+  color: $color-blue;
+}
+
+// Un poco más grande que el de la ayuda: es la única acción de la vista.
+.test-intro__cta {
+  padding: 18px 36px;
+  font-size: 17px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .test-intro::before,
+  .test-intro::after {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .test-intro {
+    min-height: 0;
+    border-radius: $radius-lg;
+  }
+  .test-intro::before {
+    top: -18%;
+    right: -40%;
+    width: 90%;
+  }
+  .test-intro__steps li {
+    width: 100%;
+  }
+  .test-intro__cta {
+    align-self: stretch;
+    justify-content: center;
+  }
 }
 
 // Recetadas / Sol: ícono + texto, en horizontal
@@ -762,5 +1049,76 @@ $azul-oscuro: $color-azul-titulo;
   &:hover {
     border-color: $color-blue;
     color: $color-blue-texto;
+  }
+}
+
+// ====== Guía "¿Qué tipo de rostro tengo?" (IdentificarRostroManual) ======
+// 3 opciones grandes por pregunta, con imagen. Usa las mismas tarjetas
+// (.quiz-option) y el mismo estado elegido que el resto del test.
+.rostro-manual__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-5;
+
+  .quiz-option {
+    justify-content: flex-start;
+    padding: $space-3 $space-3 $space-5;
+  }
+}
+
+.rostro-manual__grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: $space-3;
+}
+
+.rostro-manual__media {
+  display: block;
+  width: 100%;
+}
+
+// Las imágenes ya traen su marco: se muestran completas y sin deformar.
+.rostro-manual__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+// Las ilustraciones traen además su texto: no necesitan espacio abajo.
+.rostro-manual__grid--ilustracion .quiz-option {
+  padding: $space-2;
+}
+
+// Tableta: las 4 opciones de la pregunta 2 van de a 2 para que su texto se lea.
+@media (max-width: 900px) {
+  .rostro-manual__grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// Celular: una opción por fila. Los retratos van a la izquierda con el texto al
+// lado; las ilustraciones (traen su texto) se ven grandes y centradas.
+@media (max-width: 600px) {
+  .rostro-manual__grid {
+    grid-template-columns: 1fr;
+    gap: $space-3;
+  }
+  .rostro-manual__grid--retrato {
+    .quiz-option {
+      flex-direction: row;
+      gap: $space-4;
+      padding: $space-3;
+      text-align: left;
+    }
+    .rostro-manual__media {
+      flex: 0 0 150px;
+    }
+  }
+  .rostro-manual__grid--ilustracion {
+    .quiz-option {
+      justify-content: center;
+    }
+    .rostro-manual__media {
+      width: min(300px, 100%);
+    }
   }
 }

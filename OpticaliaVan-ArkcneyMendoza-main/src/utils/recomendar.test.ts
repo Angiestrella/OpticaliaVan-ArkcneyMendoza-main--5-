@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { frames } from '../data'
 import type { Frame } from '../data/types'
 import { recomendar } from './recomendar'
 
@@ -51,4 +52,10 @@ describe('recomendar', () => {
     expect(ideales).toEqual([])
     expect(otras).toHaveLength(6)
   })
+})
+
+it('la forma del rostro cambia las monturas recomendadas', () => {
+  const formas = ['diamante', 'redondo', 'rectangular', 'ovalado', 'corazon', 'triangular']
+  const primeras = formas.map((rostro) => recomendar(frames, 'recetadas', ['negro'], rostro, 'unisex').ideales[0].id)
+  expect(new Set(primeras).size).toBeGreaterThan(1)
 })

@@ -1,18 +1,13 @@
 import type { CSSProperties } from 'react'
 import { Glasses, Layers, Sun } from 'lucide-react'
+import { FORMAS_ROSTRO } from '../TestRostro/formasRostro'
+import type { FormaRostro } from '../TestRostro/identificarRostro'
 
 // Opciones de cada pregunta del test. Los colores salen de src/data/colors.json.
-// Las fotos de rostros están en WebP de 320 px (~18 KB cada una) para que el test
-// cargue rápido; los PNG originales (public/rostros/referencia) solo los usa la ayuda con foto (FaceShapeUpload).
 
-export const rostros: Array<{ id: string; label: string; image: string; imageAlt: string }> = [
-  { id: 'diamante', label: 'Diamante', image: '/rostros/diamante.webp', imageAlt: 'Rostro con forma de diamante' },
-  { id: 'redondo', label: 'Redondo', image: '/rostros/redondo.webp', imageAlt: 'Rostro con forma redonda' },
-  { id: 'rectangular', label: 'Rectangular', image: '/rostros/rectangular.webp', imageAlt: 'Rostro con forma rectangular' },
-  { id: 'ovalado', label: 'Ovalado', image: '/rostros/ovalado.webp', imageAlt: 'Rostro con forma ovalada' },
-  { id: 'corazon', label: 'Corazón', image: '/rostros/corazon.webp', imageAlt: 'Rostro con forma de corazón' },
-  { id: 'triangular', label: 'Triangular', image: '/rostros/triangular.webp', imageAlt: 'Rostro con forma triangular' },
-]
+// Las formas son las mismas del test de rostro, con sus fotos.
+const ORDEN_ROSTROS: FormaRostro[] = ['diamante', 'redondo', 'rectangular', 'ovalado', 'corazon', 'triangular']
+export const rostros = ORDEN_ROSTROS.map((id) => ({ id, label: FORMAS_ROSTRO[id].label, image: FORMAS_ROSTRO[id].imagen, imageAlt: FORMAS_ROSTRO[id].alt }))
 
 // El id "recetadas" se conserva para que sigan sirviendo los resultados ya guardados.
 export const tipos = [

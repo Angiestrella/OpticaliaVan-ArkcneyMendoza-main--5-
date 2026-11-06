@@ -1,6 +1,8 @@
 import { useRef, useState, type PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { ScanFace } from 'lucide-react'
 import type { Frame } from '../../data/types'
+import { tienePruebaVirtual } from '../../pages/PruebaVirtual/modelos3d'
 import { CotizarPanel } from '../CotizarPanel/CotizarPanel'
 import { getPalette } from '../../utils/colors'
 import { formatPrice } from '../../utils/formatPrice'
@@ -46,11 +48,20 @@ export function FrameCard({ frame, accion = 'cotizar' }: { frame: Frame; accion?
     // h-100 (utilidad de Bootstrap): todas las tarjetas de una fila quedan del mismo alto.
     <article ref={cardRef} className="frame-card h-100" onPointerMove={inclinar} onPointerLeave={soltar}>
       <div className="frame-card__photo">
-        {(frame.trending || frame.category !== 'formula') && (
-          <span className="frame-card__badge">
-            {frame.trending ? 'Tendencia' : frame.category === 'sol' ? 'Gafas de sol' : 'Easy Click · 2 en 1'}
-          </span>
-        )}
+        <div className="frame-card__badges">
+          {(frame.trending || frame.category !== 'formula') && (
+            <span className="frame-card__badge">
+              {frame.trending ? 'Tendencia' : frame.category === 'sol' ? 'Gafas de sol' : 'Easy Click · 2 en 1'}
+            </span>
+          )}
+          {/* Solo las que tienen modelo 3D: es el mismo dato que usa el probador. */}
+          {tienePruebaVirtual(frame.id) && (
+            <span className="frame-card__badge frame-card__badge--prueba">
+              <ScanFace size={13} strokeWidth={2} aria-hidden="true" />
+              <span>Prueba virtual<span className="frame-card__badge-extra"> disponible</span></span>
+            </span>
+          )}
+        </div>
         {/* key: al cambiar de color la foto nueva entra con un fundido. */}
         {selected && (
           <img key={selected.id} src={asset(selected.image)} alt={`${frame.name} — ${selected.label}`} loading="lazy" decoding="async" />

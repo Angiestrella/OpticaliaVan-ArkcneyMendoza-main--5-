@@ -13,6 +13,11 @@ describe('respuestas guardadas del test (JSON en localStorage)', () => {
     expect(leerRespuestas()).toEqual(respuestas)
   })
 
+  it('ignora respuestas sin rostro: es una pregunta del test', () => {
+    localStorage.setItem(CLAVE, JSON.stringify({ rostro: null, tipo: 'sol', estilo: 'unisex', colores: ['negro'] }))
+    expect(leerRespuestas()).toBeNull()
+  })
+
   it('sin nada guardado devuelve null', () => {
     expect(leerRespuestas()).toBeNull()
   })

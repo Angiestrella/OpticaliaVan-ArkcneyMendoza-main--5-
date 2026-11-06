@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { ArrowDown, ArrowUpRight, Eye, MapPin } from 'lucide-react'
 import { asset } from '../../utils/asset'
+import { NuestraOptica } from './NuestraOptica'
 import './Conocenos.scss'
 
 const instagramUrl = 'https://www.instagram.com/opticalia.vym/'
@@ -102,6 +103,8 @@ export function Conocenos() {
           <p>Somos Opticalia Van-Arcken &amp; Mendoza, en Jumbo Las Vegas. Aquí puedes explorar monturas, conocer opciones para tu salud visual y recibir orientación para encontrar las gafas adecuadas para ti.</p>
         </div>
       </section>
+
+      <NuestraOptica />
 
       <section className="about-social" aria-labelledby="about-social-title">
         <div className="about-social__heading" data-reveal>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, Glasses, LayoutGrid, RotateCcw, Sun, Tag } from 'lucide-react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { ArrowLeft, ArrowUpRight, Glasses, LayoutGrid, RotateCcw, Sun, Tag } from 'lucide-react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { frames } from '../../data'
 import { formatPrice } from '../../utils/formatPrice'
 import { asset } from '../../utils/asset'
@@ -40,7 +40,8 @@ interface PruebaState {
 
 // El probador se arma con tres piezas (ver los archivos use*.ts de esta carpeta):
 // cámara → modelo 3D de la montura → seguimiento del rostro que lo pone encima.
-// Solo se pueden probar las monturas con modelo 3D (ver modelos3d.ts).
+// Solo se pueden probar las monturas con modelo 3D (ver modelos3d.ts); las demás
+// salen en "Explora todas nuestras monturas" con su foto y precio, sin "Probar".
 export function PruebaVirtual() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -52,7 +53,6 @@ export function PruebaVirtual() {
   const conPrueba = frames.filter((frame) => tienePruebaVirtual(frame.id))
   const recomendadasConPrueba = conPrueba.filter((frame) => state?.recomendadas?.includes(frame.id))
   const soloRecomendadas = recomendadasConPrueba.length > 0
-  const catalogo = soloRecomendadas ? recomendadasConPrueba : conPrueba
 
   // Cada modelo 3D es una opción de la lista: una montura con un modelo por
   // color (ej. la Trendi Metro) sale una vez por cada color.
@@ -67,19 +67,34 @@ export function PruebaVirtual() {
     }))
   })
   const todas = opcionesDe(conPrueba)
-  const opciones = opcionesDe(catalogo)
+  const opcionesRecomendadas = opcionesDe(recomendadasConPrueba)
+  // "Explora": lo que no está ya en las recomendadas, primero lo que se puede probar.
+  const opcionesPorExplorar = todas.filter((o) => !recomendadasConPrueba.includes(o.frame))
+  const sinPrueba = frames.filter((frame) => !tienePruebaVirtual(frame.id))
 
-  const flechasLista = useFlechas<HTMLDivElement>('.camara__item')
+  // Quien viene del test ve primero sus recomendadas; el resto se abre con
+  // "Mirar otras opciones". Sin recomendaciones, el catálogo se ve de una vez.
+  const [verOtras, setVerOtras] = useState(false)
+  const mostrarExplorar = !soloRecomendadas || verOtras
+  const explorarRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    if (!verOtras) return
+    explorarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    explorarRef.current?.querySelector('h2')?.focus({ preventScroll: true })
+  }, [verOtras])
+
+  const flechasRecomendadas = useFlechas<HTMLDivElement>('.camara__item')
+  const flechasExplorar = useFlechas<HTMLDivElement>('.camara__item')
   // Llega elegida desde la ficha o el test, en su color si tiene modelo propio.
   // Si es una montura sin modelo 3D (un enlace viejo), no se elige ninguna.
   const [claveElegida, setClaveElegida] = useState<string | null>(() => {
     const deLaMontura = todas.filter((o) => o.frame.id === state?.seleccionada)
     return (deLaMontura.find((o) => o.modelo.color === state?.color) ?? deLaMontura[0])?.clave ?? null
   })
-  // Si llega con una elegida, la lista se desplaza hasta ella (en celular la
-  // fila se mueve de lado; si no, quedaría fuera de la vista).
+  // Si llega con una recomendada elegida, la fila se desplaza hasta ella (en
+  // celular se mueve de lado; si no, quedaría fuera de la vista).
   useEffect(() => {
-    document.querySelector('.camara__item--selected')?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'instant' })
+    document.querySelector('.camara__catalogo .camara__item--selected')?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'instant' })
   }, [])
   const elegida = todas.find((o) => o.clave === claveElegida)
   const seleccionada = elegida?.frame
@@ -113,10 +128,31 @@ export function PruebaVirtual() {
     volver(seleccionada ? `/producto/${seleccionada.id}` : '/')
   }
 
+  const tarjetaProbar = (opcion: (typeof todas)[number]) => (
+    <button
+      key={opcion.clave}
+      type="button"
+      aria-pressed={opcion.clave === claveElegida}
+      className={`camara__item ${opcion.clave === claveElegida ? 'camara__item--selected' : ''}`}
+      onClick={() => setClaveElegida(opcion.clave)}
+    >
+      {/* La foto sale en el color del modelo 3D. */}
+      <span className="camara__item-photo">
+        <img src={asset(opcion.color.image)} alt="" loading="lazy" decoding="async" />
+        <span className="camara__item-probar" aria-hidden="true">{opcion.clave === claveElegida ? 'Puesta ✓' : 'Probar'}</span>
+      </span>
+      <span className="camara__item-name">{nombreDe(opcion)}</span>
+      <span className="camara__item-price">
+        Desde {formatPrice(opcion.frame.price)}
+      </span>
+    </button>
+  )
+
   return (
-    // En computador: título y lista a la izquierda, cámara a la derecha.
-    // En celular (ver el SCSS): título, la cámara grande y debajo una fila de
-    // monturas que se desliza de lado, para que la cámara se vea de entrada.
+    // En computador la cámara y sus controles quedan fijos a la izquierda mientras
+    // las monturas se desplazan a la derecha. En celular va todo en una columna
+    // y la cámara queda fija arriba. Siempre es el mismo <video>: al explorar no
+    // se apaga ni se pierde la montura puesta.
     <section className="camara">
       <header className="camara__cabecera">
         <button type="button" className="camara__back" onClick={salir}>
@@ -133,44 +169,7 @@ export function PruebaVirtual() {
         </p>
       </header>
 
-      <div className="camara__catalogo">
-        <h2 className="camara__lista-titulo">Toca una montura para verla puesta en tu cara</h2>
-        <div className="camara__lista" ref={flechasLista}>
-          <button
-            type="button"
-            aria-pressed={esMonturaReferencia}
-            className={`camara__item ${esMonturaReferencia ? 'camara__item--selected' : ''}`}
-            onClick={() => setClaveElegida(monturaReferencia.id)}
-          >
-            <span className="camara__item-photo">
-              <img src={monturaReferencia.image} alt="" loading="lazy" decoding="async" />
-              <span className="camara__item-probar" aria-hidden="true">{esMonturaReferencia ? 'Puesta ✓' : 'Probar'}</span>
-            </span>
-            <span className="camara__item-name">{monturaReferencia.name}</span>
-            <span className="camara__item-price">Modelo de muestra</span>
-          </button>
-          {opciones.map((opcion) => (
-            <button
-              key={opcion.clave}
-              type="button"
-              aria-pressed={opcion.clave === claveElegida}
-              className={`camara__item ${opcion.clave === claveElegida ? 'camara__item--selected' : ''}`}
-              onClick={() => setClaveElegida(opcion.clave)}
-            >
-              {/* La foto sale en el color del modelo 3D. */}
-              <span className="camara__item-photo">
-                <img src={asset(opcion.color.image)} alt="" loading="lazy" decoding="async" />
-                <span className="camara__item-probar" aria-hidden="true">{opcion.clave === claveElegida ? 'Puesta ✓' : 'Probar'}</span>
-              </span>
-              <span className="camara__item-name">{nombreDe(opcion)}</span>
-              <span className="camara__item-price">
-                Desde {formatPrice(opcion.frame.price)}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-
+      <div className="camara__principal">
       <div className="camara__stage">
         <video
           ref={videoRef}
@@ -181,41 +180,6 @@ export function PruebaVirtual() {
           aria-label={nombreMontura ? `Tu cámara, con la montura ${nombreMontura}` : 'Tu cámara'}
         />
         <canvas ref={overlay3dRef} className="camara__overlay camara__overlay--three" aria-hidden="true" />
-
-        {/* Para seguir sin devolverse: cotizar lo que se está probando o ver más modelos.
-            Van arriba porque abajo los taparía el botón flotante de WhatsApp. */}
-        {nombreMontura && (
-          <div className="camara__acciones">
-            {seleccionada && (
-              <button
-                type="button"
-                className="camara__accion camara__accion--principal"
-                // Lleva a la página de la montura con el cotizador ya abierto (ver Producto.tsx).
-                onClick={() => navigate(`/producto/${seleccionada.id}`, { state: { abrirCotizador: true, color: elegida?.color.id } })}
-              >
-                <Tag size={18} aria-hidden="true" />
-                Cotizar esta montura
-              </button>
-            )}
-            <button type="button" className="camara__accion" onClick={() => navigate('/catalogo')}>
-              <LayoutGrid size={18} aria-hidden="true" />
-              Mirar otras opciones
-            </button>
-            {modeloSol && (
-              // Solo en las 2 en 1 (Easy Click): quitar o poner el clip de sol.
-              <div className="camara__modo">
-                <fieldset className="camara__modo-grupo" aria-label="Cómo quieres probarla">
-                  <button type="button" aria-pressed={!usaClip} onClick={() => setConClip(false)}>
-                    <Glasses size={17} aria-hidden="true" /> Oftálmica
-                  </button>
-                  <button type="button" aria-pressed={usaClip} onClick={() => setConClip(true)}>
-                    <Sun size={17} aria-hidden="true" /> Con clip de sol
-                  </button>
-                </fieldset>
-              </div>
-            )}
-          </div>
-        )}
 
         {camara === 'cargando' && (
           <output className="camara__status">Activando la cámara…</output>
@@ -253,6 +217,96 @@ export function PruebaVirtual() {
           </p>
         )}
       </div>
+
+      {/* Fuera de la imagen, para que se vean y no tapen la cámara. */}
+      {nombreMontura && (
+        <div className="camara__panel">
+            <div className="camara__elegida">
+              <img src={elegida ? asset(elegida.color.image) : monturaReferencia.image} alt="" decoding="async" />
+              <p>
+                <span>Estás probando</span>
+                <strong>{nombreMontura}</strong>
+                <span>{seleccionada ? `Desde ${formatPrice(seleccionada.price)}` : 'Modelo de muestra'}</span>
+              </p>
+            </div>
+            {modeloSol && (
+              // Solo en las 2 en 1 (Easy Click): quitar o poner el clip de sol.
+              <fieldset className="camara__modo-grupo" aria-label="Cómo quieres probarla">
+                <button type="button" aria-pressed={!usaClip} onClick={() => setConClip(false)}>
+                  <Glasses size={18} aria-hidden="true" /> Oftálmica
+                </button>
+                <button type="button" aria-pressed={usaClip} onClick={() => setConClip(true)}>
+                  <Sun size={18} aria-hidden="true" /> Con clip de sol
+                </button>
+              </fieldset>
+            )}
+            {seleccionada && (
+              <button
+                type="button"
+                className="camara__accion camara__accion--principal"
+                // Lleva a la página de la montura con el cotizador ya abierto (ver Producto.tsx).
+                onClick={() => navigate(`/producto/${seleccionada.id}`, { state: { abrirCotizador: true, color: elegida?.color.id } })}
+              >
+                <Tag size={18} aria-hidden="true" />
+                Cotizar esta montura
+              </button>
+            )}
+        </div>
+      )}
+      </div>
+
+      {soloRecomendadas && (
+        <div className="camara__catalogo">
+          <h2 className="camara__lista-titulo">Toca una montura para verla puesta en tu cara</h2>
+          <div className="camara__lista" ref={flechasRecomendadas}>
+            {opcionesRecomendadas.map(tarjetaProbar)}
+          </div>
+          {!verOtras && (
+            <button type="button" className="camara__accion camara__mirar-otras" onClick={() => setVerOtras(true)}>
+              <LayoutGrid size={18} aria-hidden="true" />
+              Mirar otras opciones
+            </button>
+          )}
+        </div>
+      )}
+
+      {mostrarExplorar && (
+      <section className="camara__explorar" ref={explorarRef} aria-labelledby="camara-explorar-titulo">
+        <p className="camara__explorar-etiqueta">Explora todas nuestras monturas</p>
+        <h2 id="camara-explorar-titulo" tabIndex={-1}>Hay más gafas esperando por ti</h2>
+        <p className="camara__explorar-texto">Toca "Probar" y mírala en tu cámara sin salir de aquí.</p>
+        <div className="camara__lista camara__lista--todas" ref={flechasExplorar}>
+          <button
+            type="button"
+            aria-pressed={esMonturaReferencia}
+            className={`camara__item ${esMonturaReferencia ? 'camara__item--selected' : ''}`}
+            onClick={() => setClaveElegida(monturaReferencia.id)}
+          >
+            <span className="camara__item-photo">
+              <img src={monturaReferencia.image} alt="" loading="lazy" decoding="async" />
+              <span className="camara__item-probar" aria-hidden="true">{esMonturaReferencia ? 'Puesta ✓' : 'Probar'}</span>
+            </span>
+            <span className="camara__item-name">{monturaReferencia.name}</span>
+            <span className="camara__item-price">Modelo de muestra</span>
+          </button>
+          {opcionesPorExplorar.map(tarjetaProbar)}
+          {sinPrueba.map((frame) => (
+            <article key={frame.id} className="camara__ficha">
+              <span className="camara__item-photo">
+                <img src={asset(frame.colors[0].image)} alt="" loading="lazy" decoding="async" />
+              </span>
+              <h3 className="camara__item-name">{frame.name}</h3>
+              <span className="camara__item-price">Desde {formatPrice(frame.price)}</span>
+              <span className="camara__ficha-nota">Aún sin prueba 3D</span>
+              {/* En otra pestaña: así el probador sigue abierto con su montura y su cámara. */}
+              <Link className="camara__ficha-link" to={`/producto/${frame.id}`} target="_blank" rel="noopener" aria-label={`Ver detalles de ${frame.name} (se abre en otra pestaña)`}>
+                Ver detalles <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+      )}
     </section>
   )
 }
