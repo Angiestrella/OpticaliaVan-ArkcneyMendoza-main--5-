@@ -5,8 +5,9 @@ export interface Modelo3D {
   // Punto del GLB que debe quedar entre los ojos (centro del frente, a la
   // altura de los lentes). Cada archivo trae su origen en un sitio distinto.
   centro: [number, number, number]
-  // Tamaño sobre el rostro: 1 = normal, 1.1 = 10 % más grande. Sin escala se
-  // dibuja a su tamaño real (el GLB debe estar en metros, como la gafa de verdad).
+  // Ajuste de tamaño de un modelo: 1.1 = 10 % más grande. Sin escala se dibuja en
+  // proporción a su tamaño real (el GLB debe estar en metros, como la gafa de
+  // verdad); el tamaño final depende del ancho del rostro (ver useModelo3D.ts).
   escala?: number
   // Color de la montura que es el modelo (id en frames.json), si tiene varios.
   // Sin él, el modelo vale para todos sus colores.
@@ -41,7 +42,7 @@ const dosEnUno = (nombre: string, centro: Modelo3D['centro'], color?: string): M
 
 // Monturas del catálogo que tienen modelo 3D, por su id en frames.json (una
 // por color si la montura viene en varios colores con modelo propio).
-// Al elegirlas en el probador se usa el modelo 3D, a tamaño real.
+// Al elegirlas en el probador se usa el modelo 3D, ajustado al rostro.
 // Para añadir otra: guardar el .glb como public/gafas/3d/<id>-3d.glb (en metros,
 // con el frente hacia +Z) y medir su centro: x = 0, y = mitad del alto del
 // frente (o de los lentes, si es al aire), z = el plano del frente.

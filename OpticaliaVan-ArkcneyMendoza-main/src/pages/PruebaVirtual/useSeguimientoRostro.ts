@@ -46,10 +46,16 @@ export function useSeguimientoRostro({ activo, videoRef, escena3dRef }: Opciones
               // Centro de cada ojo (puntos 33/133 y 263/362 de MediaPipe).
               const ojoIzquierdo = { x: (puntos[33].x + puntos[133].x) / 2 * ancho, y: (puntos[33].y + puntos[133].y) / 2 * alto }
               const ojoDerecho = { x: (puntos[263].x + puntos[362].x) / 2 * ancho, y: (puntos[263].y + puntos[362].y) / 2 * alto }
-              const distanciaOjos = Math.hypot(ojoDerecho.x - ojoIzquierdo.x, ojoDerecho.y - ojoIzquierdo.y)
+              // Ancho del rostro: los dos lados de la cara (puntos 234 y 454). Con la
+              // profundidad (z) no se acorta al girar la cabeza.
+              const anchoRostro = Math.hypot(
+                (puntos[454].x - puntos[234].x) * ancho,
+                (puntos[454].y - puntos[234].y) * alto,
+                (puntos[454].z - puntos[234].z) * ancho,
+              )
               const x = (ojoIzquierdo.x + ojoDerecho.x) / 2
               const y = (ojoIzquierdo.y + ojoDerecho.y) / 2
-              if (distanciaOjos > 0) escena3dRef.current?.dibujar({ x, y, distanciaOjos, rotacion }, ancho, alto)
+              if (anchoRostro > 0) escena3dRef.current?.dibujar({ x, y, anchoRostro, rotacion }, ancho, alto)
               setEstado((actual) => actual === 'listo' ? actual : 'listo')
             } else {
               escena3dRef.current?.dibujar(null, ancho, alto)

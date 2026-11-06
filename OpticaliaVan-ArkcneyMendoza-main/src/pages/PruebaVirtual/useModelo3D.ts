@@ -8,7 +8,7 @@ export type CargaMontura = 'cargando' | 'lista' | 'error'
 export interface PoseCabeza {
   x: number // centro entre los ojos, en píxeles del video
   y: number
-  distanciaOjos: number // tal como se ve en el video (se acorta al girar)
+  anchoRostro: number // en píxeles del video, de un lado de la cara al otro
   rotacion: number[] // orientación de la cabeza: matriz 4×4 de MediaPipe
 }
 
@@ -17,14 +17,18 @@ export interface Escena3D {
   dibujar: (pose: PoseCabeza | null, ancho: number, alto: number) => void
 }
 
-// El modelo ocupa 2,3 veces la distancia entre los ojos (con escala 1, ver modelos3d.ts).
-const ANCHO_POR_DISTANCIA_OJOS = 2.3
-// Distancia promedio entre pupilas de un adulto, en metros. Con ella, un modelo
-// hecho en metros se dibuja a su tamaño real sobre cualquier rostro.
-const DISTANCIA_OJOS_PROMEDIO = 0.063
+// Los modelos están en metros y su frente mide en promedio 14,2 cm. Esa montura
+// promedio se dibuja un poco más ancha que la cara (el ancho se mide por dentro
+// de las orejas). Así las patas llegan a las orejas en caras anchas y angostas, y
+// cada montura conserva su tamaño frente a las demás.
+const FRENTE_PROMEDIO = 0.142
+const FRENTE_SOBRE_ROSTRO = 1.08
 // Cuánto se acerca a la posición nueva en cada cuadro (1 = de golpe). Menos
 // tiembla menos pero se queda atrás al moverse rápido.
 const SUAVIZADO = 0.5
+// El tamaño solo cambia si la persona se acerca o se aleja: va más suave para
+// que las gafas no "respiren" con el ruido de la medida del rostro.
+const SUAVIZADO_TAMANO = 0.2
 
 // Libera de la memoria de la tarjeta gráfica las mallas, materiales y texturas del modelo.
 function liberarModelo(raiz: Object3D) {
@@ -129,8 +133,6 @@ export function useModelo3D(modelo: Modelo3D | null, canvasRef: RefObject<HTMLCa
             vidrio.transmission = 0
           })
         })
-        const bounds = new THREE.Box3().setFromObject(root)
-        const size = bounds.getSize(new THREE.Vector3())
         // Alineamos el centro del frente (entre los lentes) con el centro de los ojos.
         root.position.sub(new THREE.Vector3(...centro))
 
@@ -165,15 +167,10 @@ export function useModelo3D(modelo: Modelo3D | null, canvasRef: RefObject<HTMLCa
         scene.add(group)
         contenido = group
 
-        // Un ancho "de referencia" menor hace que el seguimiento lo dibuje más grande.
-        // Sin escala, tamaño real: 1 metro del modelo = la distancia entre tus
-        // ojos dividida por la distancia promedio (crece o se achica con tu rostro).
-        const anchoModelo = escala ? size.x / escala : ANCHO_POR_DISTANCIA_OJOS * DISTANCIA_OJOS_PROMEDIO
         const matriz = new THREE.Matrix4()
         const giro = new THREE.Quaternion()
         const posicion = new THREE.Vector3()
         const escalaMatriz = new THREE.Vector3()
-        const ejeOjos = new THREE.Vector3()
 
         const dibujar = (pose: PoseCabeza | null, ancho: number, alto: number) => {
           if (!renderer) return
@@ -194,12 +191,8 @@ export function useModelo3D(modelo: Modelo3D | null, canvasRef: RefObject<HTMLCa
           matriz.fromArray(pose.rotacion)
           matriz.decompose(posicion, giro, escalaMatriz)
 
-          // Al girar, los ojos se ven más juntos en el video aunque la cabeza
-          // no se aleje. Se corrige con cuánto del eje de los ojos queda de
-          // frente a la cámara, para que las gafas no se encojan al girar.
-          ejeOjos.set(1, 0, 0).applyQuaternion(giro)
-          const deFrente = Math.max(Math.hypot(ejeOjos.x, ejeOjos.y), 0.45)
-          const escalaNueva = (pose.distanciaOjos / deFrente) * ANCHO_POR_DISTANCIA_OJOS / anchoModelo
+          // Píxeles por metro del modelo, según el ancho de este rostro.
+          const escalaNueva = pose.anchoRostro * FRENTE_SOBRE_ROSTRO / FRENTE_PROMEDIO * (escala ?? 1)
           posicion.set(pose.x - ancho / 2, alto / 2 - pose.y, 0)
 
           // Suavizado: se acerca a la posición nueva sin saltar, así no tiembla.
@@ -207,7 +200,8 @@ export function useModelo3D(modelo: Modelo3D | null, canvasRef: RefObject<HTMLCa
           const k = group.visible ? SUAVIZADO : 1
           group.position.lerp(posicion, k)
           group.quaternion.slerp(giro, k)
-          group.scale.setScalar(group.scale.x + (escalaNueva - group.scale.x) * k)
+          const kTamano = group.visible ? SUAVIZADO_TAMANO : 1
+          group.scale.setScalar(group.scale.x + (escalaNueva - group.scale.x) * kTamano)
           group.visible = true
           renderer.render(scene, camera)
         }
