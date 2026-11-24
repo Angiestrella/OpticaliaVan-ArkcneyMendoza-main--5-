@@ -22,6 +22,10 @@
   // abajo, y así las caras de los optómetras quedan completas.
   object-position: center 15%;
   background: #17485d;
+  // Es solo fondo: sin clic, doble clic ni menú del video, y sin los botones
+  // que algunos navegadores muestran al pasar el mouse.
+  pointer-events: none;
+  user-select: none;
 }
 .about-hero__veil {
   position: absolute;

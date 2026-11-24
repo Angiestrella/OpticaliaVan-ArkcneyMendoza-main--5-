@@ -29,13 +29,22 @@ function LogoTikTok({ size = 28 }: { size?: number }) {
 export function Conocenos() {
   const videoRef = useRef<HTMLVideoElement>(null)
 
+  // Video de fondo: un saludo corto, sin sonido y sin controles, que se repite.
   // Los navegadores solo dejan reproducir automáticamente un video silenciado.
-  // Este video no tiene sonido: es un saludo corto que se repite.
+  // Si el dispositivo pide "reducir movimiento", se queda quieto en la primera
+  // imagen, porque el visitante no tiene cómo pausarlo.
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
     video.muted = true
-    video.play().catch(() => {})
+    const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const aplicar = () => {
+      if (reducirMovimiento.matches) video.pause()
+      else video.play().catch(() => {})
+    }
+    aplicar()
+    reducirMovimiento.addEventListener('change', aplicar)
+    return () => reducirMovimiento.removeEventListener('change', aplicar)
   }, [])
 
   useEffect(() => {
@@ -73,14 +82,15 @@ export function Conocenos() {
         <video
           ref={videoRef}
           className="about-hero__video"
-          autoPlay
           muted
           loop
-          controls
           playsInline
           preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
           poster={asset('/videos/conocenos-poster.webp')}
-          aria-label="Video de los optómetras de Opticalia Van-Arcken y Mendoza saludando desde la óptica"
+          aria-hidden="true"
+          tabIndex={-1}
         >
           <source src={asset('/videos/conocenos.mp4')} type="video/mp4" />
           Tu navegador no puede reproducir este video.
