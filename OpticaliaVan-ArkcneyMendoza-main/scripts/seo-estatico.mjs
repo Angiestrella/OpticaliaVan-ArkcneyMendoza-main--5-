@@ -26,7 +26,8 @@ const raiz = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = resolve(process.argv[2] ?? join(raiz, 'dist'))
 const leerJson = (archivo) => JSON.parse(readFileSync(join(raiz, 'src/data', archivo), 'utf8'))
 const seo = leerJson('seo.json')
-const frames = leerJson('frames.json')
+// Igual que src/data/index.ts: las monturas ocultas no tienen página ni van al sitemap.
+const frames = leerJson('frames.json').filter((frame) => !frame.oculta)
 
 const plantilla = readFileSync(join(dist, 'index.html'), 'utf8')
 const BLOQUE_HEAD = /<!-- seo:inicio[\s\S]*?<!-- seo:fin -->/

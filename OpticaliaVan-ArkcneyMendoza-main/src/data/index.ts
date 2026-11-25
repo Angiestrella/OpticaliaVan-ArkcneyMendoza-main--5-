@@ -9,7 +9,9 @@ import seoJson from './seo.json'
 import type { ColorOption, Contacto, Frame, OpcionesLente } from './types'
 import type { SeoConfig } from '../utils/seo'
 
-export const frames: Frame[] = framesJson
+// Las monturas con "oculta": true no aparecen en ninguna parte del sitio.
+const todasLasMonturas: Frame[] = framesJson
+export const frames: Frame[] = todasLasMonturas.filter((frame) => !frame.oculta)
 export const opcionesLente: OpcionesLente = lentesJson
 export const opcionesColor: ColorOption[] = coloresJson
 export const contacto: Contacto = contactoJson

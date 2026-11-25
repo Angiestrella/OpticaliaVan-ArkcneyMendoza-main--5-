@@ -2,7 +2,7 @@
   {
     "id": "bahamas-blue-nassau",
     "name": "Bahamas Blue Nassau",
-    "price": 210000,
+    "price": 290000,
     "brand": "Bahamas Blue",
     "category": "formula",
     "genero": "mujer",
@@ -13,6 +13,7 @@
       {
         "id": "plateado",
         "label": "Plateado",
+        "referencia": "8356 C3",
         "image": "/gafas/bahamas-blue-nassau-frontal.webp",
         "photos": [
           {
@@ -40,7 +41,7 @@
   {
     "id": "bahamas-blue-exuma",
     "name": "Bahamas Blue Exuma",
-    "price": 230000,
+    "price": 300000,
     "brand": "Bahamas Blue",
     "category": "formula",
     "genero": "mujer",
@@ -51,6 +52,7 @@
       {
         "id": "azul",
         "label": "Azul translúcido",
+        "referencia": "TS3222 C3",
         "image": "/gafas/bahamas-blue-exuma-frontal.webp",
         "photos": [
           {
@@ -78,7 +80,7 @@
   {
     "id": "bahamas-blue-eleuthera",
     "name": "Bahamas Blue Eleuthera",
-    "price": 250000,
+    "price": 300000,
     "brand": "Bahamas Blue",
     "category": "formula",
     "genero": "mujer",
@@ -89,6 +91,7 @@
       {
         "id": "rojo",
         "label": "Rojo teja",
+        "referencia": "G8196 C3",
         "image": "/gafas/bahamas-blue-eleuthera-frontal.webp",
         "photos": [
           {
@@ -116,7 +119,7 @@
   {
     "id": "bahamas-blue-bimini",
     "name": "Bahamas Blue Bimini",
-    "price": 190000,
+    "price": 290000,
     "brand": "Bahamas Blue",
     "category": "formula",
     "genero": "unisex",
@@ -127,6 +130,7 @@
       {
         "id": "dorado",
         "label": "Dorado",
+        "referencia": "TH1986 CGS",
         "image": "/gafas/bahamas-blue-bimini-frontal.webp",
         "photos": [
           {
@@ -154,7 +158,7 @@
   {
     "id": "the-look-prisma",
     "name": "The Look Prisma",
-    "price": 220000,
+    "price": 430000,
     "brand": "The Look",
     "category": "formula",
     "genero": "unisex",
@@ -165,6 +169,7 @@
       {
         "id": "azul",
         "label": "Negro con azul",
+        "referencia": "TLG0852 10",
         "image": "/gafas/the-look-prisma-frontal.webp",
         "photos": [
           {
@@ -192,7 +197,7 @@
   {
     "id": "the-look-bosque",
     "name": "The Look Bosque",
-    "price": 200000,
+    "price": 320000,
     "brand": "The Look",
     "category": "formula",
     "genero": "hombre",
@@ -203,6 +208,7 @@
       {
         "id": "verde",
         "label": "Verde oliva",
+        "referencia": "TLG585490",
         "image": "/gafas/the-look-bosque-frontal.webp",
         "photos": [
           {
@@ -230,7 +236,7 @@
   {
     "id": "trendi-metro",
     "name": "Trendi Metro",
-    "price": 150000,
+    "price": 140000,
     "brand": "Trendi",
     "category": "formula",
     "genero": "unisex",
@@ -241,6 +247,7 @@
       {
         "id": "verde",
         "label": "Verde oliva",
+        "referencia": "TRG980190",
         "image": "/gafas/trendi-metro-oliva-frontal.webp",
         "photos": [
           {
@@ -266,6 +273,7 @@
       {
         "id": "morado",
         "label": "Morado",
+        "referencia": "TRG980170",
         "image": "/gafas/trendi-metro-morado-frontal.webp",
         "photos": [
           {
@@ -293,7 +301,7 @@
   {
     "id": "trendi-dalia",
     "name": "Trendi Dalia",
-    "price": 185000,
+    "price": 210000,
     "brand": "Trendi",
     "category": "formula",
     "genero": "mujer",
@@ -304,6 +312,7 @@
       {
         "id": "rojo",
         "label": "Vino",
+        "referencia": "TRG530680",
         "image": "/gafas/trendi-dalia-frontal.webp",
         "photos": [
           {
@@ -331,7 +340,7 @@
   {
     "id": "trendi-contraste",
     "name": "Trendi Contraste",
-    "price": 175000,
+    "price": 189000,
     "brand": "Trendi",
     "category": "formula",
     "genero": "unisex",
@@ -342,6 +351,7 @@
       {
         "id": "negro",
         "label": "Negro y cristal",
+        "referencia": "TRG580410",
         "image": "/gafas/trendi-contraste-frontal.webp",
         "photos": [
           {
@@ -369,7 +379,7 @@
   {
     "id": "trendi-jade",
     "name": "Trendi Jade",
-    "price": 170000,
+    "price": 269000,
     "brand": "Trendi",
     "category": "formula",
     "genero": "hombre",
@@ -380,6 +390,7 @@
       {
         "id": "verde",
         "label": "Verde botella",
+        "referencia": "TRG560890",
         "image": "/gafas/trendi-jade-frontal.webp",
         "photos": [
           {
@@ -407,7 +418,7 @@
   {
     "id": "trendi-aviador",
     "name": "Trendi Aviador",
-    "price": 160000,
+    "price": 229000,
     "brand": "Trendi",
     "category": "formula",
     "genero": "unisex",
@@ -418,6 +429,7 @@
       {
         "id": "plateado",
         "label": "Plateado",
+        "referencia": "TRGM0004",
         "image": "/gafas/trendi-aviador-frontal.webp",
         "photos": [
           {
@@ -445,7 +457,7 @@
   {
     "id": "valentin-aire",
     "name": "Valentin Aire",
-    "price": 240000,
+    "price": 210000,
     "brand": "Valentin",
     "category": "formula",
     "genero": "mujer",
@@ -456,6 +468,7 @@
       {
         "id": "dorado",
         "label": "Oro rosa",
+        "referencia": "YHY202429 C1",
         "image": "/gafas/valentin-aire-frontal.webp",
         "photos": [
           {
@@ -483,7 +496,7 @@
   {
     "id": "valentin-roma",
     "name": "Valentin Roma",
-    "price": 190000,
+    "price": 210000,
     "brand": "Valentin",
     "category": "formula",
     "genero": "hombre",
@@ -494,6 +507,7 @@
       {
         "id": "plateado",
         "label": "Plateado y turquesa",
+        "referencia": "RY8051 C2",
         "image": "/gafas/valentin-roma-frontal.webp",
         "photos": [
           {
@@ -521,7 +535,7 @@
   {
     "id": "valentin-florencia",
     "name": "Valentin Florencia",
-    "price": 200000,
+    "price": 190000,
     "brand": "Valentin",
     "category": "formula",
     "genero": "mujer",
@@ -532,6 +546,7 @@
       {
         "id": "rojo",
         "label": "Rojo coral y dorado",
+        "referencia": "8808 C6",
         "image": "/gafas/valentin-florencia-frontal.webp",
         "photos": [
           {
@@ -559,7 +574,7 @@
   {
     "id": "valentin-siena",
     "name": "Valentin Siena",
-    "price": 195000,
+    "price": 210000,
     "brand": "Valentin",
     "category": "formula",
     "genero": "mujer",
@@ -570,6 +585,7 @@
       {
         "id": "dorado",
         "label": "Dorado",
+        "referencia": "8550 C4",
         "image": "/gafas/valentin-siena-frontal.webp",
         "photos": [
           {
@@ -608,6 +624,7 @@
       {
         "id": "cafe",
         "label": "Café degradado",
+        "referencia": "8550 C7",
         "image": "/gafas/valentin-venecia-frontal.webp",
         "photos": [
           {
@@ -636,6 +653,7 @@
     "id": "dimilano-brera",
     "name": "Dimilano Brera",
     "price": 175000,
+    "oculta": true,
     "brand": "Dimilano",
     "category": "formula",
     "genero": "mujer",
@@ -673,7 +691,7 @@
   {
     "id": "oakley-ridge",
     "name": "Oakley Ridge",
-    "price": 380000,
+    "price": 945000,
     "brand": "Oakley",
     "category": "formula",
     "genero": "hombre",
@@ -684,6 +702,7 @@
       {
         "id": "verde",
         "label": "Oliva grafito",
+        "referencia": "OX8208-0352",
         "image": "/gafas/oakley-ridge-frontal.webp",
         "photos": [
           {
@@ -711,7 +730,7 @@
   {
     "id": "oakley-torque",
     "name": "Oakley Torque",
-    "price": 360000,
+    "price": 1060000,
     "brand": "Oakley",
     "category": "formula",
     "genero": "hombre",
@@ -722,6 +741,7 @@
       {
         "id": "cafe",
         "label": "Café mate",
+        "referencia": "OX8153-1855",
         "image": "/gafas/oakley-torque-frontal.webp",
         "photos": [
           {
@@ -749,7 +769,7 @@
   {
     "id": "oakley-frost",
     "name": "Oakley Frost",
-    "price": 360000,
+    "price": 785000,
     "brand": "Oakley",
     "category": "formula",
     "genero": "unisex",
@@ -760,6 +780,7 @@
       {
         "id": "transparente",
         "label": "Transparente y gris",
+        "referencia": "OX8156-0356",
         "image": "/gafas/oakley-frost-frontal.webp",
         "photos": [
           {
@@ -787,7 +808,7 @@
   {
     "id": "trendi-clip-solar",
     "name": "Trendi Clip Solar",
-    "price": 230000,
+    "price": 300000,
     "brand": "Trendi",
     "category": "easy-click",
     "genero": "hombre",
@@ -798,6 +819,7 @@
       {
         "id": "negro",
         "label": "Negro mate",
+        "referencia": "TRS782510",
         "image": "/gafas/trendi-clip-frontal.webp",
         "photos": [
           {
@@ -837,7 +859,7 @@
   {
     "id": "carolina-herrera-riviera",
     "name": "Carolina Herrera Riviera",
-    "price": 590000,
+    "price": 880000,
     "brand": "Carolina Herrera",
     "category": "sol",
     "genero": "mujer",
@@ -848,6 +870,7 @@
       {
         "id": "carey",
         "label": "Carey y negro",
+        "referencia": "SHE121 COL.0302",
         "image": "/gafas/carolina-herrera-riviera-frontal.webp",
         "photos": [
           {
@@ -875,7 +898,7 @@
   {
     "id": "pull-bear-soho",
     "name": "Pull&Bear Soho",
-    "price": 170000,
+    "price": 305000,
     "brand": "Pull&Bear",
     "category": "formula",
     "genero": "unisex",
@@ -886,6 +909,7 @@
       {
         "id": "dorado",
         "label": "Dorado",
+        "referencia": "PBGM0010 ORO",
         "image": "/gafas/pull-bear-soho-frontal.webp",
         "photos": [
           {
@@ -913,7 +937,7 @@
   {
     "id": "pull-bear-brooklyn",
     "name": "Pull&Bear Brooklyn",
-    "price": 220000,
+    "price": 430000,
     "brand": "Pull&Bear",
     "category": "easy-click",
     "genero": "unisex",
@@ -924,6 +948,7 @@
       {
         "id": "negro",
         "label": "Negro y vino",
+        "referencia": "PBGI0024 NEG",
         "image": "/gafas/pull-bear-brooklyn-frontal.webp",
         "photos": [
           {
@@ -957,7 +982,7 @@
   {
     "id": "arturo-calle-cartagena",
     "name": "Arturo Calle Cartagena",
-    "price": 210000,
+    "price": 430000,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "mujer",
@@ -968,6 +993,7 @@
       {
         "id": "rojo",
         "label": "Vino a rosa",
+        "referencia": "ACG5512 50",
         "image": "/gafas/arturo-calle-cartagena-frontal.webp",
         "photos": [
           {
@@ -995,7 +1021,7 @@
   {
     "id": "the-look-vuelo",
     "name": "The Look Vuelo",
-    "price": 260000,
+    "price": 420000,
     "brand": "The Look",
     "category": "easy-click",
     "genero": "hombre",
@@ -1006,6 +1032,7 @@
       {
         "id": "gris",
         "label": "Gris cristal",
+        "referencia": "TLGM0013 PLT",
         "image": "/gafas/the-look-vuelo-frontal.webp",
         "photos": [
           {
@@ -1039,7 +1066,7 @@
   {
     "id": "pull-bear-malibu",
     "name": "Pull&Bear Malibú",
-    "price": 220000,
+    "price": 430000,
     "brand": "Pull&Bear",
     "category": "easy-click",
     "genero": "unisex",
@@ -1050,6 +1077,7 @@
       {
         "id": "morado",
         "label": "Gris lavanda",
+        "referencia": "PBGI0023 GRS RECOLETA",
         "image": "/gafas/pull-bear-malibu-frontal.webp",
         "photos": [
           {
@@ -1083,7 +1111,7 @@
   {
     "id": "pull-bear-austin",
     "name": "Pull&Bear Austin",
-    "price": 230000,
+    "price": 430000,
     "brand": "Pull&Bear",
     "category": "easy-click",
     "genero": "hombre",
@@ -1094,6 +1122,7 @@
       {
         "id": "negro",
         "label": "Negro y rojo",
+        "referencia": "PBGI0026 NEG BARRANCO",
         "image": "/gafas/pull-bear-austin-frontal.webp",
         "photos": [
           {
@@ -1133,7 +1162,7 @@
   {
     "id": "pull-bear-lisboa",
     "name": "Pull&Bear Lisboa",
-    "price": 160000,
+    "price": 305000,
     "brand": "Pull&Bear",
     "category": "formula",
     "genero": "mujer",
@@ -1144,6 +1173,7 @@
       {
         "id": "transparente",
         "label": "Champaña transparente",
+        "referencia": "PBGA0020 AMA MALASAÑA",
         "image": "/gafas/pull-bear-lisboa-frontal.webp",
         "photos": [
           {
@@ -1171,7 +1201,7 @@
   {
     "id": "arturo-calle-medellin",
     "name": "Arturo Calle Medellín",
-    "price": 220000,
+    "price": 360000,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "hombre",
@@ -1182,6 +1212,7 @@
       {
         "id": "plateado",
         "label": "Plateado",
+        "referencia": "ACGM0006 PLT NOTUS",
         "image": "/gafas/arturo-calle-medellin-frontal.webp",
         "photos": [
           {
@@ -1209,7 +1240,7 @@
   {
     "id": "arturo-calle-santa-marta",
     "name": "Arturo Calle Santa Marta",
-    "price": 210000,
+    "price": 430000,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "mujer",
@@ -1220,6 +1251,7 @@
       {
         "id": "azul",
         "label": "Azul a celeste",
+        "referencia": "ACG5512 90",
         "image": "/gafas/arturo-calle-santa-marta-frontal.webp",
         "photos": [
           {
@@ -1248,6 +1280,7 @@
     "id": "arturo-calle-bogota",
     "name": "Arturo Calle Bogotá",
     "price": 230000,
+    "oculta": true,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "hombre",
@@ -1285,7 +1318,7 @@
   {
     "id": "arturo-calle-manizales",
     "name": "Arturo Calle Manizales",
-    "price": 210000,
+    "price": 450000,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "hombre",
@@ -1296,6 +1329,7 @@
       {
         "id": "negro",
         "label": "Negro y caramelo",
+        "referencia": "ACG560910",
         "image": "/gafas/arturo-calle-manizales-frontal.webp",
         "photos": [
           {
@@ -1323,7 +1357,7 @@
   {
     "id": "the-look-piloto",
     "name": "The Look Piloto",
-    "price": 260000,
+    "price": 420000,
     "brand": "The Look",
     "category": "easy-click",
     "genero": "unisex",
@@ -1334,6 +1368,7 @@
       {
         "id": "negro",
         "label": "Clip negro",
+        "referencia": "TLGM0013 ORO",
         "image": "/gafas/the-look-piloto-negro-frontal.webp",
         "photos": [
           {
@@ -1365,6 +1400,7 @@
       {
         "id": "carey",
         "label": "Clip carey",
+        "referencia": "TLGM0013 NEG",
         "image": "/gafas/the-look-piloto-carey-frontal.webp",
         "photos": [
           {
@@ -1404,7 +1440,7 @@
   {
     "id": "the-look-terra",
     "name": "The Look Terra",
-    "price": 250000,
+    "price": 350000,
     "brand": "The Look",
     "category": "easy-click",
     "genero": "unisex",
@@ -1415,6 +1451,7 @@
       {
         "id": "cafe",
         "label": "Café translúcido",
+        "referencia": "TLGS6853 99",
         "image": "/gafas/the-look-terra-frontal.webp",
         "photos": [
           {
@@ -1448,7 +1485,7 @@
   {
     "id": "arturo-calle-cali",
     "name": "Arturo Calle Cali",
-    "price": 190000,
+    "price": 420000,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "unisex",
@@ -1459,6 +1496,7 @@
       {
         "id": "negro",
         "label": "Negro",
+        "referencia": "ACG550610",
         "image": "/gafas/arturo-calle-cali-frontal.webp",
         "photos": [
           {
@@ -1486,7 +1524,7 @@
   {
     "id": "arturo-calle-pereira",
     "name": "Arturo Calle Pereira",
-    "price": 220000,
+    "price": 450000,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "hombre",
@@ -1497,6 +1535,7 @@
       {
         "id": "negro",
         "label": "Negro",
+        "referencia": "ACG561110",
         "image": "/gafas/arturo-calle-pereira-frontal.webp",
         "photos": [
           {
@@ -1524,7 +1563,7 @@
   {
     "id": "arturo-calle-popayan",
     "name": "Arturo Calle Popayán",
-    "price": 200000,
+    "price": 360000,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "unisex",
@@ -1535,6 +1574,7 @@
       {
         "id": "carey",
         "label": "Carey",
+        "referencia": "ACGA0004 CAR",
         "image": "/gafas/arturo-calle-popayan-frontal.webp",
         "photos": [
           {
@@ -1562,7 +1602,7 @@
   {
     "id": "pull-bear-oslo",
     "name": "Pull&Bear Oslo",
-    "price": 160000,
+    "price": 305000,
     "brand": "Pull&Bear",
     "category": "formula",
     "genero": "mujer",
@@ -1573,6 +1613,7 @@
       {
         "id": "gris",
         "label": "Gris translúcido",
+        "referencia": "PBGI0001 GRS BROOKLYN",
         "image": "/gafas/pull-bear-oslo-frontal.webp",
         "photos": [
           {
@@ -1600,7 +1641,7 @@
   {
     "id": "monastery-couture-champana",
     "name": "Monastery Couture Champaña",
-    "price": 290000,
+    "price": 515000,
     "brand": "Monastery",
     "category": "formula",
     "genero": "hombre",
@@ -1611,6 +1652,7 @@
       {
         "id": "dorado",
         "label": "Champaña y negro",
+        "referencia": "MS2452 C10",
         "image": "/gafas/monastery-couture-champana-frontal.webp",
         "photos": [
           {
@@ -1638,7 +1680,7 @@
   {
     "id": "carolina-herrera-amatista",
     "name": "Carolina Herrera Amatista",
-    "price": 520000,
+    "price": 930000,
     "brand": "Carolina Herrera",
     "category": "formula",
     "genero": "mujer",
@@ -1649,6 +1691,7 @@
       {
         "id": "morado",
         "label": "Morado jaspeado",
+        "referencia": "HER0275",
         "image": "/gafas/carolina-herrera-amatista-frontal.webp",
         "photos": [
           {
@@ -1676,7 +1719,7 @@
   {
     "id": "oakley-sprint",
     "name": "Oakley Sprint",
-    "price": 370000,
+    "price": 820000,
     "brand": "Oakley",
     "category": "formula",
     "genero": "hombre",
@@ -1687,6 +1730,7 @@
       {
         "id": "negro",
         "label": "Negro",
+        "referencia": "OX8076-0356",
         "image": "/gafas/oakley-sprint-frontal.webp",
         "photos": [
           {
@@ -1714,7 +1758,7 @@
   {
     "id": "carolina-herrera-noir",
     "name": "Carolina Herrera Noir",
-    "price": 610000,
+    "price": 880000,
     "brand": "Carolina Herrera",
     "category": "sol",
     "genero": "mujer",
@@ -1725,6 +1769,7 @@
       {
         "id": "negro",
         "label": "Negro",
+        "referencia": "SHE791 COL.09P2",
         "image": "/gafas/carolina-herrera-noir-frontal.webp",
         "photos": [
           {
@@ -1752,7 +1797,7 @@
   {
     "id": "bahamas-blue-cristal",
     "name": "Bahamas Blue Cristal",
-    "price": 280000,
+    "price": 320000,
     "brand": "Bahamas Blue",
     "category": "sol",
     "genero": "unisex",
@@ -1763,6 +1808,7 @@
       {
         "id": "transparente",
         "label": "Transparente",
+        "referencia": "YD1313 C3",
         "image": "/gafas/bahamas-blue-cristal-frontal.webp",
         "photos": [
           {
@@ -1790,7 +1836,7 @@
   {
     "id": "monastery-oro",
     "name": "Monastery Oro",
-    "price": 450000,
+    "price": 795000,
     "brand": "Monastery",
     "category": "sol",
     "genero": "unisex",
@@ -1801,6 +1847,7 @@
       {
         "id": "dorado",
         "label": "Dorado",
+        "referencia": "MS2406 C11",
         "image": "/gafas/monastery-oro-frontal.webp",
         "photos": [
           {
@@ -1828,7 +1875,7 @@
   {
     "id": "karl-lagerfeld-marine",
     "name": "Karl Lagerfeld Marine",
-    "price": 480000,
+    "price": 420000,
     "brand": "Karl Lagerfeld",
     "category": "formula",
     "genero": "unisex",
@@ -1839,6 +1886,7 @@
       {
         "id": "azul",
         "label": "Azul marino",
+        "referencia": "KL6176",
         "image": "/gafas/karl-lagerfeld-marine-frontal.webp",
         "photos": [
           {
@@ -1866,7 +1914,7 @@
   {
     "id": "monastery-couture-celeste",
     "name": "Monastery Couture Celeste",
-    "price": 300000,
+    "price": 515000,
     "brand": "Monastery",
     "category": "formula",
     "genero": "unisex",
@@ -1877,6 +1925,7 @@
       {
         "id": "azul",
         "label": "Azul celeste",
+        "referencia": "MS2465 C5",
         "image": "/gafas/monastery-couture-celeste-frontal.webp",
         "photos": [
           {
@@ -1904,7 +1953,7 @@
   {
     "id": "carolina-herrera-mosaico",
     "name": "Carolina Herrera Mosaico",
-    "price": 590000,
+    "price": 880000,
     "brand": "Carolina Herrera",
     "category": "sol",
     "genero": "mujer",
@@ -1915,6 +1964,7 @@
       {
         "id": "carey",
         "label": "Carey multicolor",
+        "referencia": "SHE752 COL.05AH",
         "image": "/gafas/carolina-herrera-mosaico-frontal.webp",
         "photos": [
           {
@@ -1942,7 +1992,7 @@
   {
     "id": "carolina-herrera-joya",
     "name": "Carolina Herrera Joya",
-    "price": 650000,
+    "price": 930000,
     "brand": "Carolina Herrera",
     "category": "sol",
     "genero": "mujer",
@@ -1953,6 +2003,7 @@
       {
         "id": "dorado",
         "label": "Oro rosa",
+        "referencia": "HER0145/S",
         "image": "/gafas/carolina-herrera-joya-frontal.webp",
         "photos": [
           {
@@ -1980,7 +2031,7 @@
   {
     "id": "carolina-herrera-felina",
     "name": "Carolina Herrera Felina",
-    "price": 540000,
+    "price": 930000,
     "brand": "Carolina Herrera",
     "category": "formula",
     "genero": "mujer",
@@ -1991,6 +2042,7 @@
       {
         "id": "carey",
         "label": "Carey y rojo",
+        "referencia": "HER0090",
         "image": "/gafas/carolina-herrera-felina-frontal.webp",
         "photos": [
           {
@@ -2018,7 +2070,7 @@
   {
     "id": "monastery-coral",
     "name": "Monastery Coral",
-    "price": 430000,
+    "price": 795000,
     "brand": "Monastery",
     "category": "sol",
     "genero": "mujer",
@@ -2029,6 +2081,7 @@
       {
         "id": "rosa",
         "label": "Coral",
+        "referencia": "MS2402 C8",
         "image": "/gafas/monastery-coral-frontal.webp",
         "photos": [
           {
@@ -2056,7 +2109,7 @@
   {
     "id": "mario-hernandez-clasico",
     "name": "Mario Hernández Clásico",
-    "price": 390000,
+    "price": 680000,
     "brand": "Mario Hernández",
     "category": "formula",
     "genero": "hombre",
@@ -2067,6 +2120,7 @@
       {
         "id": "carey",
         "label": "Carey y dorado",
+        "referencia": "MHC2513 C2",
         "image": "/gafas/mario-hernandez-clasico-frontal.webp",
         "photos": [
           {
@@ -2094,7 +2148,7 @@
   {
     "id": "mario-hernandez-ejecutivo",
     "name": "Mario Hernández Ejecutivo",
-    "price": 420000,
+    "price": 680000,
     "brand": "Mario Hernández",
     "category": "formula",
     "genero": "hombre",
@@ -2105,6 +2159,7 @@
       {
         "id": "negro",
         "label": "Negro y dorado",
+        "referencia": "MHS2423 C16",
         "image": "/gafas/mario-hernandez-ejecutivo-frontal.webp",
         "photos": [
           {
@@ -2126,7 +2181,7 @@
   {
     "id": "mario-hernandez-monograma",
     "name": "Mario Hernández Monograma",
-    "price": 380000,
+    "price": 680000,
     "brand": "Mario Hernández",
     "category": "formula",
     "genero": "unisex",
@@ -2137,6 +2192,7 @@
       {
         "id": "carey",
         "label": "Carey oscuro",
+        "referencia": "MHC2509 C2",
         "image": "/gafas/mario-hernandez-monograma-frontal.webp",
         "photos": [
           {
@@ -2164,7 +2220,7 @@
   {
     "id": "oakley-orbit",
     "name": "Oakley Orbit",
-    "price": 380000,
+    "price": 920000,
     "brand": "Oakley",
     "category": "formula",
     "genero": "unisex",
@@ -2175,6 +2231,7 @@
       {
         "id": "transparente",
         "label": "Transparente",
+        "referencia": "OX8139-0550",
         "image": "/gafas/oakley-orbit-frontal.webp",
         "photos": [
           {
@@ -2202,7 +2259,7 @@
   {
     "id": "arturo-calle-villa-de-leyva",
     "name": "Arturo Calle Villa de Leyva",
-    "price": 210000,
+    "price": 360000,
     "brand": "Arturo Calle",
     "category": "formula",
     "genero": "mujer",
@@ -2213,6 +2270,7 @@
       {
         "id": "carey",
         "label": "Carey miel",
+        "referencia": "ACGA0002 CAR",
         "image": "/gafas/arturo-calle-villa-de-leyva-frontal.webp",
         "photos": [
           {
@@ -2240,7 +2298,7 @@
   {
     "id": "mario-hernandez-bohemio",
     "name": "Mario Hernández Bohemio",
-    "price": 360000,
+    "price": 660000,
     "brand": "Mario Hernández",
     "category": "formula",
     "genero": "unisex",
@@ -2251,6 +2309,7 @@
       {
         "id": "dorado",
         "label": "Dorado y negro",
+        "referencia": "MHS2425 C1",
         "image": "/gafas/mario-hernandez-bohemio-frontal.webp",
         "photos": [
           {
@@ -2278,7 +2337,7 @@
   {
     "id": "mario-hernandez-esmeralda",
     "name": "Mario Hernández Esmeralda",
-    "price": 400000,
+    "price": 680000,
     "brand": "Mario Hernández",
     "category": "formula",
     "genero": "mujer",
@@ -2289,6 +2348,7 @@
       {
         "id": "verde",
         "label": "Verde a durazno",
+        "referencia": "MHK2401 C6",
         "image": "/gafas/mario-hernandez-esmeralda-frontal.webp",
         "photos": [
           {
@@ -2316,7 +2376,7 @@
   {
     "id": "mario-hernandez-fiera",
     "name": "Mario Hernández Fiera",
-    "price": 410000,
+    "price": 680000,
     "brand": "Mario Hernández",
     "category": "formula",
     "genero": "mujer",
@@ -2327,6 +2387,7 @@
       {
         "id": "carey",
         "label": "Carey",
+        "referencia": "MHK2528 C2",
         "image": "/gafas/mario-hernandez-fiera-frontal.webp",
         "photos": [
           {
@@ -2354,7 +2415,7 @@
   {
     "id": "carolina-herrera-petite-gris",
     "name": "Carolina Herrera Petite Gris",
-    "price": 500000,
+    "price": 830000,
     "brand": "Carolina Herrera",
     "category": "formula",
     "genero": "mujer",
@@ -2365,6 +2426,7 @@
       {
         "id": "gris",
         "label": "Gris jaspeado",
+        "referencia": "VHE820L COL.09SX",
         "image": "/gafas/carolina-herrera-petite-gris-frontal.webp",
         "photos": [
           {
@@ -2392,7 +2454,7 @@
   {
     "id": "carolina-herrera-petite-negra",
     "name": "Carolina Herrera Petite Negra",
-    "price": 500000,
+    "price": 830000,
     "brand": "Carolina Herrera",
     "category": "formula",
     "genero": "mujer",
@@ -2403,6 +2465,7 @@
       {
         "id": "negro",
         "label": "Negro",
+        "referencia": "VHE734L COL.700Y",
         "image": "/gafas/carolina-herrera-petite-negra-frontal.webp",
         "photos": [
           {
@@ -2430,7 +2493,7 @@
   {
     "id": "carolina-herrera-escarlata",
     "name": "Carolina Herrera Escarlata",
-    "price": 520000,
+    "price": 830000,
     "brand": "Carolina Herrera",
     "category": "formula",
     "genero": "mujer",
@@ -2441,6 +2504,7 @@
       {
         "id": "negro",
         "label": "Negro y rojo",
+        "referencia": "VHE835",
         "image": "/gafas/carolina-herrera-escarlata-frontal.webp",
         "photos": [
           {
@@ -2468,7 +2532,7 @@
   {
     "id": "oakley-azure",
     "name": "Oakley Azure",
-    "price": 360000,
+    "price": 785000,
     "brand": "Oakley",
     "category": "formula",
     "genero": "unisex",
@@ -2479,6 +2543,7 @@
       {
         "id": "azul",
         "label": "Azul mate",
+        "referencia": "OX8163-0855",
         "image": "/gafas/oakley-azure-frontal.webp",
         "photos": [
           {
@@ -2506,7 +2571,7 @@
   {
     "id": "karl-lagerfeld-rouge",
     "name": "Karl Lagerfeld Rouge",
-    "price": 480000,
+    "price": 420000,
     "brand": "Karl Lagerfeld",
     "category": "formula",
     "genero": "mujer",
@@ -2517,6 +2582,7 @@
       {
         "id": "rojo",
         "label": "Rojo vino",
+        "referencia": "KL6053",
         "image": "/gafas/karl-lagerfeld-rouge-frontal.webp",
         "photos": [
           {
@@ -2544,7 +2610,7 @@
   {
     "id": "carolina-herrera-atardecer",
     "name": "Carolina Herrera Atardecer",
-    "price": 630000,
+    "price": 880000,
     "brand": "Carolina Herrera",
     "category": "sol",
     "genero": "mujer",
@@ -2555,6 +2621,7 @@
       {
         "id": "rosa",
         "label": "Coral",
+        "referencia": "SHE175 COL.0H60",
         "image": "/gafas/carolina-herrera-atardecer-frontal.webp",
         "photos": [
           {
@@ -2582,7 +2649,7 @@
   {
     "id": "carolina-herrera-rubi",
     "name": "Carolina Herrera Rubí",
-    "price": 600000,
+    "price": 880000,
     "brand": "Carolina Herrera",
     "category": "sol",
     "genero": "mujer",
@@ -2593,6 +2660,7 @@
       {
         "id": "rosa",
         "label": "Oliva a coral",
+        "referencia": "SHE750 COL.04AB",
         "image": "/gafas/carolina-herrera-rubi-frontal.webp",
         "photos": [
           {
@@ -2621,6 +2689,7 @@
     "id": "carolina-herrera-miel",
     "name": "Carolina Herrera Miel",
     "price": 510000,
+    "oculta": true,
     "brand": "Carolina Herrera",
     "category": "formula",
     "genero": "mujer",

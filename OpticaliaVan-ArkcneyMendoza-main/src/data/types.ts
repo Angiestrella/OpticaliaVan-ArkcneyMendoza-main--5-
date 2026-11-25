@@ -1,6 +1,8 @@
 export interface FrameColor {
   id: string
   label: string
+  // Referencia del fabricante, como está en la óptica (ej. "8356 C3").
+  referencia?: string
   image: string
   photos: FramePhoto[]
 }
@@ -16,6 +18,8 @@ export interface Frame {
   id: string
   name: string
   price: number
+  // true = no se muestra en ninguna parte del sitio (ej. mientras falta su precio real).
+  oculta?: boolean
   brand: string
   category: string
   genero: string

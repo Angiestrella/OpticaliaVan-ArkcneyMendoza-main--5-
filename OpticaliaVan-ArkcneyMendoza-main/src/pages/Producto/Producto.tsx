@@ -197,6 +197,7 @@ export function Producto() {
               <div><dt>Tipo</dt><dd>{categoriaDe(frame).tipo}</dd></div>
               <div><dt>Color seleccionado</dt><dd>{selected?.label ?? '—'}</dd></div>
               <div><dt>Colores disponibles</dt><dd>{frame.colors.map((color) => color.label).join(', ')}</dd></div>
+              {selected?.referencia && <div><dt>Referencia</dt><dd>{selected.referencia}</dd></div>}
             </dl>
           </section>
 
